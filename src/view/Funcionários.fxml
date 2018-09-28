@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPaneFunc" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FuncionáriosController">
+   <children>
+      <AnchorPane fx:id="anchorPaneInicioFunc" layoutX="-2.0" prefHeight="616.0" prefWidth="942.0">
+         <children>
+            <TableView fx:id="tableFunc" prefHeight="492.0" prefWidth="730.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="116.0">
+               <columns>
+                  <TableColumn prefWidth="29.0" text="Id" />
+                  <TableColumn prefWidth="160.0" text="Nome" />
+                  <TableColumn prefWidth="75.0" text="RG" visible="false" />
+                  <TableColumn prefWidth="106.0" text="CPF" visible="false" />
+                  <TableColumn prefWidth="85.0" text="Celular" />
+                  <TableColumn minWidth="0.0" prefWidth="128.0" text="Email" />
+                  <TableColumn minWidth="0.0" prefWidth="142.0" text="Bairro" visible="false" />
+                  <TableColumn prefWidth="55.0" text="Estado" visible="false" />
+                  <TableColumn prefWidth="127.0" text="Tipo" />
+                  <TableColumn prefWidth="110.0" text="Senha" />
+                  <TableColumn prefWidth="94.0" text="Cargo" />
+                  <TableColumn prefWidth="171.0" text="Endereço" />
+               </columns>
+            </TableView>
+            <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label fx:id="lbTitulo" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Funcionários" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="txtPesquisar" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                  <ToggleButton fx:id="btNovoFunc" mnemonicParsing="false" onAction="#handleButtonInserirFunc" text="">
+                     <styleClass>
+                        <String fx:value="menus-tela" />
+                        <String fx:value="menu-add" />
+                     </styleClass>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="menu" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton fx:id="btAlterarFunc" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu">
+                     <styleClass>
+                        <String fx:value="menus-tela" />
+                        <String fx:value="menu-editar" />
+                     </styleClass>
+                  </ToggleButton>
+                  <ToggleButton fx:id="btExcluirFunc" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu">
+                     <styleClass>
+                        <String fx:value="menus-tela" />
+                        <String fx:value="menu-excluir" />
+                     </styleClass>
+                  </ToggleButton>
+               </children>
+            </HBox>
+         </children>
+         <stylesheets>
+            <URL value="@../css/default.css" />
+            <URL value="@../css/custom.css" />
+         </stylesheets>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorPaneNovoFunc" prefHeight="616.0" prefWidth="942.0" visible="false">
+         <stylesheets>
+            <URL value="@../css/default.css" />
+            <URL value="@../css/custom.css" />
+         </stylesheets>
+         <children>
+            <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo">
+               <children>
+                  <Label fx:id="lbTitulo1" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Funcionários" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <GridPane hgap="10.0" layoutX="16.0" layoutY="60.0" prefHeight="221.0" prefWidth="882.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="0.0" prefWidth="59.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="562.0" minWidth="2.0" prefWidth="391.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="693.0" minWidth="10.0" prefWidth="163.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="155.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="23.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="63.0" minHeight="4.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="104.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="87.0" minHeight="7.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label prefHeight="17.0" prefWidth="37.0" styleClass="lb-info" text="Id :" />
+                  <TextField fx:id="txtIdFunc" disable="true" styleClass="campo" GridPane.rowIndex="1" />
+                  <Label styleClass="lb-info" text="Nome :" GridPane.columnIndex="1" />
+                  <Label styleClass="lb-info" text="CPF :" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <Label styleClass="lb-info" text="Celular :" GridPane.columnIndex="3" />
+                  <Label styleClass="lb-info" text="Email :" GridPane.columnIndex="4" />
+                  <TextField fx:id="txtNomeFunc" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtCelularFunc" styleClass="campo" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtEmailFunc" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <Label styleClass="lb-info" text="Endereço :" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label styleClass="lb-info" text="Bairro :" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label styleClass="lb-info" text="Estado :" GridPane.columnIndex="2" />
+                  <Label styleClass="lb-info" text="Tipo :" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtEnderecoFunc" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtBairroFunc" styleClass="campo" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="comboBoxEstadoFunc" prefHeight="35.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="comboBoxTipoFunc" prefHeight="38.0" prefWidth="140.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtCPFFunc" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <Label styleClass="lb-info" text="Senha :" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtSenhaFunc" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <Label styleClass="lb-info" text="Cargo :" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <Label styleClass="lb-info" text="RG :" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtRGFunc" styleClass="campo" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="comboBoxCargoFunc" prefHeight="38.0" prefWidth="140.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+               </children>
+            </GridPane>
+            <AnchorPane layoutX="23.0" layoutY="560.0" prefHeight="42.0" prefWidth="896.0" styleClass="box-menus-subtela">
+               <children>
+                  <Label layoutX="14.0" layoutY="17.0" text="ATENÇÃO : Todos os campos são obrigatórios." />
+                  <Button fx:id="btSalvar" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" text="Salvar">
+                     <styleClass>
+                        <String fx:value="menus-acoes" />
+                        <String fx:value="acao-salvar" />
+                        <String fx:value="menu-green" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="btCancelar" layoutX="481.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelar" text="Cancelar">
+                     <styleClass>
+                        <String fx:value="menus-acoes" />
+                        <String fx:value="acao-excluir" />
+                        <String fx:value="menu-red" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

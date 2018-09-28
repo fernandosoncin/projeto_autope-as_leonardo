@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="anchormain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1167.0" stylesheets="@../css/app.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.appMainController">
+   <children>
+      <BorderPane prefHeight="642.0" prefWidth="971.0" style="-fx-background-color: #F1F1F1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <AnchorPane style="-fx-background-color: #2F2F2F;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="69.0" prefWidth="224.0" stylesheets="@../css/app.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label alignment="CENTER" onMouseClicked="#handleMenuInicio" opacity="0.89" prefHeight="79.0" prefWidth="223.0" stylesheets="@../css/app.css" text="Início" textFill="WHITE">
+                           <font>
+                              <Font name="Open Sans" size="27.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <styleClass>
+                              <String fx:value="labelbox" />
+                              <String fx:value="img" />
+                           </styleClass></Label>
+                     </children>
+                  </VBox>
+                  <ScrollPane layoutX="-1.0" layoutY="72.0" prefWidth="225.0" styleClass="scroll" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                     <content>
+                        <VBox prefHeight="733.0" prefWidth="221.0" spacing="1.0" style="-fx-background-color: #2F2F2F;">
+                           <children>
+                              <VBox prefHeight="733.0" prefWidth="221.0" style="-fx-background-color: #2F2F2F;" styleClass="box-menus" stylesheets="@../css/app.css">
+                                 <children>
+                                    <ToggleButton fx:id="btCliente" alignment="CENTER_LEFT" minHeight="0.0" mnemonicParsing="false" onAction="#handleMenuFormulárioClientes" prefHeight="0.0" prefWidth="221.0" stylesheets="@../css/app.css" text="Clientes">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="grupoMenus" />
+                                       </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="menus" />
+                                          <String fx:value="menu-cliente" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btFuncionarios" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleMenuFormulárioFuncionários" prefHeight="25.0" prefWidth="224.0" stylesheets="@../css/app.css" text="Funcionários" toggleGroup="$grupoMenus">
+                                       <styleClass>
+                                          <String fx:value="menus" />
+                                          <String fx:value="menu-funcionarios" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <AnchorPane prefHeight="26.0" prefWidth="223.0" styleClass="box-user" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="1.0">
+                     <children>
+                        <Label fx:id="lbUser" layoutY="5.0" prefHeight="26.0" prefWidth="144.0" styleClass="lb-user" stylesheets="@../css/app.css" text="Olá, Fellipe" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="lbLogOut" layoutX="141.0" layoutY="5.0" onMouseClicked="#menuLogOut" styleClass="menu-sair" stylesheets="@../css/app.css" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
+                  <ImageView fitHeight="10.0" fitWidth="224.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imgs/lbTraçosLogo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </left>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="26.0" prefWidth="746.0" styleClass="box-footer" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Label fx:id="lbVersãoDoSistema" layoutX="7.0" layoutY="-3.0" prefHeight="26.0" prefWidth="392.0" styleClass="box-mensagens" stylesheets="@../css/app.css" text="Versão do sistema : 0.1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Hyperlink fx:id="hyperLink" layoutX="625.0" layoutY="4.0" onAction="#facebookCriador" prefHeight="24.0" prefWidth="78.0" styleClass="link" text="Facebook" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="boxCounteúdo" prefHeight="615.0" prefWidth="746.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="374.0" fitWidth="366.0" layoutX="288.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgs/imagemInicioLogo.png" />
+                           </image>
+                        </ImageView>
+                     </children></AnchorPane>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
