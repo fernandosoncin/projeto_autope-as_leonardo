@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPaneCliente" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientesController">
+<AnchorPane id="AnchorPane" fx:id="anchorPaneCliente" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientesController">
    <children>
       <AnchorPane fx:id="anchorPaneInicioCliente" layoutX="-2.0" prefHeight="616.0" prefWidth="942.0">
          <children>
