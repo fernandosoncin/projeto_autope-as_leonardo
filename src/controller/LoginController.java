@@ -1,7 +1,5 @@
 package controller;
 
-import banco.controller.conexãoBanco;
-import banco.controller.controleDAO;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -1,18 +1,26 @@
 package controller;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import model.dao.CargoDAO;
+import model.domain.Cargo;
 import util.diálogo;
 import util.mensagens;
 
@@ -22,7 +30,19 @@ import util.mensagens;
  * @author Fellipe
  */
 public class FuncionáriosController implements Initializable {
+
+    private Stage palco;
+    private Cargo cargo;
+    private ObservableList<Cargo> data_cargo;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
     
+    @FXML
+    private TableColumn<Cargo, String> colunaIdCargo;
+
+    @FXML
+    private TableColumn<Cargo, String> colunaNomeCargo;
+
     @FXML
     private AnchorPane anchorPaneFunc;
 
@@ -37,6 +57,9 @@ public class FuncionáriosController implements Initializable {
 
     @FXML
     private TextField txtPesquisar;
+    
+    @FXML
+    private TextField txtPesquisarCargo;
 
     @FXML
     private ToggleButton btNovoFunc;
@@ -98,14 +121,40 @@ public class FuncionáriosController implements Initializable {
     @FXML
     private Button btCancelar;
 
+    @FXML
+    private Label lbTitulo11;
+
+    @FXML
+    private TextField txtIdCargo;
+
+    @FXML
+    private TextField txtNomeCargo;
+
+    @FXML
+    private TableView<Cargo> tbCargos;
+
+    @FXML
+    private Button btSalvarCargo;
+
+    @FXML
+    private Button btExcluirCargo;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        this.cargo = new Cargo();
+        setCellTable();
+        atualizarListaCargo();
     }
     
+    public void setCellTable() {
+        colunaIdCargo.setCellValueFactory(new PropertyValueFactory<>("cod_Cargo"));
+        colunaNomeCargo.setCellValueFactory(new PropertyValueFactory<>("nome_Cargo"));
+    }
+
     @FXML
     void handleButtonInserirFunc(ActionEvent event) {
         //tabela.getSelectionModel().clearSelection();
@@ -114,6 +163,17 @@ public class FuncionáriosController implements Initializable {
         txtIdFunc.setText("");
     }
     
+    
+    @FXML
+    private void atualizarListaCargo() {
+        try {
+
+            tbCargos.setItems(CargoDAO.listar_cargo(txtPesquisarCargo.getText()));
+        } catch (Exception ex) {
+            mensagens.erro("Erro : " + ex.getMessage());
+        }
+    }
+
     @FXML
     void handleButtonCancelar(ActionEvent event) {
         diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Funcionário?");
@@ -123,7 +183,30 @@ public class FuncionáriosController implements Initializable {
             anchorPaneInicioFunc.setVisible(true);
         }
     }
-    
+
+    @FXML
+    void handleButtonSalvarCargo(ActionEvent event) {
+
+        
+        try {
+            cargo.setNome_Cargo(txtNomeCargo.getText());
+            CargoDAO.salvar(cargo);
+            limparCampos();
+            tbCargos.requestFocus();
+            tbCargos.getSelectionModel().clearSelection();
+        } catch (Exception ex) {
+            mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+        }
+        tbCargos.getItems().clear();
+        atualizarListaCargo();
+    }
+
+
+@FXML
+    void handleButtonExcluirCargo(ActionEvent event) {
+
+    }
+
     @FXML
     void limparCampos() {
         txtNomeFunc.setText("");
@@ -140,5 +223,5 @@ public class FuncionáriosController implements Initializable {
         txtIdFunc.setText("");
     }
     
-    
+
 }
