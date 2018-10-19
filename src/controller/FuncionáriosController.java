@@ -3,6 +3,7 @@ package controller;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.dao.CargoDAO;
@@ -36,7 +38,7 @@ public class FuncionáriosController implements Initializable {
     private ObservableList<Cargo> data_cargo;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
-    
+
     @FXML
     private TableColumn<Cargo, String> colunaIdCargo;
 
@@ -57,7 +59,7 @@ public class FuncionáriosController implements Initializable {
 
     @FXML
     private TextField txtPesquisar;
-    
+
     @FXML
     private TextField txtPesquisarCargo;
 
@@ -148,8 +150,10 @@ public class FuncionáriosController implements Initializable {
         this.cargo = new Cargo();
         setCellTable();
         atualizarListaCargo();
+        selecionarItemTabelaCargos();
+
     }
-    
+
     public void setCellTable() {
         colunaIdCargo.setCellValueFactory(new PropertyValueFactory<>("cod_Cargo"));
         colunaNomeCargo.setCellValueFactory(new PropertyValueFactory<>("nome_Cargo"));
@@ -162,8 +166,7 @@ public class FuncionáriosController implements Initializable {
         anchorPaneNovoFunc.setVisible(true);
         txtIdFunc.setText("");
     }
-    
-    
+
     @FXML
     private void atualizarListaCargo() {
         try {
@@ -175,10 +178,22 @@ public class FuncionáriosController implements Initializable {
     }
 
     @FXML
+    public void selecionarItemTabelaCargos() {
+            tbCargos.setOnMouseClicked(e -> {
+            btSalvarCargo.setDisable(true);
+            tbCargos.requestFocus();
+            Cargo cargo = tbCargos.getItems().get(tbCargos.getSelectionModel().getSelectedIndex());
+            txtIdCargo.setText(String.valueOf(cargo.getCod_Cargo()));
+            txtNomeCargo.setText(cargo.getNome_Cargo());
+        });
+
+    }
+    
+    @FXML
     void handleButtonCancelar(ActionEvent event) {
         diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Funcionário?");
         if (resp == diálogo.Resposta.YES) {
-            limparCampos();
+            limparCamposFunc();
             anchorPaneNovoFunc.setVisible(false);
             anchorPaneInicioFunc.setVisible(true);
         }
@@ -187,11 +202,10 @@ public class FuncionáriosController implements Initializable {
     @FXML
     void handleButtonSalvarCargo(ActionEvent event) {
 
-        
         try {
             cargo.setNome_Cargo(txtNomeCargo.getText());
             CargoDAO.salvar(cargo);
-            limparCampos();
+            limparCamposCargo();
             tbCargos.requestFocus();
             tbCargos.getSelectionModel().clearSelection();
         } catch (Exception ex) {
@@ -201,14 +215,24 @@ public class FuncionáriosController implements Initializable {
         atualizarListaCargo();
     }
 
-
-@FXML
-    void handleButtonExcluirCargo(ActionEvent event) {
+    @FXML
+    void handleButtonExcluirCargo(ActionEvent event) throws Exception {
+       // Cliente cliente = tabela.getSelectionModel().getSelectedItem();
+        cargo.setCod_Cargo(Integer.parseInt(txtIdCargo.getText()));
+        try {
+            CargoDAO.removerCargo(cargo);
+        tbCargos.getItems().clear();
+        atualizarListaCargo();
+        limparCamposCargo();
+        btSalvarCargo.setDisable(false);
+        } catch (SQLException ex) {
+            mensagens.erro("Não foi possível remover cargo : " + ex.getMessage());
+        }
 
     }
 
     @FXML
-    void limparCampos() {
+    void limparCamposFunc() {
         txtNomeFunc.setText("");
         comboBoxEstadoFunc.getItems().clear();
         txtCelularFunc.setText("");
@@ -223,5 +247,10 @@ public class FuncionáriosController implements Initializable {
         txtIdFunc.setText("");
     }
     
+    @FXML
+    void limparCamposCargo() {
+        txtIdCargo.setText("");
+        txtNomeCargo.setText("");
+    }
 
 }

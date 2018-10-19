@@ -34,6 +34,20 @@ public class CargoDAO {
         }
     }
     
+    public static void removerCargo(Cargo cargo) throws Exception {
+        conexãoBanco c = new conexãoBanco();
+        try {
+        String sql = "delete from cargo where id=?";
+        PreparedStatement ps = c.getConexao().prepareStatement(sql);
+        ps.setInt(1, cargo.getCod_Cargo());
+        ps.execute();
+        c.confirmar();
+        mensagens.info("Cargo excluído com sucesso!");
+        } catch (SQLException ex) {
+            mensagens.erro("Erro ao excluir cargo : "+ex);
+        }
+    }
+    
     public static ObservableList<Cargo> listar_cargo(String txtPesquisarCargo) throws Exception {
         conexãoBanco c = new conexãoBanco();
         

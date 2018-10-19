@@ -1,5 +1,5 @@
 
-package model;
+package model.domain;
 
 public class funcionarioM {
     

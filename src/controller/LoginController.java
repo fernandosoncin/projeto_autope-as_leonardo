@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.usuario;
+import model.domain.usuario;
 /**
  *
  * @author felli

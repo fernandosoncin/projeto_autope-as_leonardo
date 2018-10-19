@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -16,121 +18,250 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPaneCliente" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientesController">
+<AnchorPane id="AnchorPane" fx:id="anchorPaneCliente" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientesController">
    <children>
-      <AnchorPane fx:id="anchorPaneInicioCliente" layoutX="-2.0" prefHeight="616.0" prefWidth="942.0">
-         <children>
-            <TableView fx:id="tableCliente" prefHeight="492.0" prefWidth="730.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="116.0">
-              <columns>
-                <TableColumn prefWidth="29.0" text="Id" />
-                <TableColumn prefWidth="160.0" text="Nome" />
-                  <TableColumn prefWidth="106.0" text="CPF" />
-                  <TableColumn prefWidth="83.0" text="Celular" />
-                  <TableColumn prefWidth="130.0" text="Email" />
-                  <TableColumn prefWidth="199.0" text="Endereço" />
-                  <TableColumn minWidth="0.0" prefWidth="142.0" text="Bairro" />
-                  <TableColumn prefWidth="55.0" text="Estado" />
-              </columns>
-            </TableView>
-            <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">
-               <children>
-                  <Label fx:id="lbTitulo" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Clientes" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="txtPesquisar" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
-                  <ToggleButton fx:id="btNovoCliente" mnemonicParsing="false" onAction="#handleButtonInserir" text="">
-                     <styleClass>
-                        <String fx:value="menus-tela" />
-                        <String fx:value="menu-add" />
-                     </styleClass>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="menu" />
-                     </toggleGroup>
-                  </ToggleButton>
-                  <ToggleButton fx:id="btAlterarCliente" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu">
-                     <styleClass>
-                        <String fx:value="menus-tela" />
-                        <String fx:value="menu-editar" />
-                     </styleClass>
-                  </ToggleButton>
-                  <ToggleButton fx:id="btExcluirCliente" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu">
-                     <styleClass>
-                        <String fx:value="menus-tela" />
-                        <String fx:value="menu-excluir" />
-                     </styleClass>
-                  </ToggleButton>
-               </children>
-            </HBox>
-         </children>
-         <stylesheets>
-            <URL value="@../css/default.css" />
-            <URL value="@../css/custom.css" />
-         </stylesheets>
-      </AnchorPane>
-      <AnchorPane fx:id="anchorPaneNovoCliente" prefHeight="616.0" prefWidth="942.0" visible="false">
-         <stylesheets>
-            <URL value="@../css/default.css" />
-            <URL value="@../css/custom.css" />
-         </stylesheets>
-         <children>
-            <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo">
-               <children>
-                  <Label fx:id="lbTitulo1" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Clientes" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-            <GridPane hgap="10.0" layoutX="16.0" layoutY="60.0" prefHeight="139.0" prefWidth="882.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="0.0" prefWidth="59.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="562.0" minWidth="2.0" prefWidth="391.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="693.0" minWidth="10.0" prefWidth="163.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="155.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="23.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="63.0" minHeight="4.0" prefHeight="37.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="104.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="87.0" minHeight="7.0" prefHeight="31.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label prefHeight="17.0" prefWidth="37.0" styleClass="lb-info" text="Id :" />
-                  <TextField fx:id="txtIdCliente" disable="true" styleClass="campo" GridPane.rowIndex="1" />
-                  <Label styleClass="lb-info" text="Nome :" GridPane.columnIndex="1" />
-                  <Label styleClass="lb-info" text="CPF/CNPJ :" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <Label styleClass="lb-info" text="Celular :" GridPane.columnIndex="3" />
-                  <Label styleClass="lb-info" text="Email :" GridPane.columnIndex="4" />
-                  <TextField fx:id="txtNomeCliente" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtCelularCliente" styleClass="campo" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtEmailCliente" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <Label styleClass="lb-info" text="Endereço :" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label styleClass="lb-info" text="Bairro :" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Label styleClass="lb-info" text="Estado :" GridPane.columnIndex="2" />
-                  <Label styleClass="lb-info" text="Física ou Jurídico :" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtEnderecoCliente" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtBairroCliente" styleClass="campo" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <ComboBox fx:id="comboBoxEstadoCliente" prefHeight="35.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="comboBoxFJ" prefHeight="38.0" prefWidth="140.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtCPFouCNPJ" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-               </children>
-            </GridPane>
-            <AnchorPane layoutX="23.0" layoutY="560.0" prefHeight="42.0" prefWidth="896.0" styleClass="box-menus-subtela">
-               <children>
-                  <Label layoutX="14.0" layoutY="17.0" text="ATENÇÃO : Todos os campos são obrigatórios." />
-                  <Button fx:id="btSalvar" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" text="Salvar">
-                     <styleClass>
-                        <String fx:value="menus-acoes" />
-                        <String fx:value="acao-salvar" />
-                        <String fx:value="menu-green" />
-                     </styleClass>
-                  </Button>
-                  <Button fx:id="btCancelar" layoutX="481.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelar" text="Cancelar">
-                     <styleClass>
-                        <String fx:value="menus-acoes" />
-                        <String fx:value="acao-excluir" />
-                        <String fx:value="menu-red" />
-                     </styleClass>
-                  </Button>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
+      <TabPane prefHeight="347.0" prefWidth="529.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Físico">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane fx:id="anchorPaneNovoClienteFísico" prefHeight="616.0" prefWidth="942.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <stylesheets>
+                              <URL value="@../css/default.css" />
+                              <URL value="@../css/custom.css" />
+                           </stylesheets>
+                           <children>
+                              <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo">
+                                 <children>
+                                    <Label fx:id="lbTitulo1" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Cadastro Cliente Físico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <GridPane hgap="10.0" layoutX="16.0" layoutY="60.0" prefHeight="139.0" prefWidth="882.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="0.0" prefWidth="59.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="562.0" minWidth="2.0" prefWidth="391.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="693.0" minWidth="10.0" prefWidth="163.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="155.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="23.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="63.0" minHeight="4.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="104.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="87.0" minHeight="7.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label prefHeight="17.0" prefWidth="37.0" styleClass="lb-info" text="Id :" />
+                                    <TextField fx:id="txtIdCliente" disable="true" styleClass="campo" GridPane.rowIndex="1" />
+                                    <Label styleClass="lb-info" text="Nome :" GridPane.columnIndex="1" />
+                                    <Label styleClass="lb-info" text="CPF :" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label styleClass="lb-info" text="Celular :" GridPane.columnIndex="3" />
+                                    <Label styleClass="lb-info" text="Email :" GridPane.columnIndex="4" />
+                                    <TextField fx:id="txtNomeCliente" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtCelularCliente" styleClass="campo" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtEmailCliente" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                    <Label styleClass="lb-info" text="Endereço :" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label styleClass="lb-info" text="Bairro :" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label styleClass="lb-info" text="Estado :" GridPane.columnIndex="2" />
+                                    <TextField fx:id="txtEnderecoCliente" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="txtBairroCliente" styleClass="campo" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="comboBoxEstadoCliente" prefHeight="35.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtCPFouCNPJ" styleClass="campo" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                 </children>
+                              </GridPane>
+                              <AnchorPane layoutX="23.0" layoutY="521.0" prefHeight="42.0" prefWidth="896.0" styleClass="box-menus-subtela">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="17.0" text="ATENÇÃO : Todos os campos são obrigatórios." />
+                                    <Button fx:id="btSalvar" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" text="Salvar">
+                                       <styleClass>
+                                          <String fx:value="menus-acoes" />
+                                          <String fx:value="acao-salvar" />
+                                          <String fx:value="menu-green" />
+                                       </styleClass>
+                                    </Button>
+                                    <Button fx:id="btCancelar" layoutX="481.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelar" text="Cancelar">
+                                       <styleClass>
+                                          <String fx:value="menus-acoes" />
+                                          <String fx:value="acao-excluir" />
+                                          <String fx:value="menu-red" />
+                                       </styleClass>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="anchorPaneInicioCliente" prefHeight="584.0" prefWidth="942.0">
+                           <children>
+                              <TableView fx:id="tableClienteFísico" prefHeight="387.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
+                                <columns>
+                                  <TableColumn prefWidth="29.0" text="Id" />
+                                  <TableColumn prefWidth="160.0" text="Nome" />
+                                    <TableColumn prefWidth="106.0" text="CPF" />
+                                    <TableColumn prefWidth="83.0" text="Celular" />
+                                    <TableColumn prefWidth="130.0" text="Email" />
+                                    <TableColumn prefWidth="199.0" text="Endereço" />
+                                    <TableColumn minWidth="0.0" prefWidth="142.0" text="Bairro" />
+                                    <TableColumn prefWidth="55.0" text="Estado" />
+                                </columns>
+                              </TableView>
+                              <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">
+                                 <children>
+                                    <Label fx:id="lbTitulo" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Cliente Físico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="txtPesquisar" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                                    <ToggleButton fx:id="btNovoClienteFísico" mnemonicParsing="false" onAction="#handleButtonInserirFísico" text="">
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-add" />
+                                       </styleClass>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btAlterarClienteFísico" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu">
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-editar" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btExcluirClienteFísico" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu">
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-excluir" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <stylesheets>
+                              <URL value="@../css/default.css" />
+                              <URL value="@../css/custom.css" />
+                           </stylesheets>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Jurídico">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane fx:id="anchorPaneInicioCliente1" prefHeight="616.0" prefWidth="942.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TableView fx:id="tableClienteJur" prefHeight="418.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
+                                 <columns>
+                                    <TableColumn prefWidth="29.0" text="Id" />
+                                    <TableColumn prefWidth="160.0" text="Nome" />
+                                    <TableColumn prefWidth="106.0" text="CPF" />
+                                    <TableColumn prefWidth="83.0" text="Celular" />
+                                    <TableColumn prefWidth="130.0" text="Email" />
+                                    <TableColumn prefWidth="199.0" text="Endereço" />
+                                    <TableColumn minWidth="0.0" prefWidth="142.0" text="Bairro" />
+                                    <TableColumn prefWidth="55.0" text="Estado" />
+                                 </columns>
+                              </TableView>
+                              <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">
+                                 <children>
+                                    <Label fx:id="lbTitulo2" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Cliente Jurídico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="txtPesquisarJur" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                                    <ToggleButton fx:id="btNovoClienteJur" mnemonicParsing="false" onAction="#handleButtonInserirJur" text="">
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-add" />
+                                       </styleClass>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu1" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btAlterarClienteJur" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu1">
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-editar" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btExcluirClienteJur" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu1">
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-excluir" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <stylesheets>
+                              <URL value="@../css/default.css" />
+                              <URL value="@../css/custom.css" />
+                           </stylesheets>
+                        </AnchorPane>
+                        <AnchorPane fx:id="anchorPaneNovoClienteJur" prefHeight="616.0" prefWidth="942.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <stylesheets>
+                              <URL value="@../css/default.css" />
+                              <URL value="@../css/custom.css" />
+                           </stylesheets>
+                           <children>
+                              <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo">
+                                 <children>
+                                    <Label fx:id="lbTitulo11" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Cadastro Cliente Jurídico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <GridPane hgap="10.0" layoutX="16.0" layoutY="60.0" prefHeight="139.0" prefWidth="882.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="0.0" prefWidth="59.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="562.0" minWidth="2.0" prefWidth="391.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="693.0" minWidth="10.0" prefWidth="163.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="155.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="23.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="63.0" minHeight="4.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="104.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="87.0" minHeight="7.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label prefHeight="17.0" prefWidth="37.0" styleClass="lb-info" text="Id :" />
+                                    <TextField fx:id="txtIdClienteJur" disable="true" styleClass="campo" GridPane.rowIndex="1" />
+                                    <Label styleClass="lb-info" text="Nome :" GridPane.columnIndex="1" />
+                                    <Label styleClass="lb-info" text="CNPJ : " GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label styleClass="lb-info" text="Celular :" GridPane.columnIndex="3" />
+                                    <Label styleClass="lb-info" text="Email :" GridPane.columnIndex="4" />
+                                    <TextField fx:id="txtNomeClienteJur" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtCelularClienteJur" styleClass="campo" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtEmailClienteJur" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                    <Label styleClass="lb-info" text="Endereço :" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label styleClass="lb-info" text="Bairro :" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label styleClass="lb-info" text="Estado :" GridPane.columnIndex="2" />
+                                    <TextField fx:id="txtEnderecoClienteJur" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="txtBairroClienteJur" styleClass="campo" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="comboBoxEstadoClienteJur" prefHeight="35.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtCNPJ" styleClass="campo" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                 </children>
+                              </GridPane>
+                              <AnchorPane layoutX="23.0" layoutY="521.0" prefHeight="42.0" prefWidth="896.0" styleClass="box-menus-subtela">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="17.0" text="ATENÇÃO : Todos os campos são obrigatórios." />
+                                    <Button fx:id="btSalvarJur" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" text="Salvar">
+                                       <styleClass>
+                                          <String fx:value="menus-acoes" />
+                                          <String fx:value="acao-salvar" />
+                                          <String fx:value="menu-green" />
+                                       </styleClass>
+                                    </Button>
+                                    <Button fx:id="btCancelarJur" layoutX="481.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelar" text="Cancelar">
+                                       <styleClass>
+                                          <String fx:value="menus-acoes" />
+                                          <String fx:value="acao-excluir" />
+                                          <String fx:value="menu-red" />
+                                       </styleClass>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

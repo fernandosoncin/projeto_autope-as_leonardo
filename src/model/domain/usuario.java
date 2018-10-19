@@ -1,5 +1,6 @@
-package model;
+package model.domain;
 
+import model.domain.TipoUsuario;
 import java.time.LocalDate;
 
 /**

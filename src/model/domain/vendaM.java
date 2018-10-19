@@ -1,5 +1,8 @@
 
-package model;
+package model.domain;
+
+import model.domain.funcionarioM;
+import model.domain.clienteM;
 
 
 public class vendaM {

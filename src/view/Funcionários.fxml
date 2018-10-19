@@ -22,7 +22,7 @@
    <children>
       <AnchorPane fx:id="anchorPaneInicioFunc" layoutX="-2.0" prefHeight="616.0" prefWidth="942.0">
          <children>
-            <TableView fx:id="tableFunc" prefHeight="492.0" prefWidth="730.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="116.0">
+            <TableView fx:id="tableFunc" prefHeight="492.0" prefWidth="730.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="116.0">
                <columns>
                   <TableColumn prefWidth="29.0" text="Id" />
                   <TableColumn prefWidth="160.0" text="Nome" />
@@ -177,8 +177,8 @@
                               </GridPane>
                               <TableView fx:id="tbCargos" layoutX="6.0" layoutY="135.0" prefHeight="255.0" prefWidth="942.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                 <columns>
-                                  <TableColumn fx:id="colunaIdCargo" prefWidth="75.0" text="Id" />
-                                  <TableColumn fx:id="colunaNomeCargo" prefWidth="865.0" text="Nome" />
+                                  <TableColumn fx:id="colunaIdCargo" prefWidth="86.0" text="Id" />
+                                  <TableColumn fx:id="colunaNomeCargo" prefWidth="854.0" text="Nome" />
                                 </columns>
                               </TableView>
                               <AnchorPane layoutX="15.0" layoutY="265.0" prefHeight="42.0" prefWidth="896.0" styleClass="box-menus-subtela">

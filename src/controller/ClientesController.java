@@ -27,31 +27,7 @@ public class ClientesController implements Initializable {
     private AnchorPane anchorPaneCliente;
 
     @FXML
-    private AnchorPane anchorPaneInicioCliente;
-    
-    @FXML
-    private TableView<?> tableCliente;
-
-    @FXML
-    private Label lbTitulo;
-
-    @FXML
-    private TextField txtPesquisar;
-
-    @FXML
-    private ToggleButton btNovoCliente;
-
-    @FXML
-    private ToggleGroup menu;
-
-    @FXML
-    private ToggleButton btAlterarCliente;
-
-    @FXML
-    private ToggleButton btExcluirCliente;
-
-    @FXML
-    private AnchorPane anchorPaneNovoCliente;
+    private AnchorPane anchorPaneNovoClienteFísico;
 
     @FXML
     private Label lbTitulo1;
@@ -78,9 +54,6 @@ public class ClientesController implements Initializable {
     private ComboBox<?> comboBoxEstadoCliente;
 
     @FXML
-    private ComboBox<?> comboBoxFJ;
-
-    @FXML
     private TextField txtCPFouCNPJ;
 
     @FXML
@@ -88,6 +61,112 @@ public class ClientesController implements Initializable {
 
     @FXML
     private Button btCancelar;
+
+    @FXML
+    private AnchorPane anchorPaneInicioCliente;
+
+    @FXML
+    private TableView<?> tableClienteFísico;
+
+    @FXML
+    private Label lbTitulo;
+
+    @FXML
+    private TextField txtPesquisar;
+
+    @FXML
+    private ToggleButton btNovoClienteFísico;
+
+    @FXML
+    private ToggleGroup menu;
+
+    @FXML
+    private ToggleButton btAlterarClienteFísico;
+
+    @FXML
+    private ToggleButton btExcluirClienteFísico;
+
+    @FXML
+    private AnchorPane anchorPaneInicioCliente1;
+
+    @FXML
+    private TableView<?> tableClienteJur;
+
+    @FXML
+    private Label lbTitulo2;
+
+    @FXML
+    private TextField txtPesquisarJur;
+
+    @FXML
+    private ToggleButton btNovoClienteJur;
+
+    @FXML
+    private ToggleGroup menu1;
+
+    @FXML
+    private ToggleButton btAlterarClienteJur;
+
+    @FXML
+    private ToggleButton btExcluirClienteJur;
+
+    @FXML
+    private AnchorPane anchorPaneNovoClienteJur;
+
+    @FXML
+    private Label lbTitulo11;
+
+    @FXML
+    private TextField txtIdClienteJur;
+
+    @FXML
+    private TextField txtNomeClienteJur;
+
+    @FXML
+    private TextField txtCelularClienteJur;
+
+    @FXML
+    private TextField txtEmailClienteJur;
+
+    @FXML
+    private TextField txtEnderecoClienteJur;
+
+    @FXML
+    private TextField txtBairroClienteJur;
+
+    @FXML
+    private ComboBox<?> comboBoxEstadoClienteJur;
+
+    @FXML
+    private TextField txtCNPJ;
+
+    @FXML
+    private Button btSalvarJur;
+
+    @FXML
+    private Button btCancelarJur;
+
+    @FXML
+    void handleButtonCancelar(ActionEvent event) {
+        diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cliente?");
+        if (resp == diálogo.Resposta.YES) {
+            limparCampos();
+            anchorPaneNovoClienteFísico.setVisible(false);
+            anchorPaneInicioCliente.setVisible(true);
+        }
+    }
+
+    @FXML
+    void handleButtonInserirFísico(ActionEvent event) {
+        anchorPaneInicioCliente.setVisible(false);
+        anchorPaneNovoClienteFísico.setVisible(true);
+        txtIdCliente.setText("");
+    }
+
+    @FXML
+    void handleButtonInserirJur(ActionEvent event) {
+
+    }
 
     /**
      * Initializes the controller class.
@@ -98,24 +177,6 @@ public class ClientesController implements Initializable {
     } 
     
     @FXML
-    void handleButtonInserir(ActionEvent event) {
-        //tabela.getSelectionModel().clearSelection();
-        anchorPaneInicioCliente.setVisible(false);
-        anchorPaneNovoCliente.setVisible(true);
-        txtIdCliente.setText("");
-    }
-    
-    @FXML
-    void handleButtonCancelar(ActionEvent event) {
-        diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cliente?");
-        if (resp == diálogo.Resposta.YES) {
-            limparCampos();
-            anchorPaneNovoCliente.setVisible(false);
-            anchorPaneInicioCliente.setVisible(true);
-        }
-    }
-    
-    @FXML
     void limparCampos() {
         txtNomeCliente.setText("");
         comboBoxEstadoCliente.getItems().clear();
@@ -123,7 +184,7 @@ public class ClientesController implements Initializable {
         txtEmailCliente.setText("");
         txtEnderecoCliente.setText("");
         txtBairroCliente.setText("");
-        comboBoxFJ.getItems().clear();
+        comboBoxEstadoCliente.getItems().clear();
         txtCPFouCNPJ.setText("");
     }
     
