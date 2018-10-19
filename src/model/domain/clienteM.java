@@ -1,9 +1,7 @@
-
 package model.domain;
 
-
 public class clienteM {
-    
+
     private int id;
     private String nome;
     private String cpf;
@@ -11,8 +9,9 @@ public class clienteM {
     private String email;
     private String endereco;
     private String bairro;
+    private String estado;
 
-    public clienteM(int id, String nome, String cpf, String celular, String email, String endereco, String bairro) {
+    public clienteM(int id, String nome, String cpf, String celular, String email, String endereco, String bairro, String estado) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -20,6 +19,7 @@ public class clienteM {
         this.email = email;
         this.endereco = endereco;
         this.bairro = bairro;
+        this.estado = estado;
     }
 
     public clienteM() {
@@ -80,7 +80,17 @@ public class clienteM {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-    
-    
-    
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public void getEstado(String toString) {
+
+    }
+
 }

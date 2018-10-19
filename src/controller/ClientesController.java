@@ -1,7 +1,10 @@
 package controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +16,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import model.dao.ClienteDAO;
+import model.domain.clienteM;
+import util.Combo;
 import util.diálogo;
 import util.mensagens;
 
@@ -23,6 +29,8 @@ import util.mensagens;
  */
 public class ClientesController implements Initializable {
     
+    private clienteM cliente;
+
     @FXML
     private AnchorPane anchorPaneCliente;
 
@@ -51,7 +59,7 @@ public class ClientesController implements Initializable {
     private TextField txtBairroCliente;
 
     @FXML
-    private ComboBox<?> comboBoxEstadoCliente;
+    private ComboBox<String> comboBoxEstadoCliente;
 
     @FXML
     private TextField txtCPFouCNPJ;
@@ -145,14 +153,52 @@ public class ClientesController implements Initializable {
 
     @FXML
     private Button btCancelarJur;
+    
+    private void comboEstado() {
+        ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
+        Combo.popular(comboBoxEstadoCliente, tipo);
+    }
+    
+    @FXML
+    void handleButtonSalvarFísico(ActionEvent event){
+            try {
+                cliente.setNome(txtNomeCliente.getText());
+                cliente.setCpf(txtCPFouCNPJ.getText());
+                cliente.setCelular(txtCelularCliente.getText());
+                cliente.setEmail(txtEmailCliente.getText());
+                cliente.setEndereco(txtEnderecoCliente.getText());
+                cliente.setBairro(txtBairroCliente.getText());
+                cliente.getEstado(comboBoxEstadoCliente.getValue());
+                
+                ClienteDAO.salvar(cliente);
+                //limparCamposCargo();
+                //tbCargos.requestFocus();
+                //tbCargos.getSelectionModel().clearSelection();
+            } catch (Exception ex) {
+                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+            }
+            //tbCargos.getItems().clear();
+            //atualizarListaCargo();
+    }
 
     @FXML
     void handleButtonCancelar(ActionEvent event) {
         diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cliente?");
         if (resp == diálogo.Resposta.YES) {
-            limparCampos();
+            limparCamposFísico();
             anchorPaneNovoClienteFísico.setVisible(false);
             anchorPaneInicioCliente.setVisible(true);
+        }
+    }
+
+    @FXML
+    void handleButtonCancelarJur(ActionEvent event) {
+        diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cliente?");
+        if (resp == diálogo.Resposta.YES) {
+            //limparCamposJur();
+            anchorPaneNovoClienteJur.setVisible(false);
+            anchorPaneInicioCliente1.setVisible(true);
+
         }
     }
 
@@ -165,7 +211,9 @@ public class ClientesController implements Initializable {
 
     @FXML
     void handleButtonInserirJur(ActionEvent event) {
-
+        anchorPaneInicioCliente1.setVisible(false);
+        anchorPaneNovoClienteJur.setVisible(true);
+        txtIdClienteJur.setText("");
     }
 
     /**
@@ -174,10 +222,12 @@ public class ClientesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    } 
-    
+        comboEstado();
+        this.cliente = new clienteM();
+    }
+
     @FXML
-    void limparCampos() {
+    void limparCamposFísico() {
         txtNomeCliente.setText("");
         comboBoxEstadoCliente.getItems().clear();
         txtCelularCliente.setText("");
@@ -187,5 +237,5 @@ public class ClientesController implements Initializable {
         comboBoxEstadoCliente.getItems().clear();
         txtCPFouCNPJ.setText("");
     }
-    
+
 }

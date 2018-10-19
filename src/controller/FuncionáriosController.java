@@ -179,7 +179,7 @@ public class FuncionáriosController implements Initializable {
 
     @FXML
     public void selecionarItemTabelaCargos() {
-            tbCargos.setOnMouseClicked(e -> {
+        tbCargos.setOnMouseClicked(e -> {
             btSalvarCargo.setDisable(true);
             tbCargos.requestFocus();
             Cargo cargo = tbCargos.getItems().get(tbCargos.getSelectionModel().getSelectedIndex());
@@ -188,7 +188,7 @@ public class FuncionáriosController implements Initializable {
         });
 
     }
-    
+
     @FXML
     void handleButtonCancelar(ActionEvent event) {
         diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Funcionário?");
@@ -201,34 +201,37 @@ public class FuncionáriosController implements Initializable {
 
     @FXML
     void handleButtonSalvarCargo(ActionEvent event) {
-
-        try {
-            cargo.setNome_Cargo(txtNomeCargo.getText());
-            CargoDAO.salvar(cargo);
-            limparCamposCargo();
-            tbCargos.requestFocus();
-            tbCargos.getSelectionModel().clearSelection();
-        } catch (Exception ex) {
-            mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+        if (validarDadosSalvar()) {
+            try {
+                cargo.setNome_Cargo(txtNomeCargo.getText());
+                CargoDAO.salvar(cargo);
+                limparCamposCargo();
+                tbCargos.requestFocus();
+                tbCargos.getSelectionModel().clearSelection();
+            } catch (Exception ex) {
+                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+            }
+            tbCargos.getItems().clear();
+            atualizarListaCargo();
         }
-        tbCargos.getItems().clear();
-        atualizarListaCargo();
     }
 
     @FXML
     void handleButtonExcluirCargo(ActionEvent event) throws Exception {
-       // Cliente cliente = tabela.getSelectionModel().getSelectedItem();
-        cargo.setCod_Cargo(Integer.parseInt(txtIdCargo.getText()));
-        try {
-            CargoDAO.removerCargo(cargo);
-        tbCargos.getItems().clear();
-        atualizarListaCargo();
-        limparCamposCargo();
-        btSalvarCargo.setDisable(false);
-        } catch (SQLException ex) {
-            mensagens.erro("Não foi possível remover cargo : " + ex.getMessage());
-        }
+        // Cliente cliente = tabela.getSelectionModel().getSelectedItem();      
+        if (validarDadosExcluir()) {
+            try {
+                cargo.setCod_Cargo(Integer.parseInt(txtIdCargo.getText()));
+                CargoDAO.removerCargo(cargo);
+                tbCargos.getItems().clear();
+                atualizarListaCargo();
+                limparCamposCargo();
+                btSalvarCargo.setDisable(false);
+            } catch (SQLException ex) {
+                mensagens.erro("Não foi possível remover cargo : " + ex.getMessage());
+            }
 
+        }
     }
 
     @FXML
@@ -246,11 +249,48 @@ public class FuncionáriosController implements Initializable {
         txtRGFunc.setText("");
         txtIdFunc.setText("");
     }
-    
+
     @FXML
     void limparCamposCargo() {
         txtIdCargo.setText("");
         txtNomeCargo.setText("");
+        cargo.setCod_Cargo(0);
+    }
+
+    @FXML
+    private boolean validarDadosSalvar() {
+        //validação de campos
+        String msgErroSalvar = "";
+
+        if (txtNomeCargo.getText().length() == 0) {
+            msgErroSalvar += "Nome de cargo inválido.\n";
+        }
+        //alertas de erros nos campos
+        if (msgErroSalvar.length() == 0) {
+            //se a variável msgErro tiver o tamanho 0, retorna true, não mostrando mensagem de erro
+            return true;
+        } else {
+            mensagens.alerta(msgErroSalvar);
+            return false;
+        }
+    }
+
+    @FXML
+    private boolean validarDadosExcluir() {
+        //validação de campos
+        String msgErroExcluir = "";
+
+        if (txtIdCargo.getText().length() == 0) {
+            msgErroExcluir += "Dados para exclusão inválidos.\n";
+        }
+        //alertas de erros nos campos
+        if (msgErroExcluir.length() == 0) {
+            //se a variável msgErro tiver o tamanho 0, retorna true, não mostrando mensagem de erro
+            return true;
+        } else {
+            mensagens.alerta(msgErroExcluir);
+            return false;
+        }
     }
 
 }
