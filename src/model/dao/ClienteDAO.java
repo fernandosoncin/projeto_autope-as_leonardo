@@ -7,7 +7,10 @@ package model.dao;
 
 import banco.DAO.conexãoBanco;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.domain.clienteM;
 import util.mensagens;
 
@@ -46,4 +49,26 @@ public class ClienteDAO {
         }
     }
     
+        public static ObservableList<clienteM> listar_cliente(String txtPesquisar) throws Exception {
+        conexãoBanco c = new conexãoBanco();
+        
+        String sql = "select * from cliente where id like ?";
+        PreparedStatement ps = c.getConexao().prepareStatement(sql);
+        ps.setString(1, "%" + txtPesquisar + "%");
+        ResultSet rs = ps.executeQuery();
+        ObservableList listaCliente = FXCollections.observableArrayList();
+        while (rs.next()) {
+            clienteM cliente = new clienteM();
+            cliente.setId(rs.getInt("id"));
+            cliente.setNome(rs.getString("nome"));
+            cliente.setCpf(rs.getString("cpf"));
+            cliente.setCelular(rs.getString("celular"));
+            cliente.setEmail(rs.getString("email"));
+            cliente.setEndereco(rs.getString("endereco"));
+            cliente.setBairro(rs.getString("bairro"));
+            cliente.setEstado(rs.getString("estado"));
+            listaCliente.add(cliente);
+        }
+        return listaCliente;
+    }
 }

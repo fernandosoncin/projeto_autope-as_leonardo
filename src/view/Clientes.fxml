@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPaneCliente" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientesController">
+<AnchorPane id="AnchorPane" fx:id="anchorPaneCliente" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientesController">
    <children>
       <TabPane prefHeight="347.0" prefWidth="529.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -95,14 +95,14 @@
                            <children>
                               <TableView fx:id="tableClienteFísico" prefHeight="387.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
                                 <columns>
-                                  <TableColumn prefWidth="29.0" text="Id" />
-                                  <TableColumn prefWidth="160.0" text="Nome" />
-                                    <TableColumn prefWidth="106.0" text="CPF" />
-                                    <TableColumn prefWidth="83.0" text="Celular" />
-                                    <TableColumn prefWidth="130.0" text="Email" />
-                                    <TableColumn prefWidth="199.0" text="Endereço" />
-                                    <TableColumn minWidth="0.0" prefWidth="142.0" text="Bairro" />
-                                    <TableColumn prefWidth="55.0" text="Estado" />
+                                  <TableColumn fx:id="TableColumnIdFisico" prefWidth="29.0" text="Id" />
+                                  <TableColumn fx:id="TableColumnNomeFisico" prefWidth="160.0" text="Nome" />
+                                    <TableColumn fx:id="TableColumnCpfFisico" prefWidth="106.0" text="CPF" />
+                                    <TableColumn fx:id="TableColumnCelularFisico" prefWidth="83.0" text="Celular" />
+                                    <TableColumn fx:id="TableColumnEmailFisico" prefWidth="130.0" text="Email" />
+                                    <TableColumn fx:id="TableColumnEnderecoFisico" prefWidth="199.0" text="Endereço" />
+                                    <TableColumn fx:id="TableColumnBairroFisico" minWidth="0.0" prefWidth="142.0" text="Bairro" />
+                                    <TableColumn fx:id="TableColumnEstadoFisico" prefWidth="55.0" text="Estado" />
                                 </columns>
                               </TableView>
                               <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">

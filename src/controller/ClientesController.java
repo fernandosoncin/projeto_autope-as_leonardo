@@ -11,10 +11,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.dao.ClienteDAO;
 import model.domain.clienteM;
@@ -30,6 +32,7 @@ import util.mensagens;
 public class ClientesController implements Initializable {
     
     private clienteM cliente;
+    private ObservableList<clienteM> data_cliente;
 
     @FXML
     private AnchorPane anchorPaneCliente;
@@ -69,12 +72,36 @@ public class ClientesController implements Initializable {
 
     @FXML
     private Button btCancelar;
+    
+    @FXML
+    private TableColumn<clienteM, String> TableColumnIdFisico;
+
+    @FXML
+    private TableColumn<clienteM, String> TableColumnNomeFisico;
+
+    @FXML
+    private TableColumn<clienteM, String> TableColumnCpfFisico;
+
+    @FXML
+    private TableColumn<clienteM, String> TableColumnCelularFisico;
+
+    @FXML
+    private TableColumn<clienteM, String> TableColumnEmailFisico;
+
+    @FXML
+    private TableColumn<clienteM, String> TableColumnEnderecoFisico;
+
+    @FXML
+    private TableColumn<clienteM, String> TableColumnBairroFisico;
+
+    @FXML
+    private TableColumn<clienteM, String> TableColumnEstadoFisico;
 
     @FXML
     private AnchorPane anchorPaneInicioCliente;
 
     @FXML
-    private TableView<?> tableClienteFísico;
+    private TableView<clienteM> tableClienteFísico;
 
     @FXML
     private Label lbTitulo;
@@ -168,7 +195,7 @@ public class ClientesController implements Initializable {
                 cliente.setEmail(txtEmailCliente.getText());
                 cliente.setEndereco(txtEnderecoCliente.getText());
                 cliente.setBairro(txtBairroCliente.getText());
-                cliente.getEstado(comboBoxEstadoCliente.getValue());
+                cliente.setEstado(comboBoxEstadoCliente.getValue().toString());
                 
                 ClienteDAO.salvar(cliente);
                 //limparCamposCargo();
@@ -215,7 +242,29 @@ public class ClientesController implements Initializable {
         anchorPaneNovoClienteJur.setVisible(true);
         txtIdClienteJur.setText("");
     }
+    
+        @FXML
+    private void atualizarListaClienteFisico() {
+        try {
 
+            tableClienteFísico.setItems(ClienteDAO.listar_cliente(txtPesquisar.getText()));
+        } catch (Exception ex) {
+            mensagens.erro("Erro : " + ex.getMessage());
+        }
+    }
+    
+        public void setCellTable() {
+        TableColumnIdFisico.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumnNomeFisico.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        TableColumnCpfFisico.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        TableColumnCelularFisico.setCellValueFactory(new PropertyValueFactory<>("celular"));
+        TableColumnEmailFisico.setCellValueFactory(new PropertyValueFactory<>("email"));
+        TableColumnEnderecoFisico.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+        TableColumnBairroFisico.setCellValueFactory(new PropertyValueFactory<>("bairro"));
+        TableColumnEstadoFisico.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -223,13 +272,16 @@ public class ClientesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         comboEstado();
-        this.cliente = new clienteM();
+        this.cliente = new clienteM();        
+        setCellTable();
+        atualizarListaClienteFisico();
+        //selecionarItemTabelaCargos();
     }
 
     @FXML
     void limparCamposFísico() {
         txtNomeCliente.setText("");
-        comboBoxEstadoCliente.getItems().clear();
+        //comboBoxEstadoCliente.getItems().clear();
         txtCelularCliente.setText("");
         txtEmailCliente.setText("");
         txtEnderecoCliente.setText("");
