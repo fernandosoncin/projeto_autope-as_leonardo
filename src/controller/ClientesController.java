@@ -30,7 +30,7 @@ import util.mensagens;
  * @author Fellipe
  */
 public class ClientesController implements Initializable {
-    
+
     private clienteM cliente;
     private ObservableList<clienteM> data_cliente;
 
@@ -72,7 +72,7 @@ public class ClientesController implements Initializable {
 
     @FXML
     private Button btCancelar;
-    
+
     @FXML
     private TableColumn<clienteM, String> TableColumnIdFisico;
 
@@ -180,32 +180,32 @@ public class ClientesController implements Initializable {
 
     @FXML
     private Button btCancelarJur;
-    
+
     private void comboEstado() {
         ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
         Combo.popular(comboBoxEstadoCliente, tipo);
     }
-    
+
     @FXML
-    void handleButtonSalvarFísico(ActionEvent event){
-            try {
-                cliente.setNome(txtNomeCliente.getText());
-                cliente.setCpf(txtCPFouCNPJ.getText());
-                cliente.setCelular(txtCelularCliente.getText());
-                cliente.setEmail(txtEmailCliente.getText());
-                cliente.setEndereco(txtEnderecoCliente.getText());
-                cliente.setBairro(txtBairroCliente.getText());
-                cliente.setEstado(comboBoxEstadoCliente.getValue().toString());
-                
-                ClienteDAO.salvar(cliente);
-                //limparCamposCargo();
-                //tbCargos.requestFocus();
-                //tbCargos.getSelectionModel().clearSelection();
-            } catch (Exception ex) {
-                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
-            }
-            //tbCargos.getItems().clear();
-            //atualizarListaCargo();
+    void handleButtonSalvarFísico(ActionEvent event) {
+        try {
+            cliente.setNome(txtNomeCliente.getText());
+            cliente.setCpf(txtCPFouCNPJ.getText());
+            cliente.setCelular(txtCelularCliente.getText());
+            cliente.setEmail(txtEmailCliente.getText());
+            cliente.setEndereco(txtEnderecoCliente.getText());
+            cliente.setBairro(txtBairroCliente.getText());
+            cliente.setEstado(comboBoxEstadoCliente.getValue().toString());
+
+            ClienteDAO.salvar(cliente);
+            //limparCamposCargo();
+            //tbCargos.requestFocus();
+            //tbCargos.getSelectionModel().clearSelection();
+        } catch (Exception ex) {
+            mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+        }
+        //tbCargos.getItems().clear();
+        //atualizarListaCargo();
     }
 
     @FXML
@@ -242,8 +242,8 @@ public class ClientesController implements Initializable {
         anchorPaneNovoClienteJur.setVisible(true);
         txtIdClienteJur.setText("");
     }
-    
-        @FXML
+
+    @FXML
     private void atualizarListaClienteFisico() {
         try {
 
@@ -252,8 +252,8 @@ public class ClientesController implements Initializable {
             mensagens.erro("Erro : " + ex.getMessage());
         }
     }
-    
-        public void setCellTable() {
+
+    public void setCellTable() {
         TableColumnIdFisico.setCellValueFactory(new PropertyValueFactory<>("id"));
         TableColumnNomeFisico.setCellValueFactory(new PropertyValueFactory<>("nome"));
         TableColumnCpfFisico.setCellValueFactory(new PropertyValueFactory<>("cpf"));
@@ -262,9 +262,28 @@ public class ClientesController implements Initializable {
         TableColumnEnderecoFisico.setCellValueFactory(new PropertyValueFactory<>("endereco"));
         TableColumnBairroFisico.setCellValueFactory(new PropertyValueFactory<>("bairro"));
         TableColumnEstadoFisico.setCellValueFactory(new PropertyValueFactory<>("estado"));
-        
+
     }
-    
+
+    @FXML
+    public void selecionarItemTabelaCliente() {
+        tableClienteFísico.setOnMouseClicked(e -> {
+            btSalvar.setDisable(true);
+            tableClienteFísico.requestFocus();
+            clienteM cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
+            txtIdCliente.setText(String.valueOf(cliente.getId()));
+            txtNomeCliente.setText(cliente.getNome());
+            txtCPFouCNPJ.setText(cliente.getCpf());
+            txtCelularCliente.setText(cliente.getCelular());
+            txtEmailCliente.setText(cliente.getEmail());
+            txtEnderecoCliente.setText(cliente.getEndereco());
+            txtBairroCliente.setText(cliente.getBairro());
+            comboBoxEstadoCliente.setValue(cliente.getEstado());
+
+        });
+
+    }
+
     /**
      * Initializes the controller class.
      */
@@ -272,10 +291,10 @@ public class ClientesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         comboEstado();
-        this.cliente = new clienteM();        
+        this.cliente = new clienteM();
         setCellTable();
         atualizarListaClienteFisico();
-        //selecionarItemTabelaCargos();
+        selecionarItemTabelaCliente();
     }
 
     @FXML
