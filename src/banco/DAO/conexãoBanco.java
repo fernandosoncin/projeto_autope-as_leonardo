@@ -12,7 +12,7 @@ public class conexãoBanco {
     private final String PORTA = "3306";
     private final String BDD = "auto_pecas";
     private final String USUARIO = "root";
-    private final String SENHA = "32799097";
+    private final String SENHA = "4913";
     private final String URL = "jdbc:mysql://" + SERVIDOR + ":" + PORTA + "/" + BDD + "?useTimezone=true&serverTimezone=UTC";
     public ResultSet rs;
 

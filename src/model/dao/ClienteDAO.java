@@ -19,19 +19,19 @@ import util.mensagens;
  * @author Fellipe
  */
 public class ClienteDAO {
-    
-    public static void salvar(clienteM cliente) throws Exception {
-        if (cliente.getId()== 0) {
-            inserir(cliente);
+
+    public static void salvarF(clienteM cliente) throws Exception {
+        if (cliente.getId() == 0) {
+            inserirF(cliente);
         } else {
-            //inserir(cargo);
+            alterarF(cliente);
         }
     }
-    
-    public static void inserir(clienteM cliente) throws Exception {
+
+    public static void inserirF(clienteM cliente) throws Exception {
         conexãoBanco c = new conexãoBanco();
         try {
-            
+
             String sql = "insert into cliente(nome,cpf,celular,email,endereco,bairro,estado) values (?,?,?,?,?,?,?)";
             PreparedStatement ps = c.getConexao().prepareStatement(sql);;
             ps.setString(1, cliente.getNome());
@@ -45,13 +45,49 @@ public class ClienteDAO {
             c.confirmar();
             mensagens.info("Cliente inserido com sucesso!");
         } catch (SQLException ex) {
-            mensagens.erro("Erro ao inserir cliente : "+ex);
+            mensagens.erro("Erro ao inserir cliente : " + ex);
+        }
+    }
+
+    public static void alterarF(clienteM cliente) throws Exception {
+        conexãoBanco c = new conexãoBanco();
+        try {
+
+            String sql = "update cliente set nome=?, cpf=?, celular=?, email=?, endereco=?, bairro=?, estado=? where id=?";
+            PreparedStatement ps = c.getConexao().prepareStatement(sql);
+            ps.setString(1, cliente.getNome());
+            ps.setString(2, cliente.getCpf());
+            ps.setString(3, cliente.getCelular());
+            ps.setString(4, cliente.getEmail());
+            ps.setString(5, cliente.getEndereco());
+            ps.setString(6, cliente.getBairro());
+            ps.setString(7, cliente.getEstado());
+            ps.setInt(8, cliente.getId());
+            ps.execute();
+            c.confirmar();
+            mensagens.info("Cliente Físico alterado com sucesso!");
+        } catch (SQLException ex) {
+            mensagens.erro("Erro ao alterar Cliente Físico : " + ex);
         }
     }
     
-        public static ObservableList<clienteM> listar_cliente(String txtPesquisar) throws Exception {
+    public static void excluirClienteF(clienteM cliente) throws Exception {
         conexãoBanco c = new conexãoBanco();
-        
+        try {
+        String sql = "delete from cliente where id=?";
+        PreparedStatement ps = c.getConexao().prepareStatement(sql);
+        ps.setInt(1, cliente.getId());
+        ps.execute();
+        c.confirmar();
+        mensagens.info("Cliente Físico excluído com sucesso!");
+        } catch (SQLException ex) {
+            mensagens.erro("Erro ao excluir Cliente Físico : "+ex);
+        }
+    }
+
+    public static ObservableList<clienteM> listar_clienteF(String txtPesquisar) throws Exception {
+        conexãoBanco c = new conexãoBanco();
+
         String sql = "select * from cliente where id like ?";
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
         ps.setString(1, "%" + txtPesquisar + "%");

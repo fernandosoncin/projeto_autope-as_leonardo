@@ -1,6 +1,8 @@
 package model.domain;
 
-public class clienteM {
+import java.io.Serializable;
+
+public class clienteM implements Serializable{
 
     private int id;
     private String nome;
@@ -11,19 +13,10 @@ public class clienteM {
     private String bairro;
     private String estado;
 
-    public clienteM(int id, String nome, String cpf, String celular, String email, String endereco, String bairro, String estado) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.celular = celular;
-        this.email = email;
-        this.endereco = endereco;
-        this.bairro = bairro;
-        this.estado = estado;
+    public clienteM() {
+        this.id = 0;
     }
 
-    public clienteM() {
-    }
 
     public int getId() {
         return id;
@@ -91,6 +84,17 @@ public class clienteM {
 
     public void getEstado(String toString) {
 
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof clienteM) {
+            clienteM c = (clienteM) o;
+            if (c.getId()== this.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

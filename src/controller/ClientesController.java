@@ -3,6 +3,7 @@ package controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -189,6 +190,7 @@ public class ClientesController implements Initializable {
     @FXML
     void handleButtonSalvarFísico(ActionEvent event) {
         try {
+            cliente.setId(Integer.parseInt((txtIdCliente.getText())));
             cliente.setNome(txtNomeCliente.getText());
             cliente.setCpf(txtCPFouCNPJ.getText());
             cliente.setCelular(txtCelularCliente.getText());
@@ -196,11 +198,14 @@ public class ClientesController implements Initializable {
             cliente.setEndereco(txtEnderecoCliente.getText());
             cliente.setBairro(txtBairroCliente.getText());
             cliente.setEstado(comboBoxEstadoCliente.getValue().toString());
-
-            ClienteDAO.salvar(cliente);
-            //limparCamposCargo();
-            //tbCargos.requestFocus();
-            //tbCargos.getSelectionModel().clearSelection();
+            ClienteDAO.salvarF(cliente);
+            anchorPaneNovoClienteFísico.setVisible(false);
+            anchorPaneInicioCliente.setVisible(true);
+            limparCamposFísico();
+            atualizarListaClienteFisico();
+            tableClienteFísico.refresh();
+            desativarbtsEditareExcluirF();
+            tableClienteFísico.getSelectionModel().clearSelection();
         } catch (Exception ex) {
             mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
         }
@@ -215,6 +220,7 @@ public class ClientesController implements Initializable {
             limparCamposFísico();
             anchorPaneNovoClienteFísico.setVisible(false);
             anchorPaneInicioCliente.setVisible(true);
+            desativarbtsEditareExcluirF();
         }
     }
 
@@ -233,7 +239,8 @@ public class ClientesController implements Initializable {
     void handleButtonInserirFísico(ActionEvent event) {
         anchorPaneInicioCliente.setVisible(false);
         anchorPaneNovoClienteFísico.setVisible(true);
-        txtIdCliente.setText("");
+        txtIdCliente.setText("0");
+
     }
 
     @FXML
@@ -247,13 +254,13 @@ public class ClientesController implements Initializable {
     private void atualizarListaClienteFisico() {
         try {
 
-            tableClienteFísico.setItems(ClienteDAO.listar_cliente(txtPesquisar.getText()));
+            tableClienteFísico.setItems(ClienteDAO.listar_clienteF(txtPesquisar.getText()));
         } catch (Exception ex) {
             mensagens.erro("Erro : " + ex.getMessage());
         }
     }
 
-    public void setCellTable() {
+    public void setCellTableClienteF() {
         TableColumnIdFisico.setCellValueFactory(new PropertyValueFactory<>("id"));
         TableColumnNomeFisico.setCellValueFactory(new PropertyValueFactory<>("nome"));
         TableColumnCpfFisico.setCellValueFactory(new PropertyValueFactory<>("cpf"));
@@ -266,20 +273,11 @@ public class ClientesController implements Initializable {
     }
 
     @FXML
-    public void selecionarItemTabelaCliente() {
+    public void selecionarItemTabelaClienteFísico() {
         tableClienteFísico.setOnMouseClicked(e -> {
-            btSalvar.setDisable(true);
             tableClienteFísico.requestFocus();
-            clienteM cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
-            txtIdCliente.setText(String.valueOf(cliente.getId()));
-            txtNomeCliente.setText(cliente.getNome());
-            txtCPFouCNPJ.setText(cliente.getCpf());
-            txtCelularCliente.setText(cliente.getCelular());
-            txtEmailCliente.setText(cliente.getEmail());
-            txtEnderecoCliente.setText(cliente.getEndereco());
-            txtBairroCliente.setText(cliente.getBairro());
-            comboBoxEstadoCliente.setValue(cliente.getEstado());
-
+            btExcluirClienteFísico.setDisable(false);
+            btAlterarClienteFísico.setDisable(false);
         });
 
     }
@@ -290,23 +288,70 @@ public class ClientesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        comboEstado();
         this.cliente = new clienteM();
-        setCellTable();
+        comboEstado();
+        setCellTableClienteF();
         atualizarListaClienteFisico();
-        selecionarItemTabelaCliente();
+        //tableClienteFísico.getSelectionModel().selectFirst();
+        selecionarItemTabelaClienteFísico();
+
     }
 
     @FXML
     void limparCamposFísico() {
+        txtIdCliente.setText("0");
         txtNomeCliente.setText("");
-        //comboBoxEstadoCliente.getItems().clear();
+        comboBoxEstadoCliente.getItems().clear();
         txtCelularCliente.setText("");
         txtEmailCliente.setText("");
         txtEnderecoCliente.setText("");
         txtBairroCliente.setText("");
         comboBoxEstadoCliente.getItems().clear();
         txtCPFouCNPJ.setText("");
+        comboEstado();
+    }
+
+    @FXML
+    void handlebuttonAlterarFísico() {
+        if (tableClienteFísico.getSelectionModel().isEmpty()) {
+            mensagens.erro("Selecione um Cliente Físico para alteração.");
+            desativarbtsEditareExcluirF();
+        } else {
+            anchorPaneInicioCliente.setVisible(false);
+            anchorPaneNovoClienteFísico.setVisible(true);
+            clienteM cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
+            txtIdCliente.setText(String.valueOf(cliente.getId()));
+            txtNomeCliente.setText(cliente.getNome());
+            txtCPFouCNPJ.setText(cliente.getCpf());
+            txtCelularCliente.setText(cliente.getCelular());
+            txtEmailCliente.setText(cliente.getEmail());
+            txtEnderecoCliente.setText(cliente.getEndereco());
+            txtBairroCliente.setText(cliente.getBairro());
+            comboBoxEstadoCliente.setValue(cliente.getEstado());
+            desativarbtsEditareExcluirF();
+        }
+
+    }
+
+    void desativarbtsEditareExcluirF() {
+        btAlterarClienteFísico.setDisable(true);
+        btExcluirClienteFísico.setDisable(true);
+    }
+
+    @FXML
+    void handlebuttonExcluirFísico() throws Exception {
+        if (tableClienteFísico.getSelectionModel().isEmpty()) {
+            mensagens.erro("Selecione um Cliente Físico para exclusão.");
+            desativarbtsEditareExcluirF();
+        } else {
+            clienteM cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
+            ClienteDAO.excluirClienteF(cliente);
+            desativarbtsEditareExcluirF();
+            atualizarListaClienteFisico();
+            tableClienteFísico.refresh();
+            tableClienteFísico.getSelectionModel().clearSelection();
+        }
+
     }
 
 }

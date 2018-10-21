@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPaneCliente" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientesController">
+<AnchorPane id="AnchorPane" fx:id="anchorPaneCliente" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientesController">
    <children>
       <TabPane prefHeight="347.0" prefWidth="529.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -93,14 +93,14 @@
                         </AnchorPane>
                         <AnchorPane fx:id="anchorPaneInicioCliente" prefHeight="584.0" prefWidth="942.0">
                            <children>
-                              <TableView fx:id="tableClienteFísico" prefHeight="387.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
+                              <TableView fx:id="tableClienteFísico" accessibleRole="IMAGE_VIEW" prefHeight="387.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
                                 <columns>
-                                  <TableColumn fx:id="TableColumnIdFisico" prefWidth="29.0" text="Id" />
-                                  <TableColumn fx:id="TableColumnNomeFisico" prefWidth="160.0" text="Nome" />
-                                    <TableColumn fx:id="TableColumnCpfFisico" prefWidth="106.0" text="CPF" />
-                                    <TableColumn fx:id="TableColumnCelularFisico" prefWidth="83.0" text="Celular" />
-                                    <TableColumn fx:id="TableColumnEmailFisico" prefWidth="130.0" text="Email" />
-                                    <TableColumn fx:id="TableColumnEnderecoFisico" prefWidth="199.0" text="Endereço" />
+                                  <TableColumn fx:id="TableColumnIdFisico" prefWidth="66.0" text="Id" />
+                                  <TableColumn fx:id="TableColumnNomeFisico" prefWidth="143.0" text="Nome" />
+                                    <TableColumn fx:id="TableColumnCpfFisico" prefWidth="93.0" text="CPF" />
+                                    <TableColumn fx:id="TableColumnCelularFisico" prefWidth="97.0" text="Celular" />
+                                    <TableColumn fx:id="TableColumnEmailFisico" prefWidth="129.0" text="Email" />
+                                    <TableColumn fx:id="TableColumnEnderecoFisico" prefWidth="179.0" text="Endereço" />
                                     <TableColumn fx:id="TableColumnBairroFisico" minWidth="0.0" prefWidth="142.0" text="Bairro" />
                                     <TableColumn fx:id="TableColumnEstadoFisico" prefWidth="55.0" text="Estado" />
                                 </columns>
@@ -118,13 +118,13 @@
                                           <ToggleGroup fx:id="menu" />
                                        </toggleGroup>
                                     </ToggleButton>
-                                    <ToggleButton fx:id="btAlterarClienteFísico" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu">
+                                    <ToggleButton fx:id="btAlterarClienteFísico" disable="true" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlebuttonAlterarFísico" text="" toggleGroup="$menu">
                                        <styleClass>
                                           <String fx:value="menus-tela" />
                                           <String fx:value="menu-editar" />
                                        </styleClass>
                                     </ToggleButton>
-                                    <ToggleButton fx:id="btExcluirClienteFísico" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu">
+                                    <ToggleButton fx:id="btExcluirClienteFísico" disable="true" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlebuttonExcluirFísico" text="" toggleGroup="$menu">
                                        <styleClass>
                                           <String fx:value="menus-tela" />
                                           <String fx:value="menu-excluir" />
@@ -173,7 +173,7 @@
                                           <ToggleGroup fx:id="menu1" />
                                        </toggleGroup>
                                     </ToggleButton>
-                                    <ToggleButton fx:id="btAlterarClienteJur" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu1">
+                                    <ToggleButton fx:id="btAlterarClienteJur" disable="true" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu1">
                                        <styleClass>
                                           <String fx:value="menus-tela" />
                                           <String fx:value="menu-editar" />
