@@ -2,7 +2,7 @@ package model.domain;
 
 import java.io.Serializable;
 
-public class clienteM implements Serializable{
+public class clienteMF implements Serializable{
 
     private int id;
     private String nome;
@@ -13,7 +13,7 @@ public class clienteM implements Serializable{
     private String bairro;
     private String estado;
 
-    public clienteM() {
+    public clienteMF() {
         this.id = 0;
     }
 
@@ -88,8 +88,8 @@ public class clienteM implements Serializable{
     
     @Override
     public boolean equals(Object o) {
-        if (o instanceof clienteM) {
-            clienteM c = (clienteM) o;
+        if (o instanceof clienteMF) {
+            clienteMF c = (clienteMF) o;
             if (c.getId()== this.getId()) {
                 return true;
             }

@@ -2,7 +2,7 @@
 package model.domain;
 
 import model.domain.funcionarioM;
-import model.domain.clienteM;
+import model.domain.clienteMF;
 
 
 public class vendaM {
@@ -11,10 +11,10 @@ public class vendaM {
     private String data;
     private String horario;
     private funcionarioM funcionario_id;
-    private clienteM cliente_id;
+    private clienteMF cliente_id;
     private produtoM produto_id;
 
-    public vendaM(int id, String data, String horario, funcionarioM funcionario_id, clienteM cliente_id, produtoM produto_id) {
+    public vendaM(int id, String data, String horario, funcionarioM funcionario_id, clienteMF cliente_id, produtoM produto_id) {
         this.id = id;
         this.data = data;
         this.horario = horario;
@@ -58,11 +58,11 @@ public class vendaM {
         this.funcionario_id = funcionario_id;
     }
 
-    public clienteM getCliente_id() {
+    public clienteMF getCliente_id() {
         return cliente_id;
     }
 
-    public void setCliente_id(clienteM cliente_id) {
+    public void setCliente_id(clienteMF cliente_id) {
         this.cliente_id = cliente_id;
     }
 

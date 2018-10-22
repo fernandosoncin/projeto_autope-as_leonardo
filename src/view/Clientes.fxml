@@ -150,14 +150,14 @@
                            <children>
                               <TableView fx:id="tableClienteJur" prefHeight="418.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
                                  <columns>
-                                    <TableColumn prefWidth="29.0" text="Id" />
-                                    <TableColumn prefWidth="160.0" text="Nome" />
-                                    <TableColumn prefWidth="106.0" text="CPF" />
-                                    <TableColumn prefWidth="83.0" text="Celular" />
+                                    <TableColumn fx:id="TableColumnIdJur" prefWidth="29.0" text="Id" />
+                                    <TableColumn fx:id="TableColumnRazãoSocial" prefWidth="160.0" text="Razão Social" />
+                                    <TableColumn fx:id="TableColumnCNPJ" prefWidth="106.0" text="CNPJ" />
+                                    <TableColumn fx:id="TableColumnTelefoneJur" prefWidth="83.0" text="Telefone" />
                                     <TableColumn prefWidth="130.0" text="Email" />
-                                    <TableColumn prefWidth="199.0" text="Endereço" />
-                                    <TableColumn minWidth="0.0" prefWidth="142.0" text="Bairro" />
-                                    <TableColumn prefWidth="55.0" text="Estado" />
+                                    <TableColumn fx:id="TableColumnEnderecoJur" prefWidth="199.0" text="Endereço" />
+                                    <TableColumn fx:id="TableColumnBairroJur" minWidth="0.0" prefWidth="142.0" text="Bairro" />
+                                    <TableColumn fx:id="TableColumnEstadoJur" prefWidth="55.0" text="Estado" />
                                  </columns>
                               </TableView>
                               <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">
@@ -179,7 +179,7 @@
                                           <String fx:value="menu-editar" />
                                        </styleClass>
                                     </ToggleButton>
-                                    <ToggleButton fx:id="btExcluirClienteJur" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu1">
+                                    <ToggleButton fx:id="btExcluirClienteJur" disable="true" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu1">
                                        <styleClass>
                                           <String fx:value="menus-tela" />
                                           <String fx:value="menu-excluir" />
@@ -221,11 +221,11 @@
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="37.0" styleClass="lb-info" text="Id :" />
                                     <TextField fx:id="txtIdClienteJur" disable="true" styleClass="campo" GridPane.rowIndex="1" />
-                                    <Label styleClass="lb-info" text="Nome :" GridPane.columnIndex="1" />
+                                    <Label styleClass="lb-info" text="Razão Social :" GridPane.columnIndex="1" />
                                     <Label styleClass="lb-info" text="CNPJ : " GridPane.columnIndex="3" GridPane.rowIndex="2" />
                                     <Label styleClass="lb-info" text="Celular :" GridPane.columnIndex="3" />
                                     <Label styleClass="lb-info" text="Email :" GridPane.columnIndex="4" />
-                                    <TextField fx:id="txtNomeClienteJur" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtRazãoSocial" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="txtCelularClienteJur" styleClass="campo" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                     <TextField fx:id="txtEmailClienteJur" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                                     <Label styleClass="lb-info" text="Endereço :" GridPane.columnIndex="1" GridPane.rowIndex="2" />

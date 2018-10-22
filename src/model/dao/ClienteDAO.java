@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.domain.clienteM;
+import model.domain.clienteMF;
 import util.mensagens;
 
 /**
@@ -20,7 +20,7 @@ import util.mensagens;
  */
 public class ClienteDAO {
 
-    public static void salvarF(clienteM cliente) throws Exception {
+    public static void salvarF(clienteMF cliente) throws Exception {
         if (cliente.getId() == 0) {
             inserirF(cliente);
         } else {
@@ -28,7 +28,7 @@ public class ClienteDAO {
         }
     }
 
-    public static void inserirF(clienteM cliente) throws Exception {
+    public static void inserirF(clienteMF cliente) throws Exception {
         conexãoBanco c = new conexãoBanco();
         try {
 
@@ -49,7 +49,7 @@ public class ClienteDAO {
         }
     }
 
-    public static void alterarF(clienteM cliente) throws Exception {
+    public static void alterarF(clienteMF cliente) throws Exception {
         conexãoBanco c = new conexãoBanco();
         try {
 
@@ -71,7 +71,7 @@ public class ClienteDAO {
         }
     }
     
-    public static void excluirClienteF(clienteM cliente) throws Exception {
+    public static void excluirClienteF(clienteMF cliente) throws Exception {
         conexãoBanco c = new conexãoBanco();
         try {
         String sql = "delete from cliente where id=?";
@@ -85,7 +85,7 @@ public class ClienteDAO {
         }
     }
 
-    public static ObservableList<clienteM> listar_clienteF(String txtPesquisar) throws Exception {
+    public static ObservableList<clienteMF> listar_clienteF(String txtPesquisar) throws Exception {
         conexãoBanco c = new conexãoBanco();
 
         String sql = "select * from cliente where id like ?";
@@ -94,7 +94,7 @@ public class ClienteDAO {
         ResultSet rs = ps.executeQuery();
         ObservableList listaCliente = FXCollections.observableArrayList();
         while (rs.next()) {
-            clienteM cliente = new clienteM();
+            clienteMF cliente = new clienteMF();
             cliente.setId(rs.getInt("id"));
             cliente.setNome(rs.getString("nome"));
             cliente.setCpf(rs.getString("cpf"));

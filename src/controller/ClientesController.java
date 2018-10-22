@@ -1,9 +1,7 @@
 package controller;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +18,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.dao.ClienteDAO;
-import model.domain.clienteM;
+import model.domain.clienteMF;
 import util.Combo;
 import util.diálogo;
 import util.mensagens;
@@ -32,8 +30,8 @@ import util.mensagens;
  */
 public class ClientesController implements Initializable {
 
-    private clienteM cliente;
-    private ObservableList<clienteM> data_cliente;
+    private clienteMF cliente;
+    private ObservableList<clienteMF> data_cliente;
 
     @FXML
     private AnchorPane anchorPaneCliente;
@@ -75,34 +73,34 @@ public class ClientesController implements Initializable {
     private Button btCancelar;
 
     @FXML
-    private TableColumn<clienteM, String> TableColumnIdFisico;
+    private TableColumn<clienteMF, String> TableColumnIdFisico;
 
     @FXML
-    private TableColumn<clienteM, String> TableColumnNomeFisico;
+    private TableColumn<clienteMF, String> TableColumnNomeFisico;
 
     @FXML
-    private TableColumn<clienteM, String> TableColumnCpfFisico;
+    private TableColumn<clienteMF, String> TableColumnCpfFisico;
 
     @FXML
-    private TableColumn<clienteM, String> TableColumnCelularFisico;
+    private TableColumn<clienteMF, String> TableColumnCelularFisico;
 
     @FXML
-    private TableColumn<clienteM, String> TableColumnEmailFisico;
+    private TableColumn<clienteMF, String> TableColumnEmailFisico;
 
     @FXML
-    private TableColumn<clienteM, String> TableColumnEnderecoFisico;
+    private TableColumn<clienteMF, String> TableColumnEnderecoFisico;
 
     @FXML
-    private TableColumn<clienteM, String> TableColumnBairroFisico;
+    private TableColumn<clienteMF, String> TableColumnBairroFisico;
 
     @FXML
-    private TableColumn<clienteM, String> TableColumnEstadoFisico;
+    private TableColumn<clienteMF, String> TableColumnEstadoFisico;
 
     @FXML
     private AnchorPane anchorPaneInicioCliente;
 
     @FXML
-    private TableView<clienteM> tableClienteFísico;
+    private TableView<clienteMF> tableClienteFísico;
 
     @FXML
     private Label lbTitulo;
@@ -156,7 +154,7 @@ public class ClientesController implements Initializable {
     private TextField txtIdClienteJur;
 
     @FXML
-    private TextField txtNomeClienteJur;
+    private TextField txtRazãoSocial;
 
     @FXML
     private TextField txtCelularClienteJur;
@@ -288,7 +286,7 @@ public class ClientesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        this.cliente = new clienteM();
+        this.cliente = new clienteMF();
         comboEstado();
         setCellTableClienteF();
         atualizarListaClienteFisico();
@@ -319,7 +317,7 @@ public class ClientesController implements Initializable {
         } else {
             anchorPaneInicioCliente.setVisible(false);
             anchorPaneNovoClienteFísico.setVisible(true);
-            clienteM cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
+            clienteMF cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
             txtIdCliente.setText(String.valueOf(cliente.getId()));
             txtNomeCliente.setText(cliente.getNome());
             txtCPFouCNPJ.setText(cliente.getCpf());
@@ -344,7 +342,7 @@ public class ClientesController implements Initializable {
             mensagens.erro("Selecione um Cliente Físico para exclusão.");
             desativarbtsEditareExcluirF();
         } else {
-            clienteM cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
+            clienteMF cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
             ClienteDAO.excluirClienteF(cliente);
             desativarbtsEditareExcluirF();
             atualizarListaClienteFisico();
