@@ -15,7 +15,7 @@ public class CargoDAO {
         if (cargo.getCod_Cargo()== 0) {
             inserir(cargo);
         } else {
-            //inserir(cargo);
+            alterar(cargo);
         }
     }
     
@@ -31,6 +31,22 @@ public class CargoDAO {
             mensagens.info("Cargo inserido com sucesso!");
         } catch (SQLException ex) {
             mensagens.erro("Erro ao inserir cargo : "+ex);
+        }
+    }
+    
+    public static void alterar(Cargo cargo) throws Exception {
+        conexãoBanco c = new conexãoBanco();
+        try {
+
+            String sql = "update cargo set nome=? where id=?";
+            PreparedStatement ps = c.getConexao().prepareStatement(sql);
+            ps.setString(1, cargo.getNome_Cargo());
+            ps.setInt(2, cargo.getCod_Cargo());
+            ps.execute();
+            c.confirmar();
+            mensagens.info("Cargo alterado alterado com sucesso!");
+        } catch (SQLException ex) {
+            mensagens.erro("Erro ao alterar Cargo : " + ex);
         }
     }
     

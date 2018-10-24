@@ -16,9 +16,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import model.dao.ClienteDAO;
+import model.dao.ClienteFDAO;
+import model.dao.ClienteJDAO;
 import model.domain.clienteMF;
+import model.domain.clienteMJ;
 import util.Combo;
 import util.diálogo;
 import util.mensagens;
@@ -32,6 +36,7 @@ public class ClientesController implements Initializable {
 
     private clienteMF cliente;
     private ObservableList<clienteMF> data_cliente;
+    private clienteMJ clienteJ;
 
     @FXML
     private AnchorPane anchorPaneCliente;
@@ -97,10 +102,37 @@ public class ClientesController implements Initializable {
     private TableColumn<clienteMF, String> TableColumnEstadoFisico;
 
     @FXML
+    private TableColumn<clienteMJ, String> TableColumnIdJur;
+
+    @FXML
+    private TableColumn<clienteMJ, String> TableColumnRazãoSocial;
+
+    @FXML
+    private TableColumn<clienteMJ, String> TableColumnCNPJ;
+
+    @FXML
+    private TableColumn<clienteMJ, String> TableColumnTelefoneJur;
+
+    @FXML
+    private TableColumn<clienteMJ, String> TableColumnEmailJur;
+
+    @FXML
+    private TableColumn<clienteMJ, String> TableColumnEnderecoJur;
+
+    @FXML
+    private TableColumn<clienteMJ, String> TableColumnBairroJur;
+
+    @FXML
+    private TableColumn<clienteMJ, String> TableColumnEstadoJur;
+
+    @FXML
     private AnchorPane anchorPaneInicioCliente;
 
     @FXML
     private TableView<clienteMF> tableClienteFísico;
+
+    @FXML
+    private TableView<clienteMJ> tableClienteJur;
 
     @FXML
     private Label lbTitulo;
@@ -122,9 +154,6 @@ public class ClientesController implements Initializable {
 
     @FXML
     private AnchorPane anchorPaneInicioCliente1;
-
-    @FXML
-    private TableView<?> tableClienteJur;
 
     @FXML
     private Label lbTitulo2;
@@ -157,7 +186,7 @@ public class ClientesController implements Initializable {
     private TextField txtRazãoSocial;
 
     @FXML
-    private TextField txtCelularClienteJur;
+    private TextField txtTelefoneClienteJur;
 
     @FXML
     private TextField txtEmailClienteJur;
@@ -169,7 +198,7 @@ public class ClientesController implements Initializable {
     private TextField txtBairroClienteJur;
 
     @FXML
-    private ComboBox<?> comboBoxEstadoClienteJur;
+    private ComboBox<String> comboBoxEstadoClienteJur;
 
     @FXML
     private TextField txtCNPJ;
@@ -180,11 +209,43 @@ public class ClientesController implements Initializable {
     @FXML
     private Button btCancelarJur;
 
-    private void comboEstado() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+
+        //----------Início Inicializador Padrão
+        comboEstadoF();
+        comboEstadoJ();
+        //----------Fim Inicializador Padrão
+        //----------Início Inicializador Cliente Físico
+        this.cliente = new clienteMF();
+        comboEstadoF();
+        setCellTableClienteF();
+        atualizarListaClienteFisico();
+        selecionarItemTabelaClienteFísico();
+        //----------Fim Inicializador Cliente Físico
+
+        //----------Início Inicializador Cliente Jurídico
+        this.clienteJ = new clienteMJ();
+        setCellTableClienteJ();
+        atualizarListaClienteJur();
+        selecionarItemTabelaClienteJur();
+        //----------Fim Inicializador Cliente Jurídico
+    }
+
+    //----------Início Padrão
+    private void comboEstadoF() {
         ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
         Combo.popular(comboBoxEstadoCliente, tipo);
     }
 
+    private void comboEstadoJ() {
+        ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
+        Combo.popular(comboBoxEstadoClienteJur, tipo);
+    }
+    //----------Fim Padrão
+
+    //----------Início Cliente Físico
     @FXML
     void handleButtonSalvarFísico(ActionEvent event) {
         try {
@@ -196,7 +257,7 @@ public class ClientesController implements Initializable {
             cliente.setEndereco(txtEnderecoCliente.getText());
             cliente.setBairro(txtBairroCliente.getText());
             cliente.setEstado(comboBoxEstadoCliente.getValue().toString());
-            ClienteDAO.salvarF(cliente);
+            ClienteFDAO.salvarF(cliente);
             anchorPaneNovoClienteFísico.setVisible(false);
             anchorPaneInicioCliente.setVisible(true);
             limparCamposFísico();
@@ -213,23 +274,12 @@ public class ClientesController implements Initializable {
 
     @FXML
     void handleButtonCancelar(ActionEvent event) {
-        diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cliente?");
+        diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cliente Físico?");
         if (resp == diálogo.Resposta.YES) {
             limparCamposFísico();
             anchorPaneNovoClienteFísico.setVisible(false);
             anchorPaneInicioCliente.setVisible(true);
             desativarbtsEditareExcluirF();
-        }
-    }
-
-    @FXML
-    void handleButtonCancelarJur(ActionEvent event) {
-        diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cliente?");
-        if (resp == diálogo.Resposta.YES) {
-            //limparCamposJur();
-            anchorPaneNovoClienteJur.setVisible(false);
-            anchorPaneInicioCliente1.setVisible(true);
-
         }
     }
 
@@ -242,17 +292,10 @@ public class ClientesController implements Initializable {
     }
 
     @FXML
-    void handleButtonInserirJur(ActionEvent event) {
-        anchorPaneInicioCliente1.setVisible(false);
-        anchorPaneNovoClienteJur.setVisible(true);
-        txtIdClienteJur.setText("");
-    }
-
-    @FXML
     private void atualizarListaClienteFisico() {
         try {
 
-            tableClienteFísico.setItems(ClienteDAO.listar_clienteF(txtPesquisar.getText()));
+            tableClienteFísico.setItems(ClienteFDAO.listar_clienteF(txtPesquisar.getText()));
         } catch (Exception ex) {
             mensagens.erro("Erro : " + ex.getMessage());
         }
@@ -280,21 +323,6 @@ public class ClientesController implements Initializable {
 
     }
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        this.cliente = new clienteMF();
-        comboEstado();
-        setCellTableClienteF();
-        atualizarListaClienteFisico();
-        //tableClienteFísico.getSelectionModel().selectFirst();
-        selecionarItemTabelaClienteFísico();
-
-    }
-
     @FXML
     void limparCamposFísico() {
         txtIdCliente.setText("0");
@@ -306,7 +334,7 @@ public class ClientesController implements Initializable {
         txtBairroCliente.setText("");
         comboBoxEstadoCliente.getItems().clear();
         txtCPFouCNPJ.setText("");
-        comboEstado();
+        comboEstadoF();
     }
 
     @FXML
@@ -343,7 +371,7 @@ public class ClientesController implements Initializable {
             desativarbtsEditareExcluirF();
         } else {
             clienteMF cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
-            ClienteDAO.excluirClienteF(cliente);
+            ClienteFDAO.excluirClienteF(cliente);
             desativarbtsEditareExcluirF();
             atualizarListaClienteFisico();
             tableClienteFísico.refresh();
@@ -351,5 +379,158 @@ public class ClientesController implements Initializable {
         }
 
     }
+    
+    @FXML
+    void eventKeyPressedEnterF(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)){
+            atualizarListaClienteFisico();
+        }
 
+    }
+
+    //----------Fim Cliente Físico
+    //----------Início Cliente Jurídico
+    
+    @FXML
+    public void selecionarItemTabelaClienteJur() {
+        tableClienteJur.setOnMouseClicked(e -> {
+            tableClienteJur.requestFocus();
+            btExcluirClienteJur.setDisable(false);
+            btAlterarClienteJur.setDisable(false);
+        });
+
+    }
+    
+
+    @FXML
+    void eventKeyPressedEnterJ(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)){
+            atualizarListaClienteJur();
+        }
+
+    }
+    
+    @FXML
+    private void atualizarListaClienteJur() {
+        try {
+
+            tableClienteJur.setItems(ClienteJDAO.listar_clienteJ(txtPesquisarJur.getText()));
+        } catch (Exception ex) {
+            mensagens.erro("Erro : " + ex.getMessage());
+        }
+    }
+
+    void desativarbtsEditareExcluirJ() {
+        btAlterarClienteJur.setDisable(true);
+        btExcluirClienteJur.setDisable(true);
+    }
+
+    @FXML
+    void limparCamposJ() {
+        txtIdClienteJur.setText("0");
+        txtRazãoSocial.setText("");
+        txtCNPJ.setText("");
+        txtTelefoneClienteJur.setText("");
+        txtEmailClienteJur.setText("");
+        txtEnderecoClienteJur.setText("");
+        txtBairroClienteJur.setText("");
+        comboBoxEstadoClienteJur.getItems().clear();
+        comboEstadoF();
+    }
+
+    @FXML
+    void handleButtonCancelarJur(ActionEvent event) {
+        diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cliente Jurídico?");
+        if (resp == diálogo.Resposta.YES) {
+            limparCamposJ();
+            anchorPaneNovoClienteJur.setVisible(false);
+            anchorPaneInicioCliente1.setVisible(true);
+
+        }
+    }
+
+    @FXML
+    void handleButtonInserirJur(ActionEvent event) {
+        anchorPaneInicioCliente1.setVisible(false);
+        anchorPaneNovoClienteJur.setVisible(true);
+        txtIdClienteJur.setText("0");
+    }
+
+    public void setCellTableClienteJ() {
+        TableColumnIdJur.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumnRazãoSocial.setCellValueFactory(new PropertyValueFactory<>("rs"));
+        TableColumnCNPJ.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
+        TableColumnTelefoneJur.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+        TableColumnEmailJur.setCellValueFactory(new PropertyValueFactory<>("email"));
+        TableColumnEnderecoJur.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+        TableColumnBairroJur.setCellValueFactory(new PropertyValueFactory<>("bairro"));
+        TableColumnEstadoJur.setCellValueFactory(new PropertyValueFactory<>("estado"));
+
+    }
+
+    @FXML
+    void handleButtonSalvarJ(ActionEvent event) {
+        try {
+            clienteJ.setId(Integer.parseInt((txtIdClienteJur.getText())));
+            clienteJ.setRs(txtRazãoSocial.getText());
+            clienteJ.setCnpj(txtCNPJ.getText());
+            clienteJ.setTelefone(txtTelefoneClienteJur.getText());
+            clienteJ.setEmail(txtEmailClienteJur.getText());
+            clienteJ.setEndereco(txtEnderecoClienteJur.getText());
+            clienteJ.setBairro(txtBairroClienteJur.getText());
+            clienteJ.setEstado(comboBoxEstadoClienteJur.getValue().toString());
+            ClienteJDAO.salvarJ(clienteJ);
+            anchorPaneNovoClienteJur.setVisible(false);
+            anchorPaneInicioCliente1.setVisible(true);
+            limparCamposJ();
+            atualizarListaClienteJur();
+            tableClienteJur.refresh();
+            desativarbtsEditareExcluirJ();
+            tableClienteJur.getSelectionModel().clearSelection();
+        } catch (Exception ex) {
+            mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+        }
+        //tbCargos.getItems().clear();
+        //atualizarListaCargo();
+    }
+    
+    @FXML
+    void handlebuttonAlterarJ() {
+        if (tableClienteJur.getSelectionModel().isEmpty()) {
+            mensagens.erro("Selecione um Cliente Jurídico para alteração.");
+            desativarbtsEditareExcluirJ();
+        } else {
+            anchorPaneInicioCliente1.setVisible(false);
+            anchorPaneNovoClienteJur.setVisible(true);
+            clienteMJ clienteJ = tableClienteJur.getItems().get(tableClienteJur.getSelectionModel().getSelectedIndex());
+            txtIdClienteJur.setText(String.valueOf(clienteJ.getId()));
+            txtRazãoSocial.setText(clienteJ.getRs());
+            txtCNPJ.setText(clienteJ.getCnpj());
+            txtTelefoneClienteJur.setText(clienteJ.getTelefone());
+            txtEmailClienteJur.setText(clienteJ.getEmail());
+            txtEnderecoClienteJur.setText(clienteJ.getEndereco());
+            txtBairroClienteJur.setText(clienteJ.getBairro());
+            comboBoxEstadoClienteJur.setValue(clienteJ.getEstado());
+            desativarbtsEditareExcluirF();
+        }
+
+    }
+    
+    @FXML
+    void handlebuttonExcluirJ() throws Exception {
+        if (tableClienteJur.getSelectionModel().isEmpty()) {
+            mensagens.erro("Selecione um Cliente Jurídico para exclusão.");
+            desativarbtsEditareExcluirJ();
+        } else {
+            clienteMJ clienteJ = tableClienteJur.getItems().get(tableClienteJur.getSelectionModel().getSelectedIndex());
+            ClienteJDAO.excluirClienteJ(clienteJ);
+            desativarbtsEditareExcluirJ();
+            atualizarListaClienteJur();
+            tableClienteJur.refresh();
+            tableClienteJur.getSelectionModel().clearSelection();
+        }
+
+    }
+
+    //----------Fim Cliente Jurídico
 }

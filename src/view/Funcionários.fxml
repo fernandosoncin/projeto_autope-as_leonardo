@@ -130,14 +130,14 @@
                               <AnchorPane layoutX="12.0" layoutY="518.0" prefHeight="42.0" prefWidth="896.0" styleClass="box-menus-subtela">
                                  <children>
                                     <Label layoutX="14.0" layoutY="17.0" text="ATENÇÃO : Todos os campos são obrigatórios." />
-                                    <Button fx:id="btSalvar" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" text="Salvar">
+                                    <Button fx:id="btSalvarFunc" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" text="Salvar">
                                        <styleClass>
                                           <String fx:value="menus-acoes" />
                                           <String fx:value="acao-salvar" />
                                           <String fx:value="menu-green" />
                                        </styleClass>
                                     </Button>
-                                    <Button fx:id="btCancelar" layoutX="481.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelar" text="Cancelar">
+                                    <Button fx:id="btCancelarFunc" layoutX="481.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelarFunc" text="Cancelar">
                                        <styleClass>
                                           <String fx:value="menus-acoes" />
                                           <String fx:value="acao-excluir" />
@@ -170,7 +170,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="37.0" styleClass="lb-info" text="Id :" />
-                                    <TextField fx:id="txtIdCargo" disable="true" prefWidth="109.0" styleClass="campo" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtIdCargo" disable="true" prefWidth="109.0" styleClass="campo" text="0" GridPane.rowIndex="1" />
                                     <Label styleClass="lb-info" text="Nome :" GridPane.columnIndex="1" />
                                     <TextField fx:id="txtNomeCargo" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
@@ -190,7 +190,7 @@
                                           <String fx:value="menu-green" />
                                        </styleClass>
                                     </Button>
-                                    <Button fx:id="btExcluirCargo" layoutX="243.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonExcluirCargo" text="Excluir">
+                                    <Button fx:id="btCancelarCargo" disable="true" layoutX="243.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelarCargo" text="Cancelar">
                                        <styleClass>
                                           <String fx:value="menus-acoes" />
                                           <String fx:value="acao-excluir" />
@@ -198,6 +198,15 @@
                                        </styleClass>
                                     </Button>
                                     <TextField fx:id="txtPesquisarCargo" layoutX="708.0" layoutY="8.0" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                                    <ToggleButton fx:id="btExcluirCargo" disable="true" layoutX="174.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleButtonExcluirCargo" text="">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu1" />
+                                       </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-excluir" />
+                                       </styleClass>
+                                    </ToggleButton>
                                  </children>
                               </AnchorPane>
                            </children>

@@ -96,8 +96,8 @@
                               <TableView fx:id="tableClienteFísico" accessibleRole="IMAGE_VIEW" prefHeight="387.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
                                 <columns>
                                   <TableColumn fx:id="TableColumnIdFisico" prefWidth="66.0" text="Id" />
-                                  <TableColumn fx:id="TableColumnNomeFisico" prefWidth="143.0" text="Nome" />
-                                    <TableColumn fx:id="TableColumnCpfFisico" prefWidth="93.0" text="CPF" />
+                                  <TableColumn fx:id="TableColumnNomeFisico" prefWidth="151.0" text="Nome" />
+                                    <TableColumn fx:id="TableColumnCpfFisico" prefWidth="85.0" text="CPF" />
                                     <TableColumn fx:id="TableColumnCelularFisico" prefWidth="97.0" text="Celular" />
                                     <TableColumn fx:id="TableColumnEmailFisico" prefWidth="129.0" text="Email" />
                                     <TableColumn fx:id="TableColumnEnderecoFisico" prefWidth="179.0" text="Endereço" />
@@ -108,7 +108,7 @@
                               <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">
                                  <children>
                                     <Label fx:id="lbTitulo" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Cliente Físico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
-                                    <TextField fx:id="txtPesquisar" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                                    <TextField fx:id="txtPesquisar" onKeyPressed="#eventKeyPressedEnterF" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
                                     <ToggleButton fx:id="btNovoClienteFísico" mnemonicParsing="false" onAction="#handleButtonInserirFísico" text="">
                                        <styleClass>
                                           <String fx:value="menus-tela" />
@@ -150,12 +150,12 @@
                            <children>
                               <TableView fx:id="tableClienteJur" prefHeight="418.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
                                  <columns>
-                                    <TableColumn fx:id="TableColumnIdJur" prefWidth="29.0" text="Id" />
-                                    <TableColumn fx:id="TableColumnRazãoSocial" prefWidth="160.0" text="Razão Social" />
-                                    <TableColumn fx:id="TableColumnCNPJ" prefWidth="106.0" text="CNPJ" />
-                                    <TableColumn fx:id="TableColumnTelefoneJur" prefWidth="83.0" text="Telefone" />
-                                    <TableColumn prefWidth="130.0" text="Email" />
-                                    <TableColumn fx:id="TableColumnEnderecoJur" prefWidth="199.0" text="Endereço" />
+                                    <TableColumn fx:id="TableColumnIdJur" prefWidth="66.0" text="Id" />
+                                    <TableColumn fx:id="TableColumnRazãoSocial" prefWidth="151.0" text="Razão Social" />
+                                    <TableColumn fx:id="TableColumnCNPJ" prefWidth="85.0" text="CNPJ" />
+                                    <TableColumn fx:id="TableColumnTelefoneJur" prefWidth="97.0" text="Telefone" />
+                                    <TableColumn fx:id="TableColumnEmailJur" prefWidth="129.0" text="Email" />
+                                    <TableColumn fx:id="TableColumnEnderecoJur" prefWidth="179.0" text="Endereço" />
                                     <TableColumn fx:id="TableColumnBairroJur" minWidth="0.0" prefWidth="142.0" text="Bairro" />
                                     <TableColumn fx:id="TableColumnEstadoJur" prefWidth="55.0" text="Estado" />
                                  </columns>
@@ -163,7 +163,7 @@
                               <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">
                                  <children>
                                     <Label fx:id="lbTitulo2" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Cliente Jurídico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
-                                    <TextField fx:id="txtPesquisarJur" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                                    <TextField fx:id="txtPesquisarJur" onKeyPressed="#eventKeyPressedEnterJ" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
                                     <ToggleButton fx:id="btNovoClienteJur" mnemonicParsing="false" onAction="#handleButtonInserirJur" text="">
                                        <styleClass>
                                           <String fx:value="menus-tela" />
@@ -173,13 +173,13 @@
                                           <ToggleGroup fx:id="menu1" />
                                        </toggleGroup>
                                     </ToggleButton>
-                                    <ToggleButton fx:id="btAlterarClienteJur" disable="true" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu1">
+                                    <ToggleButton fx:id="btAlterarClienteJur" disable="true" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlebuttonAlterarJ" text="" toggleGroup="$menu1">
                                        <styleClass>
                                           <String fx:value="menus-tela" />
                                           <String fx:value="menu-editar" />
                                        </styleClass>
                                     </ToggleButton>
-                                    <ToggleButton fx:id="btExcluirClienteJur" disable="true" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" text="" toggleGroup="$menu1">
+                                    <ToggleButton fx:id="btExcluirClienteJur" disable="true" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlebuttonExcluirJ" text="" toggleGroup="$menu1">
                                        <styleClass>
                                           <String fx:value="menus-tela" />
                                           <String fx:value="menu-excluir" />
@@ -220,13 +220,13 @@
                                  </rowConstraints>
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="37.0" styleClass="lb-info" text="Id :" />
-                                    <TextField fx:id="txtIdClienteJur" disable="true" styleClass="campo" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtIdClienteJur" disable="true" editable="false" styleClass="campo" GridPane.rowIndex="1" />
                                     <Label styleClass="lb-info" text="Razão Social :" GridPane.columnIndex="1" />
                                     <Label styleClass="lb-info" text="CNPJ : " GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                    <Label styleClass="lb-info" text="Celular :" GridPane.columnIndex="3" />
+                                    <Label styleClass="lb-info" text="Telefone : " GridPane.columnIndex="3" />
                                     <Label styleClass="lb-info" text="Email :" GridPane.columnIndex="4" />
                                     <TextField fx:id="txtRazãoSocial" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="txtCelularClienteJur" styleClass="campo" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtTelefoneClienteJur" styleClass="campo" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                     <TextField fx:id="txtEmailClienteJur" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                                     <Label styleClass="lb-info" text="Endereço :" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label styleClass="lb-info" text="Bairro :" GridPane.columnIndex="2" GridPane.rowIndex="2" />
@@ -240,7 +240,7 @@
                               <AnchorPane layoutX="23.0" layoutY="521.0" prefHeight="42.0" prefWidth="896.0" styleClass="box-menus-subtela">
                                  <children>
                                     <Label layoutX="14.0" layoutY="17.0" text="ATENÇÃO : Todos os campos são obrigatórios." />
-                                    <Button fx:id="btSalvarJur" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" text="Salvar">
+                                    <Button fx:id="btSalvarJur" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonSalvarJ" text="Salvar">
                                        <styleClass>
                                           <String fx:value="menus-acoes" />
                                           <String fx:value="acao-salvar" />

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.dao;
 
 import banco.DAO.conexãoBanco;
@@ -18,7 +13,7 @@ import util.mensagens;
  *
  * @author Fellipe
  */
-public class ClienteDAO {
+public class ClienteFDAO {
 
     public static void salvarF(clienteMF cliente) throws Exception {
         if (cliente.getId() == 0) {
@@ -43,9 +38,9 @@ public class ClienteDAO {
             ps.setString(7, cliente.getEstado());
             ps.execute();
             c.confirmar();
-            mensagens.info("Cliente inserido com sucesso!");
+            mensagens.info("Cliente Físic inserido com sucesso!");
         } catch (SQLException ex) {
-            mensagens.erro("Erro ao inserir cliente : " + ex);
+            mensagens.erro("Erro ao inserir Cliente Físico: " + ex);
         }
     }
 

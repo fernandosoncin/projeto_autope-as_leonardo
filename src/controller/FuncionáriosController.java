@@ -118,10 +118,10 @@ public class FuncionáriosController implements Initializable {
     private ComboBox<?> comboBoxCargoFunc;
 
     @FXML
-    private Button btSalvar;
+    private Button btSalvarFunc;
 
     @FXML
-    private Button btCancelar;
+    private Button btCancelarFunc;
 
     @FXML
     private Label lbTitulo11;
@@ -139,58 +139,31 @@ public class FuncionáriosController implements Initializable {
     private Button btSalvarCargo;
 
     @FXML
-    private Button btExcluirCargo;
+    private ToggleButton btExcluirCargo;
+
+    @FXML
+    private Button btCancelarCargo;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //----------Início Inicializador Padrão
+
+        //----------Fim Inicializador Padrão
+        //----------Início Inicializador Cargos
         this.cargo = new Cargo();
-        setCellTable();
+        setCellTableCargo();
         atualizarListaCargo();
         selecionarItemTabelaCargos();
+        //----------Fim Inicializador Cargos
 
     }
 
-    public void setCellTable() {
-        colunaIdCargo.setCellValueFactory(new PropertyValueFactory<>("cod_Cargo"));
-        colunaNomeCargo.setCellValueFactory(new PropertyValueFactory<>("nome_Cargo"));
-    }
-
+    //----------Início Funcionários
     @FXML
-    void handleButtonInserirFunc(ActionEvent event) {
-        //tabela.getSelectionModel().clearSelection();
-        anchorPaneInicioFunc.setVisible(false);
-        anchorPaneNovoFunc.setVisible(true);
-        txtIdFunc.setText("");
-    }
-
-    @FXML
-    private void atualizarListaCargo() {
-        try {
-
-            tbCargos.setItems(CargoDAO.listar_cargo(txtPesquisarCargo.getText()));
-        } catch (Exception ex) {
-            mensagens.erro("Erro : " + ex.getMessage());
-        }
-    }
-
-    @FXML
-    public void selecionarItemTabelaCargos() {
-        tbCargos.setOnMouseClicked(e -> {
-            btSalvarCargo.setDisable(true);
-            tbCargos.requestFocus();
-            Cargo cargo = tbCargos.getItems().get(tbCargos.getSelectionModel().getSelectedIndex());
-            txtIdCargo.setText(String.valueOf(cargo.getCod_Cargo()));
-            txtNomeCargo.setText(cargo.getNome_Cargo());
-        });
-
-    }
-
-    @FXML
-    void handleButtonCancelar(ActionEvent event) {
+    void handleButtonCancelarFunc(ActionEvent event) {
         diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Funcionário?");
         if (resp == diálogo.Resposta.YES) {
             limparCamposFunc();
@@ -200,38 +173,11 @@ public class FuncionáriosController implements Initializable {
     }
 
     @FXML
-    void handleButtonSalvarCargo(ActionEvent event) {
-        if (validarDadosSalvar()) {
-            try {
-                cargo.setNome_Cargo(txtNomeCargo.getText());
-                CargoDAO.salvar(cargo);
-                limparCamposCargo();
-                tbCargos.requestFocus();
-                tbCargos.getSelectionModel().clearSelection();
-            } catch (Exception ex) {
-                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
-            }
-            tbCargos.getItems().clear();
-            atualizarListaCargo();
-        }
-    }
-
-    @FXML
-    void handleButtonExcluirCargo(ActionEvent event) throws Exception {
-        // Cliente cliente = tabela.getSelectionModel().getSelectedItem();      
-        if (validarDadosExcluir()) {
-            try {
-                cargo.setCod_Cargo(Integer.parseInt(txtIdCargo.getText()));
-                CargoDAO.removerCargo(cargo);
-                tbCargos.getItems().clear();
-                atualizarListaCargo();
-                limparCamposCargo();
-                btSalvarCargo.setDisable(false);
-            } catch (SQLException ex) {
-                mensagens.erro("Não foi possível remover cargo : " + ex.getMessage());
-            }
-
-        }
+    void handleButtonInserirFunc(ActionEvent event) {
+        //tabela.getSelectionModel().clearSelection();
+        anchorPaneInicioFunc.setVisible(false);
+        anchorPaneNovoFunc.setVisible(true);
+        txtIdFunc.setText("");
     }
 
     @FXML
@@ -250,15 +196,95 @@ public class FuncionáriosController implements Initializable {
         txtIdFunc.setText("");
     }
 
+    //----------Fim Funcionários
+    //----------Início Cargos
+    @FXML
+    void handleButtonCancelarCargo(ActionEvent event) {
+        diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cargo?");
+        if (resp == diálogo.Resposta.YES) {
+            limparCamposCargo();
+            tbCargos.getSelectionModel().clearSelection();
+            anchorPaneNovoFunc.setVisible(false);
+            anchorPaneInicioFunc.setVisible(true);
+        }
+    }
+
+    public void setCellTableCargo() {
+        colunaIdCargo.setCellValueFactory(new PropertyValueFactory<>("cod_Cargo"));
+        colunaNomeCargo.setCellValueFactory(new PropertyValueFactory<>("nome_Cargo"));
+    }
+
+    @FXML
+    private void atualizarListaCargo() {
+        try {
+
+            tbCargos.setItems(CargoDAO.listar_cargo(txtPesquisarCargo.getText()));
+        } catch (Exception ex) {
+            mensagens.erro("Erro : " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    public void selecionarItemTabelaCargos() {
+        tbCargos.setOnMouseClicked(e -> {
+            btExcluirCargo.setDisable(false);
+            btCancelarCargo.setDisable(false);
+            tbCargos.requestFocus();
+            Cargo cargo = tbCargos.getItems().get(tbCargos.getSelectionModel().getSelectedIndex());
+            txtIdCargo.setText(String.valueOf(cargo.getCod_Cargo()));
+            txtNomeCargo.setText(cargo.getNome_Cargo());
+        });
+
+    }
+
+    @FXML
+    void handleButtonSalvarCargo(ActionEvent event) {
+        if (validarDadosSalvarCargos()) {
+            try {
+                cargo.setCod_Cargo(Integer.valueOf(txtIdCargo.getText()));
+                cargo.setNome_Cargo(txtNomeCargo.getText());
+                CargoDAO.salvar(cargo);
+                limparCamposCargo();
+                tbCargos.requestFocus();
+                btExcluirCargo.setDisable(true);
+                tbCargos.getSelectionModel().clearSelection();
+            } catch (Exception ex) {
+                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+            }
+            tbCargos.getItems().clear();
+            atualizarListaCargo();
+        }
+    }
+
+    @FXML
+    void handleButtonExcluirCargo(ActionEvent event) throws Exception {
+        // Cliente cliente = tabela.getSelectionModel().getSelectedItem();      
+        if (validarDadosExcluirCargos()) {
+            try {
+                cargo.setCod_Cargo(Integer.parseInt(txtIdCargo.getText()));
+                CargoDAO.removerCargo(cargo);
+                tbCargos.getItems().clear();
+                atualizarListaCargo();
+                limparCamposCargo();
+                btSalvarCargo.setDisable(false);
+                btExcluirCargo.setDisable(true);
+                btCancelarCargo.setDisable(true);
+            } catch (SQLException ex) {
+                mensagens.erro("Não foi possível remover cargo : " + ex.getMessage());
+            }
+
+        }
+    }
+
     @FXML
     void limparCamposCargo() {
-        txtIdCargo.setText("");
+        txtIdCargo.setText("0");
         txtNomeCargo.setText("");
         cargo.setCod_Cargo(0);
     }
 
     @FXML
-    private boolean validarDadosSalvar() {
+    private boolean validarDadosSalvarCargos() {
         //validação de campos
         String msgErroSalvar = "";
 
@@ -276,7 +302,7 @@ public class FuncionáriosController implements Initializable {
     }
 
     @FXML
-    private boolean validarDadosExcluir() {
+    private boolean validarDadosExcluirCargos() {
         //validação de campos
         String msgErroExcluir = "";
 
@@ -293,4 +319,5 @@ public class FuncionáriosController implements Initializable {
         }
     }
 
+    //----------Fim Cargos
 }

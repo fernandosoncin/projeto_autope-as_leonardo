@@ -11,7 +11,7 @@ public class mensagens {
     }
 
     public static void info(String mensagem) {
-        diálogo.mensagens("INFO", "InformaÃ§Ã£o", mensagem);
+        diálogo.mensagens("INFO", "Informação", mensagem);
     }
 
     public static void info(String mensagem, String titulo) {
