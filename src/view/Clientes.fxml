@@ -96,13 +96,13 @@
                               <TableView fx:id="tableClienteFísico" accessibleRole="IMAGE_VIEW" prefHeight="387.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
                                 <columns>
                                   <TableColumn fx:id="TableColumnIdFisico" prefWidth="66.0" text="Id" />
-                                  <TableColumn fx:id="TableColumnNomeFisico" prefWidth="151.0" text="Nome" />
-                                    <TableColumn fx:id="TableColumnCpfFisico" prefWidth="85.0" text="CPF" />
-                                    <TableColumn fx:id="TableColumnCelularFisico" prefWidth="97.0" text="Celular" />
-                                    <TableColumn fx:id="TableColumnEmailFisico" prefWidth="129.0" text="Email" />
-                                    <TableColumn fx:id="TableColumnEnderecoFisico" prefWidth="179.0" text="Endereço" />
-                                    <TableColumn fx:id="TableColumnBairroFisico" minWidth="0.0" prefWidth="142.0" text="Bairro" />
-                                    <TableColumn fx:id="TableColumnEstadoFisico" prefWidth="55.0" text="Estado" />
+                                  <TableColumn fx:id="TableColumnNomeFisico" prefWidth="230.0" text="Nome" />
+                                    <TableColumn fx:id="TableColumnCpfFisico" prefWidth="100.0" text="CPF" />
+                                    <TableColumn fx:id="TableColumnCelularFisico" prefWidth="90.0" text="Celular" />
+                                    <TableColumn fx:id="TableColumnEmailFisico" prefWidth="130.0" text="Email" />
+                                    <TableColumn fx:id="TableColumnEnderecoFisico" prefWidth="230.0" text="Endereço" />
+                                    <TableColumn fx:id="TableColumnBairroFisico" minWidth="0.0" prefWidth="230.0" text="Bairro" />
+                                    <TableColumn fx:id="TableColumnEstadoFisico" prefWidth="85.0" text="Estado" />
                                 </columns>
                               </TableView>
                               <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">

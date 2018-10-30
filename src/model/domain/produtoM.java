@@ -17,6 +17,15 @@ public class produtoM {
     }
 
     public produtoM() {
+        this.id = 0;
+    }
+
+    public produtoM(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String toString() {
+        return categoria;
     }
 
     public int getId() {

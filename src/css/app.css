@@ -76,27 +76,6 @@
     -fx-border-radius: 0;
 }
 
-.menu-grupo {
-    -fx-background-image: url("../view/imgs/menu-ative2.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: right center;
-}
-
-.menu-grupo:selected {
-    -fx-background-image: url("../view/imgs/menu-ative.png");
-}
-
-.menu-grupo-inativo {
-    -fx-background-image: url("../view/imgs/menu-inativo.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: right center;
-
-}
-
-.menu-grupo-inativo:selected {
-    -fx-background-image: url("../view/imgs/menu-inativo2.png");
-}
-
 .menu-cliente {
     -fx-graphic: url("../view/imgs/cliente23px1.png");
 }
@@ -111,6 +90,14 @@
 
 .menu-funcionarios:selected {
     -fx-graphic: url("../view/imgs/funcionarios23px1.png");
+}
+
+.menu-produtos {
+    -fx-graphic: url("../view/imgs/produtos23px1.png");
+}
+
+.menu-produtos:selected {
+    -fx-graphic: url("../view/imgs/produtos23px1.png");
 }
 
 .box-submenus {

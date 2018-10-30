@@ -1,5 +1,6 @@
 package controller;
 
+import banco.DAO.ControleDAO;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -9,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -19,8 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import model.dao.ClienteFDAO;
-import model.dao.ClienteJDAO;
 import model.domain.clienteMF;
 import model.domain.clienteMJ;
 import util.Combo;
@@ -34,8 +32,7 @@ import util.mensagens;
  */
 public class ClientesController implements Initializable {
 
-    private clienteMF cliente;
-    private ObservableList<clienteMF> data_cliente;
+    private clienteMF clienteF;
     private clienteMJ clienteJ;
 
     @FXML
@@ -43,9 +40,6 @@ public class ClientesController implements Initializable {
 
     @FXML
     private AnchorPane anchorPaneNovoClienteFísico;
-
-    @FXML
-    private Label lbTitulo1;
 
     @FXML
     private TextField txtIdCliente;
@@ -135,9 +129,6 @@ public class ClientesController implements Initializable {
     private TableView<clienteMJ> tableClienteJur;
 
     @FXML
-    private Label lbTitulo;
-
-    @FXML
     private TextField txtPesquisar;
 
     @FXML
@@ -156,9 +147,6 @@ public class ClientesController implements Initializable {
     private AnchorPane anchorPaneInicioCliente1;
 
     @FXML
-    private Label lbTitulo2;
-
-    @FXML
     private TextField txtPesquisarJur;
 
     @FXML
@@ -175,9 +163,6 @@ public class ClientesController implements Initializable {
 
     @FXML
     private AnchorPane anchorPaneNovoClienteJur;
-
-    @FXML
-    private Label lbTitulo11;
 
     @FXML
     private TextField txtIdClienteJur;
@@ -218,7 +203,7 @@ public class ClientesController implements Initializable {
         comboEstadoJ();
         //----------Fim Inicializador Padrão
         //----------Início Inicializador Cliente Físico
-        this.cliente = new clienteMF();
+        this.clienteF = new clienteMF();
         comboEstadoF();
         setCellTableClienteF();
         atualizarListaClienteFisico();
@@ -249,15 +234,15 @@ public class ClientesController implements Initializable {
     @FXML
     void handleButtonSalvarFísico(ActionEvent event) {
         try {
-            cliente.setId(Integer.parseInt((txtIdCliente.getText())));
-            cliente.setNome(txtNomeCliente.getText());
-            cliente.setCpf(txtCPFouCNPJ.getText());
-            cliente.setCelular(txtCelularCliente.getText());
-            cliente.setEmail(txtEmailCliente.getText());
-            cliente.setEndereco(txtEnderecoCliente.getText());
-            cliente.setBairro(txtBairroCliente.getText());
-            cliente.setEstado(comboBoxEstadoCliente.getValue().toString());
-            ClienteFDAO.salvarF(cliente);
+            clienteF.setId(Integer.parseInt((txtIdCliente.getText())));
+            clienteF.setNome(txtNomeCliente.getText());
+            clienteF.setCpf(txtCPFouCNPJ.getText());
+            clienteF.setCelular(txtCelularCliente.getText());
+            clienteF.setEmail(txtEmailCliente.getText());
+            clienteF.setEndereco(txtEnderecoCliente.getText());
+            clienteF.setBairro(txtBairroCliente.getText());
+            clienteF.setEstado(comboBoxEstadoCliente.getValue().toString());
+            ControleDAO.getControleBanco().getClienteFDAO().salvarF(clienteF);
             anchorPaneNovoClienteFísico.setVisible(false);
             anchorPaneInicioCliente.setVisible(true);
             limparCamposFísico();
@@ -295,7 +280,7 @@ public class ClientesController implements Initializable {
     private void atualizarListaClienteFisico() {
         try {
 
-            tableClienteFísico.setItems(ClienteFDAO.listar_clienteF(txtPesquisar.getText()));
+            tableClienteFísico.setItems(ControleDAO.getControleBanco().getClienteFDAO().listar_clienteF(txtPesquisar.getText()));
         } catch (Exception ex) {
             mensagens.erro("Erro : " + ex.getMessage());
         }
@@ -323,7 +308,6 @@ public class ClientesController implements Initializable {
 
     }
 
-    @FXML
     void limparCamposFísico() {
         txtIdCliente.setText("0");
         txtNomeCliente.setText("");
@@ -370,8 +354,8 @@ public class ClientesController implements Initializable {
             mensagens.erro("Selecione um Cliente Físico para exclusão.");
             desativarbtsEditareExcluirF();
         } else {
-            clienteMF cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
-            ClienteFDAO.excluirClienteF(cliente);
+            clienteMF clienteF = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
+            ControleDAO.getControleBanco().getClienteFDAO().excluirClienteF(clienteF);
             desativarbtsEditareExcluirF();
             atualizarListaClienteFisico();
             tableClienteFísico.refresh();
@@ -379,10 +363,10 @@ public class ClientesController implements Initializable {
         }
 
     }
-    
+
     @FXML
     void eventKeyPressedEnterF(KeyEvent event) {
-        if(event.getCode().equals(KeyCode.ENTER)){
+        if (event.getCode().equals(KeyCode.ENTER)) {
             atualizarListaClienteFisico();
         }
 
@@ -390,7 +374,6 @@ public class ClientesController implements Initializable {
 
     //----------Fim Cliente Físico
     //----------Início Cliente Jurídico
-    
     @FXML
     public void selecionarItemTabelaClienteJur() {
         tableClienteJur.setOnMouseClicked(e -> {
@@ -400,21 +383,20 @@ public class ClientesController implements Initializable {
         });
 
     }
-    
 
     @FXML
     void eventKeyPressedEnterJ(KeyEvent event) {
-        if(event.getCode().equals(KeyCode.ENTER)){
+        if (event.getCode().equals(KeyCode.ENTER)) {
             atualizarListaClienteJur();
         }
 
     }
-    
+
     @FXML
     private void atualizarListaClienteJur() {
         try {
 
-            tableClienteJur.setItems(ClienteJDAO.listar_clienteJ(txtPesquisarJur.getText()));
+            tableClienteJur.setItems(ControleDAO.getControleBanco().getClienteJDAO().listar_clienteJ(txtPesquisarJur.getText()));
         } catch (Exception ex) {
             mensagens.erro("Erro : " + ex.getMessage());
         }
@@ -435,7 +417,7 @@ public class ClientesController implements Initializable {
         txtEnderecoClienteJur.setText("");
         txtBairroClienteJur.setText("");
         comboBoxEstadoClienteJur.getItems().clear();
-        comboEstadoF();
+        comboEstadoJ();
     }
 
     @FXML
@@ -479,7 +461,7 @@ public class ClientesController implements Initializable {
             clienteJ.setEndereco(txtEnderecoClienteJur.getText());
             clienteJ.setBairro(txtBairroClienteJur.getText());
             clienteJ.setEstado(comboBoxEstadoClienteJur.getValue().toString());
-            ClienteJDAO.salvarJ(clienteJ);
+            ControleDAO.getControleBanco().getClienteJDAO().salvarJ(clienteJ);
             anchorPaneNovoClienteJur.setVisible(false);
             anchorPaneInicioCliente1.setVisible(true);
             limparCamposJ();
@@ -493,7 +475,7 @@ public class ClientesController implements Initializable {
         //tbCargos.getItems().clear();
         //atualizarListaCargo();
     }
-    
+
     @FXML
     void handlebuttonAlterarJ() {
         if (tableClienteJur.getSelectionModel().isEmpty()) {
@@ -515,7 +497,7 @@ public class ClientesController implements Initializable {
         }
 
     }
-    
+
     @FXML
     void handlebuttonExcluirJ() throws Exception {
         if (tableClienteJur.getSelectionModel().isEmpty()) {
@@ -523,7 +505,7 @@ public class ClientesController implements Initializable {
             desativarbtsEditareExcluirJ();
         } else {
             clienteMJ clienteJ = tableClienteJur.getItems().get(tableClienteJur.getSelectionModel().getSelectedIndex());
-            ClienteJDAO.excluirClienteJ(clienteJ);
+            ControleDAO.getControleBanco().getClienteJDAO().excluirClienteJ(clienteJ);
             desativarbtsEditareExcluirJ();
             atualizarListaClienteJur();
             tableClienteJur.refresh();

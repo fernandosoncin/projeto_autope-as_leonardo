@@ -3,10 +3,6 @@ package util;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
-/**
- *
- * @author felli
- */
 public class resize {
     private resize() {
     }

@@ -1,8 +1,6 @@
 package model.dao;
 
-import banco.DAO.conexãoBanco;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import banco.DAO.DAO;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,9 +11,9 @@ import util.mensagens;
  *
  * @author Fellipe
  */
-public class ClienteFDAO {
+public class ClienteFDAO extends DAO {
 
-    public static void salvarF(clienteMF cliente) throws Exception {
+    public  void salvarF(clienteMF cliente) throws Exception {
         if (cliente.getId() == 0) {
             inserirF(cliente);
         } else {
@@ -23,70 +21,64 @@ public class ClienteFDAO {
         }
     }
 
-    public static void inserirF(clienteMF cliente) throws Exception {
-        conexãoBanco c = new conexãoBanco();
+    public void inserirF(clienteMF cliente) throws Exception {
         try {
 
             String sql = "insert into cliente(nome,cpf,celular,email,endereco,bairro,estado) values (?,?,?,?,?,?,?)";
-            PreparedStatement ps = c.getConexao().prepareStatement(sql);;
-            ps.setString(1, cliente.getNome());
-            ps.setString(2, cliente.getCpf());
-            ps.setString(3, cliente.getCelular());
-            ps.setString(4, cliente.getEmail());
-            ps.setString(5, cliente.getEndereco());
-            ps.setString(6, cliente.getBairro());
-            ps.setString(7, cliente.getEstado());
-            ps.execute();
-            c.confirmar();
+            stm = conector.prepareStatement(sql);
+            stm.setString(1, cliente.getNome());
+            stm.setString(2, cliente.getCpf());
+            stm.setString(3, cliente.getCelular());
+            stm.setString(4, cliente.getEmail());
+            stm.setString(5, cliente.getEndereco());
+            stm.setString(6, cliente.getBairro());
+            stm.setString(7, cliente.getEstado());
+            stm.executeUpdate();
+            stm.close();
             mensagens.info("Cliente Físic inserido com sucesso!");
         } catch (SQLException ex) {
             mensagens.erro("Erro ao inserir Cliente Físico: " + ex);
         }
     }
 
-    public static void alterarF(clienteMF cliente) throws Exception {
-        conexãoBanco c = new conexãoBanco();
+    public void alterarF(clienteMF cliente) throws Exception {
+
         try {
 
             String sql = "update cliente set nome=?, cpf=?, celular=?, email=?, endereco=?, bairro=?, estado=? where id=?";
-            PreparedStatement ps = c.getConexao().prepareStatement(sql);
-            ps.setString(1, cliente.getNome());
-            ps.setString(2, cliente.getCpf());
-            ps.setString(3, cliente.getCelular());
-            ps.setString(4, cliente.getEmail());
-            ps.setString(5, cliente.getEndereco());
-            ps.setString(6, cliente.getBairro());
-            ps.setString(7, cliente.getEstado());
-            ps.setInt(8, cliente.getId());
-            ps.execute();
-            c.confirmar();
+            stm = conector.prepareStatement(sql);
+            stm.setString(1, cliente.getNome());
+            stm.setString(2, cliente.getCpf());
+            stm.setString(3, cliente.getCelular());
+            stm.setString(4, cliente.getEmail());
+            stm.setString(5, cliente.getEndereco());
+            stm.setString(6, cliente.getBairro());
+            stm.setString(7, cliente.getEstado());
+            stm.setInt(8, cliente.getId());
+            stm.executeUpdate();
             mensagens.info("Cliente Físico alterado com sucesso!");
         } catch (SQLException ex) {
             mensagens.erro("Erro ao alterar Cliente Físico : " + ex);
         }
     }
     
-    public static void excluirClienteF(clienteMF cliente) throws Exception {
-        conexãoBanco c = new conexãoBanco();
+    public void excluirClienteF(clienteMF cliente) throws Exception {
         try {
         String sql = "delete from cliente where id=?";
-        PreparedStatement ps = c.getConexao().prepareStatement(sql);
-        ps.setInt(1, cliente.getId());
-        ps.execute();
-        c.confirmar();
+        stm = conector.prepareStatement(sql);
+        stm.setInt(1, cliente.getId());
+        stm.executeUpdate();
         mensagens.info("Cliente Físico excluído com sucesso!");
         } catch (SQLException ex) {
             mensagens.erro("Erro ao excluir Cliente Físico : "+ex);
         }
     }
 
-    public static ObservableList<clienteMF> listar_clienteF(String txtPesquisar) throws Exception {
-        conexãoBanco c = new conexãoBanco();
-
+    public ObservableList<clienteMF> listar_clienteF(String txtPesquisar) throws Exception {
         String sql = "select * from cliente where id like ?";
-        PreparedStatement ps = c.getConexao().prepareStatement(sql);
-        ps.setString(1, "%" + txtPesquisar + "%");
-        ResultSet rs = ps.executeQuery();
+        stm = conector.prepareStatement(sql);
+        stm.setString(1, "%" + txtPesquisar + "%");
+        rs = stm.executeQuery();
         ObservableList listaCliente = FXCollections.observableArrayList();
         while (rs.next()) {
             clienteMF cliente = new clienteMF();

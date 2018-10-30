@@ -4,10 +4,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 
-/**
- *
- * @author felli
- */
 public class grupos {
 
     public static void notEmpty(ToggleGroup... grupoMenu) {

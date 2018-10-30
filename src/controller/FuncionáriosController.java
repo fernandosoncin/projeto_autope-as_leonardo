@@ -1,28 +1,24 @@
 package controller;
 
+import banco.DAO.ControleDAO;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import model.dao.CargoDAO;
-import model.domain.Cargo;
+import model.domain.funcionarioM;
+import util.Combo;
 import util.diálogo;
 import util.mensagens;
 
@@ -33,17 +29,7 @@ import util.mensagens;
  */
 public class FuncionáriosController implements Initializable {
 
-    private Stage palco;
-    private Cargo cargo;
-    private ObservableList<Cargo> data_cargo;
-    private PreparedStatement ps = null;
-    private ResultSet rs = null;
-
-    @FXML
-    private TableColumn<Cargo, String> colunaIdCargo;
-
-    @FXML
-    private TableColumn<Cargo, String> colunaNomeCargo;
+    private funcionarioM funcionario;
 
     @FXML
     private AnchorPane anchorPaneFunc;
@@ -52,16 +38,7 @@ public class FuncionáriosController implements Initializable {
     private AnchorPane anchorPaneInicioFunc;
 
     @FXML
-    private TableView<?> tableFunc;
-
-    @FXML
-    private Label lbTitulo;
-
-    @FXML
-    private TextField txtPesquisar;
-
-    @FXML
-    private TextField txtPesquisarCargo;
+    private TextField txtPesquisarFunc;
 
     @FXML
     private ToggleButton btNovoFunc;
@@ -77,9 +54,6 @@ public class FuncionáriosController implements Initializable {
 
     @FXML
     private AnchorPane anchorPaneNovoFunc;
-
-    @FXML
-    private Label lbTitulo1;
 
     @FXML
     private TextField txtIdFunc;
@@ -100,10 +74,10 @@ public class FuncionáriosController implements Initializable {
     private TextField txtBairroFunc;
 
     @FXML
-    private ComboBox<?> comboBoxEstadoFunc;
+    private ComboBox<String> comboBoxEstadoFunc;
 
     @FXML
-    private ComboBox<?> comboBoxTipoFunc;
+    private ComboBox<String> comboBoxTipoFunc;
 
     @FXML
     private TextField txtCPFFunc;
@@ -115,7 +89,7 @@ public class FuncionáriosController implements Initializable {
     private TextField txtRGFunc;
 
     @FXML
-    private ComboBox<?> comboBoxCargoFunc;
+    private ComboBox<String> comboBoxCargoFunc;
 
     @FXML
     private Button btSalvarFunc;
@@ -124,25 +98,43 @@ public class FuncionáriosController implements Initializable {
     private Button btCancelarFunc;
 
     @FXML
-    private Label lbTitulo11;
+    private TableView<funcionarioM> tbFunc;
 
     @FXML
-    private TextField txtIdCargo;
+    private TableColumn<funcionarioM, String> TableColumnIdFunc;
 
     @FXML
-    private TextField txtNomeCargo;
+    private TableColumn<funcionarioM, String> TableColumnNomeFunc;
 
     @FXML
-    private TableView<Cargo> tbCargos;
+    private TableColumn<funcionarioM, String> TableColumnRGFunc;
 
     @FXML
-    private Button btSalvarCargo;
+    private TableColumn<funcionarioM, String> TableColumnCPFFunc;
 
     @FXML
-    private ToggleButton btExcluirCargo;
+    private TableColumn<funcionarioM, String> TableColumnCelFunc;
 
     @FXML
-    private Button btCancelarCargo;
+    private TableColumn<funcionarioM, String> TableColumnEmailFunc;
+
+    @FXML
+    private TableColumn<funcionarioM, String> TableColumnTipoFunc;
+
+    @FXML
+    private TableColumn<funcionarioM, String> TableColumnSenhaFunc;
+
+    @FXML
+    private TableColumn<funcionarioM, String> TableColumnCargoFunc;
+
+    @FXML
+    private TableColumn<funcionarioM, String> TableColumnEndFunc;
+
+    @FXML
+    private TableColumn<funcionarioM, String> TableColumnBairroFunc;
+
+    @FXML
+    private TableColumn<funcionarioM, String> TableColumnEstadoFunc;
 
     /**
      * Initializes the controller class.
@@ -150,18 +142,147 @@ public class FuncionáriosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //----------Início Inicializador Padrão
-
+        preenchercomboBoxCargos();
         //----------Fim Inicializador Padrão
-        //----------Início Inicializador Cargos
-        this.cargo = new Cargo();
-        setCellTableCargo();
-        atualizarListaCargo();
-        selecionarItemTabelaCargos();
-        //----------Fim Inicializador Cargos
+
+        //----------Início Inicializador Funcionários
+        this.funcionario = new funcionarioM();
+        preenchercomboEstadoFunc();
+        preenchercomboTipo();
+        preenchercomboBoxCargos();
+        setCellTableFunc();
+        atualizarListaFunc();
+        selecionarItemTabelaFunc();
+
+        //----------Fim Inicializador Funcionários
+    }
+
+    //----------Início Padrão
+    public void preenchercomboBoxCargos() {
+        Combo.popular(comboBoxCargoFunc, ControleDAO.getControleBanco().getFuncionárioDAO().comboCargo());
+    }
+    //----------Fim Padrão
+    //----------Início Funcionários
+
+    private void preenchercomboEstadoFunc() {
+        ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
+        Combo.popular(comboBoxEstadoFunc, tipo);
+    }
+
+    private void preenchercomboTipo() {
+        ObservableList<String> tipo = FXCollections.observableArrayList("Comum", "ADM");
+        Combo.popular(comboBoxTipoFunc, tipo);
+    }
+
+    private void atualizarListaFunc() {
+        try {
+
+            tbFunc.setItems(ControleDAO.getControleBanco().getFuncionárioDAO().listar_func(txtPesquisarFunc.getText()));
+        } catch (Exception ex) {
+            mensagens.erro("Erro : " + ex.getMessage());
+        }
+    }
+
+    public void setCellTableFunc() {
+        TableColumnIdFunc.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumnNomeFunc.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        TableColumnRGFunc.setCellValueFactory(new PropertyValueFactory<>("rg"));
+        TableColumnCPFFunc.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        TableColumnSenhaFunc.setCellValueFactory(new PropertyValueFactory<>("senha"));
+        TableColumnCelFunc.setCellValueFactory(new PropertyValueFactory<>("celular"));
+        TableColumnEmailFunc.setCellValueFactory(new PropertyValueFactory<>("email"));
+        TableColumnTipoFunc.setCellValueFactory(new PropertyValueFactory<>("admin"));
+        TableColumnCargoFunc.setCellValueFactory(new PropertyValueFactory<>("cargo"));
+        TableColumnEndFunc.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+        TableColumnBairroFunc.setCellValueFactory(new PropertyValueFactory<>("bairro"));
+        TableColumnEstadoFunc.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
     }
 
-    //----------Início Funcionários
+    public void selecionarItemTabelaFunc() {
+        tbFunc.setOnMouseClicked(e -> {
+            tbFunc.requestFocus();
+            btExcluirFunc.setDisable(false);
+            btAlterarFunc.setDisable(false);
+        });
+
+    }
+
+    void desativarbtsEditareExcluirFunc() {
+        btAlterarFunc.setDisable(true);
+        btExcluirFunc.setDisable(true);
+    }
+
+    @FXML
+    void handleButtonSalvarFunc(ActionEvent event) {
+        try {
+            funcionario.setId(Integer.parseInt((txtIdFunc.getText())));
+            funcionario.setNome(txtNomeFunc.getText());
+            funcionario.setRg(txtRGFunc.getText());
+            funcionario.setCpf(txtCPFFunc.getText());
+            funcionario.setSenha(txtSenhaFunc.getText());
+            funcionario.setCelular(txtCelularFunc.getText());
+            funcionario.setEmail(txtEmailFunc.getText());
+            funcionario.setAdmin(comboBoxTipoFunc.getValue().toString());
+            funcionario.setCargo(comboBoxCargoFunc.getValue());
+            funcionario.setEndereco(txtSenhaFunc.getText());
+            funcionario.setBairro(txtBairroFunc.getText());
+            funcionario.setEstado(comboBoxEstadoFunc.getValue().toString());
+            ControleDAO.getControleBanco().getFuncionárioDAO().salvarFunc(funcionario);
+            anchorPaneNovoFunc.setVisible(false);
+            anchorPaneInicioFunc.setVisible(true);
+            limparCamposFunc();
+            atualizarListaFunc();
+            tbFunc.refresh();
+            desativarbtsEditareExcluirFunc();
+            tbFunc.getSelectionModel().clearSelection();
+        } catch (Exception ex) {
+            mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    void handlebuttonAlterarFunc() {
+        if (tbFunc.getSelectionModel().isEmpty()) {
+            mensagens.erro("Selecione um Funcionário para alteração.");
+            desativarbtsEditareExcluirFunc();
+        } else {
+            anchorPaneInicioFunc.setVisible(false);
+            anchorPaneNovoFunc.setVisible(true);
+            funcionarioM funcionario = tbFunc.getItems().get(tbFunc.getSelectionModel().getSelectedIndex());
+            txtIdFunc.setText(String.valueOf(funcionario.getId()));
+            txtNomeFunc.setText(funcionario.getNome());
+            txtRGFunc.setText(funcionario.getRg());
+            txtSenhaFunc.setText(funcionario.getSenha());
+            txtCelularFunc.setText(funcionario.getCelular());
+            txtEmailFunc.setText(funcionario.getEmail());
+            comboBoxTipoFunc.setValue(funcionario.getAdmin());
+            comboBoxCargoFunc.setValue(funcionario.getCargo());
+            txtEnderecoFunc.setText(funcionario.getEndereco());
+            txtBairroFunc.setText(funcionario.getBairro());
+            comboBoxTipoFunc.setValue(funcionario.getAdmin());
+            comboBoxEstadoFunc.setValue(funcionario.getEstado());
+            desativarbtsEditareExcluirFunc();
+        }
+
+    }
+    
+    @FXML
+    void handlebuttonExcluirFunc() throws Exception {
+        if (tbFunc.getSelectionModel().isEmpty()) {
+            mensagens.erro("Selecione um Funcionário para exclusão.");
+            desativarbtsEditareExcluirFunc();
+        } else {
+            funcionarioM funcionario = tbFunc.getItems().get(tbFunc.getSelectionModel().getSelectedIndex());
+            ControleDAO.getControleBanco().getFuncionárioDAO().excluirFunc(funcionario);
+            desativarbtsEditareExcluirFunc();
+            atualizarListaFunc();
+            tbFunc.refresh();
+            tbFunc.getSelectionModel().clearSelection();
+        }
+
+    }
+
     @FXML
     void handleButtonCancelarFunc(ActionEvent event) {
         diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Funcionário?");
@@ -177,7 +298,6 @@ public class FuncionáriosController implements Initializable {
         //tabela.getSelectionModel().clearSelection();
         anchorPaneInicioFunc.setVisible(false);
         anchorPaneNovoFunc.setVisible(true);
-        txtIdFunc.setText("");
     }
 
     @FXML
@@ -193,131 +313,11 @@ public class FuncionáriosController implements Initializable {
         comboBoxTipoFunc.getItems().clear();
         txtSenhaFunc.setText("");
         txtRGFunc.setText("");
-        txtIdFunc.setText("");
+        txtIdFunc.setText("0");
+        preenchercomboEstadoFunc();
+        preenchercomboTipo();
+        preenchercomboBoxCargos();
     }
 
     //----------Fim Funcionários
-    //----------Início Cargos
-    @FXML
-    void handleButtonCancelarCargo(ActionEvent event) {
-        diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cargo?");
-        if (resp == diálogo.Resposta.YES) {
-            limparCamposCargo();
-            tbCargos.getSelectionModel().clearSelection();
-            anchorPaneNovoFunc.setVisible(false);
-            anchorPaneInicioFunc.setVisible(true);
-        }
-    }
-
-    public void setCellTableCargo() {
-        colunaIdCargo.setCellValueFactory(new PropertyValueFactory<>("cod_Cargo"));
-        colunaNomeCargo.setCellValueFactory(new PropertyValueFactory<>("nome_Cargo"));
-    }
-
-    @FXML
-    private void atualizarListaCargo() {
-        try {
-
-            tbCargos.setItems(CargoDAO.listar_cargo(txtPesquisarCargo.getText()));
-        } catch (Exception ex) {
-            mensagens.erro("Erro : " + ex.getMessage());
-        }
-    }
-
-    @FXML
-    public void selecionarItemTabelaCargos() {
-        tbCargos.setOnMouseClicked(e -> {
-            btExcluirCargo.setDisable(false);
-            btCancelarCargo.setDisable(false);
-            tbCargos.requestFocus();
-            Cargo cargo = tbCargos.getItems().get(tbCargos.getSelectionModel().getSelectedIndex());
-            txtIdCargo.setText(String.valueOf(cargo.getCod_Cargo()));
-            txtNomeCargo.setText(cargo.getNome_Cargo());
-        });
-
-    }
-
-    @FXML
-    void handleButtonSalvarCargo(ActionEvent event) {
-        if (validarDadosSalvarCargos()) {
-            try {
-                cargo.setCod_Cargo(Integer.valueOf(txtIdCargo.getText()));
-                cargo.setNome_Cargo(txtNomeCargo.getText());
-                CargoDAO.salvar(cargo);
-                limparCamposCargo();
-                tbCargos.requestFocus();
-                btExcluirCargo.setDisable(true);
-                tbCargos.getSelectionModel().clearSelection();
-            } catch (Exception ex) {
-                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
-            }
-            tbCargos.getItems().clear();
-            atualizarListaCargo();
-        }
-    }
-
-    @FXML
-    void handleButtonExcluirCargo(ActionEvent event) throws Exception {
-        // Cliente cliente = tabela.getSelectionModel().getSelectedItem();      
-        if (validarDadosExcluirCargos()) {
-            try {
-                cargo.setCod_Cargo(Integer.parseInt(txtIdCargo.getText()));
-                CargoDAO.removerCargo(cargo);
-                tbCargos.getItems().clear();
-                atualizarListaCargo();
-                limparCamposCargo();
-                btSalvarCargo.setDisable(false);
-                btExcluirCargo.setDisable(true);
-                btCancelarCargo.setDisable(true);
-            } catch (SQLException ex) {
-                mensagens.erro("Não foi possível remover cargo : " + ex.getMessage());
-            }
-
-        }
-    }
-
-    @FXML
-    void limparCamposCargo() {
-        txtIdCargo.setText("0");
-        txtNomeCargo.setText("");
-        cargo.setCod_Cargo(0);
-    }
-
-    @FXML
-    private boolean validarDadosSalvarCargos() {
-        //validação de campos
-        String msgErroSalvar = "";
-
-        if (txtNomeCargo.getText().length() == 0) {
-            msgErroSalvar += "Nome de cargo inválido.\n";
-        }
-        //alertas de erros nos campos
-        if (msgErroSalvar.length() == 0) {
-            //se a variável msgErro tiver o tamanho 0, retorna true, não mostrando mensagem de erro
-            return true;
-        } else {
-            mensagens.alerta(msgErroSalvar);
-            return false;
-        }
-    }
-
-    @FXML
-    private boolean validarDadosExcluirCargos() {
-        //validação de campos
-        String msgErroExcluir = "";
-
-        if (txtIdCargo.getText().length() == 0) {
-            msgErroExcluir += "Dados para exclusão inválidos.\n";
-        }
-        //alertas de erros nos campos
-        if (msgErroExcluir.length() == 0) {
-            //se a variável msgErro tiver o tamanho 0, retorna true, não mostrando mensagem de erro
-            return true;
-        } else {
-            mensagens.alerta(msgErroExcluir);
-            return false;
-        }
-    }
-
-    //----------Fim Cargos
 }

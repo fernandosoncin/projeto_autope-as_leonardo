@@ -1,6 +1,5 @@
 package util;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -11,23 +10,22 @@ public class Combo {
     private Combo() {
     }
 
-    /**
-     * Popular combos generico através de uma coleçãoo do tipo List
-     */
+    //Popular ComboBox através de uma coleção do tipo List
+
     public static void popular(ComboBox combo, List lista) {
         dados(combo, FXCollections.observableArrayList(lista));
     }
 
-    /**
-     * Popular combos generico através um array de strings passados
-     */
+
+    //Popular ComboBox através um array de strings recebidos
+
     public static void popular(ComboBox combo, String... itens) {
         dados(combo, FXCollections.observableArrayList(itens));
     }
 
-    /**
-     * Popular combos com dados informados ao combo
-     */
+
+    //Popular ComboBox com dados informados no combo
+
     private static void dados(ComboBox combo, ObservableList dados) {
         if (dados.isEmpty() || dados == null) {
             limpar(combo);
@@ -37,11 +35,11 @@ public class Combo {
         }
     }
 
-    /**
-     * Limpar combo informado
-     */
+
+    //Limpar Limpa os dados no ComboBox e deixa uma mensagem 
+
     private static void limpar(ComboBox<Object> combo) {
         combo.getItems().clear();
-        combo.setPromptText("-- Registros não encontrados --");
+        combo.setPromptText("Sem registros");
     }
 }

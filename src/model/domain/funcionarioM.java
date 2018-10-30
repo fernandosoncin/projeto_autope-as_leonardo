@@ -1,33 +1,57 @@
-
 package model.domain;
 
 public class funcionarioM {
-    
+
     private int id;
     private String nome;
     private String rg;
     private String cpf;
     private String senha;
-    private boolean admin;
-    private String cargo;
     private String celular;
+    private String email;
+    private String admin;
+    private String cargo;
     private String endereco;
     private String bairro;
+    private String estado;
 
-    public funcionarioM(int id, String nome, String rg, String cpf, String senha, boolean admin, String cargo, String celular, String endereco, String bairro) {
+    public funcionarioM(int id, String nome, String rg, String cpf, String senha, String celular, String email, String admin, String cargo, String endereco, String bairro, String estado) {
         this.id = id;
         this.nome = nome;
         this.rg = rg;
         this.cpf = cpf;
         this.senha = senha;
+        this.celular = celular;
+        this.email = email;
         this.admin = admin;
         this.cargo = cargo;
-        this.celular = celular;
         this.endereco = endereco;
         this.bairro = bairro;
+        this.estado = estado;
+    }
+
+    public funcionarioM(String cargo) {
+        this.cargo = cargo;
     }
 
     public funcionarioM() {
+        this.id = 0;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public int getId() {
@@ -70,11 +94,11 @@ public class funcionarioM {
         this.senha = senha;
     }
 
-    public boolean isAdmin() {
+    public String getAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(String admin) {
         this.admin = admin;
     }
 
@@ -109,7 +133,9 @@ public class funcionarioM {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-    
-    
-    
+
+    public String toString() {
+        return cargo;
+    }
+
 }

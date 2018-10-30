@@ -1,6 +1,7 @@
 package model.dao;
 
-import banco.DAO.conexãoBanco;
+import banco.DAO.DAO;
+import banco.DAO.conexãoBancoDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,9 +10,9 @@ import javafx.collections.ObservableList;
 import model.domain.clienteMJ;
 import util.mensagens;
 
-public class ClienteJDAO {
+public class ClienteJDAO extends DAO{
 
-    public static void salvarJ(clienteMJ clienteJ) throws Exception {
+    public void salvarJ(clienteMJ clienteJ) throws Exception {
         if (clienteJ.getId() == 0) {
             inserirJ(clienteJ);
         } else {
@@ -19,70 +20,63 @@ public class ClienteJDAO {
         }
     }
     
-    public static void inserirJ(clienteMJ clienteJ) throws Exception {
-        conexãoBanco c = new conexãoBanco();
+    public void inserirJ(clienteMJ clienteJ) throws Exception {
         try {
 
             String sql = "insert into clientej(razao,estado,telefone,email,endereco,bairro,cnpj) values (?,?,?,?,?,?,?)";
-            PreparedStatement ps = c.getConexao().prepareStatement(sql);;
-            ps.setString(1, clienteJ.getRs());
-            ps.setString(2, clienteJ.getEstado());
-            ps.setString(3, clienteJ.getTelefone());
-            ps.setString(4, clienteJ.getEmail());
-            ps.setString(5, clienteJ.getEndereco());
-            ps.setString(6, clienteJ.getBairro());
-            ps.setString(7, clienteJ.getCnpj());
-            ps.execute();
-            c.confirmar();
+            stm = conector.prepareStatement(sql);
+            stm.setString(1, clienteJ.getRs());
+            stm.setString(2, clienteJ.getEstado());
+            stm.setString(3, clienteJ.getTelefone());
+            stm.setString(4, clienteJ.getEmail());
+            stm.setString(5, clienteJ.getEndereco());
+            stm.setString(6, clienteJ.getBairro());
+            stm.setString(7, clienteJ.getCnpj());
+            stm.executeUpdate();
             mensagens.info("Cliente Jurídico inserido com sucesso!");
         } catch (SQLException ex) {
             mensagens.erro("Erro ao inserir Cliente Jurídico : " + ex);
         }
     }
     
-    public static void alterarJ(clienteMJ clienteJ) throws Exception {
-        conexãoBanco c = new conexãoBanco();
+    public void alterarJ(clienteMJ clienteJ) throws Exception {
         try {
 
             String sql = "update clientej set razao=?, estado=?, telefone=?, email=?, endereco=?, bairro=?, cnpj=? where id=?";
-            PreparedStatement ps = c.getConexao().prepareStatement(sql);
-            ps.setString(1, clienteJ.getRs());
-            ps.setString(2, clienteJ.getEstado());
-            ps.setString(3, clienteJ.getTelefone());
-            ps.setString(4, clienteJ.getEmail());
-            ps.setString(5, clienteJ.getEndereco());
-            ps.setString(6, clienteJ.getBairro());
-            ps.setString(7, clienteJ.getCnpj());
-            ps.setInt(8, clienteJ.getId());
-            ps.execute();
-            c.confirmar();
+            stm = conector.prepareStatement(sql);
+            stm.setString(1, clienteJ.getRs());
+            stm.setString(2, clienteJ.getEstado());
+            stm.setString(3, clienteJ.getTelefone());
+            stm.setString(4, clienteJ.getEmail());
+            stm.setString(5, clienteJ.getEndereco());
+            stm.setString(6, clienteJ.getBairro());
+            stm.setString(7, clienteJ.getCnpj());
+            stm.setInt(8, clienteJ.getId());
+            stm.executeUpdate();
             mensagens.info("Cliente Jurídico alterado com sucesso!");
         } catch (SQLException ex) {
             mensagens.erro("Erro ao alterar Cliente Jurídico : " + ex);
         }
     }
     
-    public static void excluirClienteJ(clienteMJ clienteJ) throws Exception {
-        conexãoBanco c = new conexãoBanco();
+    public void excluirClienteJ(clienteMJ clienteJ) throws Exception {
         try {
         String sql = "delete from clientej where id=?";
-        PreparedStatement ps = c.getConexao().prepareStatement(sql);
-        ps.setInt(1, clienteJ.getId());
-        ps.execute();
-        c.confirmar();
+        stm = conector.prepareStatement(sql);
+        stm.setInt(1, clienteJ.getId());
+        stm.executeUpdate();
         mensagens.info("Cliente Jurídico excluído com sucesso!");
         } catch (SQLException ex) {
             mensagens.erro("Erro ao excluir Cliente Jurídico : "+ex);
         }
     }
     
-    public static ObservableList<clienteMJ> listar_clienteJ(String txtPesquisarJur) throws Exception {
-        conexãoBanco c = new conexãoBanco();
+    public ObservableList<clienteMJ> listar_clienteJ(String txtPesquisarJur) throws Exception {
 
         String sql = "select * from clientej where id like ?";
-        PreparedStatement ps = c.getConexao().prepareStatement(sql);
-        ps.setString(1, "%" + txtPesquisarJur + "%");
-        ResultSet rs = ps.executeQuery();
+        stm = conector.prepareStatement(sql);
+        stm.setString(1, "%" + txtPesquisarJur + "%");
+        rs = stm.executeQuery();
         ObservableList listaClienteJ = FXCollections.observableArrayList();
         while (rs.next()) {
             clienteMJ clienteJ = new clienteMJ();

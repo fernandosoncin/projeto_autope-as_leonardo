@@ -2,10 +2,6 @@ package util;
 
 import util.diálogo.Resposta;
 
-/**
- *
- * @author felli
- */
 public class mensagens {
     private mensagens() {
     }

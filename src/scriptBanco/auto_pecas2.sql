@@ -16,30 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cargo`
---
-
-DROP TABLE IF EXISTS `cargo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `cargo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cargo`
---
-
-LOCK TABLES `cargo` WRITE;
-/*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
-INSERT INTO `cargo` VALUES (55,'44444444444444'),(56,'eeeeeeeeeeeeeeeeeeedsfsdfsdf');
-/*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `cliente`
 --
 
@@ -54,9 +30,9 @@ CREATE TABLE `cliente` (
   `email` varchar(45) DEFAULT NULL,
   `endereco` varchar(45) DEFAULT NULL,
   `bairro` varchar(45) DEFAULT NULL,
-  `estado` varchar(45) DEFAULT NULL,
+  `estado` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +41,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (4,'eeeeeeeeeeeeeeee','33333','3333','3333','33dsfdsffds','333','CE'),(8,'','','','','jhjjhjhjjj','','CE'),(10,'filipin','33333','3333','3333','jose beranardes','333kj','AC'),(12,'feeeeeeeeeeeee','sdfsd','','sdfsdf','dfgdf','dfgdfg','AM'),(14,'fdgdfg','sdfsd','','sdfsdf','dfgdf','dfgdfg','AM'),(15,'[[[[[[[[[[[[[[[[[[[[','sdfsd','','sdfsdf','dfgdf','dfgdfg','AM'),(16,'asdasd','33333','3333','3333','33','333','AP'),(17,'asdasd','33333','3333','3333','33','333','AP'),(18,'asdasd','33333','3333','3333','33','333','RN'),(19,'asdasdghjghjghasdasdsadsad','33333','3333','3333','33dsfdsffds','333','AP'),(20,'asdasd','33333','3333','3333','33','333','AM'),(21,'asdasdsadasdsadasdaaaaaa','33333','3333','3333','33','333','AM'),(22,'asdasd','33333','3333','3333','33','333','AP'),(23,'asdasd','33333','3333','3333','33dsfdsffds','333','AP'),(26,'asdasd','33333','3333','3333','33','333','BA'),(27,'asdasd','33333','3333','3333','33','333','AM'),(28,'22222','asd','asd','2','22222','asdas','AP'),(30,'asdasd','33333','3333','3333','33','333','DF'),(31,'asdasd','33333','3333','3333','33','333','AM'),(32,'asdasd','33333','3333','3333','33','333','AM'),(33,'fdgdfg','sdfsd','','sdfsdf','dfgdf','dfgdfgsass','AM'),(34,'asdasd','33333','3333','3333','33','333','ES'),(35,'asdasdghjghjgh','33333','3333','3333','33dsfdsffds','333ssasdasd','AP'),(36,'ihjjjj','jh','hjh','hjh','jhj','jhj','AL'),(37,'528575','5858','8585','858','58','58','AP'),(38,'','','','','','','AC');
+INSERT INTO `cliente` VALUES (4,'eeeeeeeeeeeeeeee','33333','3333','3333','33dsfdsffds','333','CE'),(30,'asdasd','33333','3333','3333','33','333','DF'),(31,'asdasd','33333','3333','3333','33','333','AM'),(32,'asdasd','33333','3333','3333','33','333','AM'),(33,'fdgdfg','sdfsd','','sdfsdf','dfgdf','dfgdfgsass','AM'),(34,'asdasd','33333','3333','3333','33','333','ES'),(35,'asdasdghjghjgh','33333','3333','3333','33dsfdsffds','333ssasdasd','AP'),(36,'ihjjjj','jh','hjh','hjh','jhj','jhj','AL'),(43,'FEKKKKKKKKKKKKK','ASD','ASD','ADASD','ASD','ASD','AL'),(44,'FEKKKKKKKKKKKKK','ASD','ASD','ADASD','ASD','ASD','ES');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +62,7 @@ CREATE TABLE `clientej` (
   `bairro` varchar(45) DEFAULT NULL,
   `cnpj` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +71,7 @@ CREATE TABLE `clientej` (
 
 LOCK TABLES `clientej` WRITE;
 /*!40000 ALTER TABLE `clientej` DISABLE KEYS */;
-INSERT INTO `clientej` VALUES (3,'eae','AC','cz','czxc','zcx','zc','zxc'),(4,'asd','BA','','','asd','','');
+INSERT INTO `clientej` VALUES (3,'eae','AC','cz','czxc','zcx','zc','zxc'),(8,'feefefefefefe','TO','zxczxc','zxc','zxc','zxc','zxczx');
 /*!40000 ALTER TABLE `clientej` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,13 +88,15 @@ CREATE TABLE `funcionario` (
   `rg` varchar(45) DEFAULT NULL,
   `cpf` varchar(45) DEFAULT NULL,
   `senha` varchar(45) DEFAULT NULL,
-  `admin` tinyint(4) DEFAULT NULL,
-  `cargo` varchar(45) DEFAULT NULL,
   `celular` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `admin` varchar(45) DEFAULT NULL,
+  `cargo` varchar(45) DEFAULT NULL,
   `endereco` varchar(45) DEFAULT NULL,
   `bairro` varchar(45) DEFAULT NULL,
+  `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,6 +105,7 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
+INSERT INTO `funcionario` VALUES (5,'','','','','',NULL,'Comum','eae','','','AC'),(6,'TESTE','TESTE','','TESTE','TESTE',NULL,'ADM','5','TESTE','TESTE','BA'),(7,'tut','tu','tyutyu','tyu','tyutyu',NULL,'Comum','3','tyu','tyu','AC'),(8,'','','','','',NULL,'Comum','3','','','AC'),(9,'','','','','','ghjghjgh','Comum','54','','','AC'),(10,'gggggggggg','ggggg','','hhghgh','gggggggggg','ggggggggggg','Comum','eae','hhghgh','','AC'),(11,'','','','','','','Comum','4545','','','AC'),(12,'','','','','','','Comum','3','','','AC'),(13,'','','','','','','Comum','3','','','AC'),(14,'sad','sadasd','dasas','asdas','asdasd','dasdasd','Comum','3','asdas','asd','AC'),(15,'','','','asd','','','Comum','eae','asd','','AC'),(16,'teste','teste','teste','teste','teste','teste','ADM','1','teste','teste','TO'),(17,'','gfhfg','','','','','Comum','3','','','AC'),(18,'','','','','','','Comum','editado!','','','AC'),(19,'','','','','','','Comum','isso','','','AC'),(20,'GABRIEL','','','','','','Comum','3','','','AC'),(21,'','','','','','','Comum','asdasd','','','AC'),(22,'','','','','','','Comum','asdasd','','','AC'),(23,'','','','','','','Comum','eae','','','AC'),(24,'ASD','ASDASD','ASD','ASD','ASD','ASD','Comum','5','ASD','ASD','AC');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +122,7 @@ CREATE TABLE `produto` (
   `categoria` varchar(45) DEFAULT NULL,
   `valor` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,6 +131,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` VALUES (1,'eaeeeeeeeeeee','NÃO',33),(3,'ASDAS','Noia',11),(4,'asdasd','SIM',1);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +177,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-25 17:35:54
+-- Dump completed on 2018-10-30 17:51:21

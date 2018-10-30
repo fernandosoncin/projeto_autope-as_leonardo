@@ -17,7 +17,7 @@ public class links {
         try {
             Desktop.getDesktop().browse(new URI(link));
         } catch (URISyntaxException | IOException ex) {
-            mensagens.erro("Não foi possível abrir o site ! \n Erro : " + ex.getMessage());
+            mensagens.erro("Não foi possível abrir o site! \n Erro : " + ex.getMessage());
         }
     }
 }

@@ -56,6 +56,12 @@
                                           <String fx:value="menu-funcionarios" />
                                        </styleClass>
                                     </ToggleButton>
+                                    <ToggleButton fx:id="btProdutos" alignment="CENTER_LEFT" minHeight="0.0" mnemonicParsing="false" onAction="#handleMenuFormulárioProdutos" prefHeight="0.0" prefWidth="221.0" stylesheets="@../css/app.css" text="Produtos" toggleGroup="$grupoMenus">
+                                       <styleClass>
+                                          <String fx:value="menus" />
+                                          <String fx:value="menu-produtos" />
+                                       </styleClass>
+                                    </ToggleButton>
                                  </children>
                               </VBox>
                            </children>
