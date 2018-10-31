@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import model.domain.produtoM;
@@ -92,13 +93,18 @@ public class ProdutosController implements Initializable {
     public void preenchercomboBoxCategoria() {
         Combo.popular(comboBoxCategoriaProd, ControleDAO.getControleBanco().getProdutoDAO().comboCategoria());
     }
+    
+    @FXML
+    void eventKeyPressedEnterProd(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            atualizarListaProd();
+        }
+
+    }
     //----------Fim Padrão
     
     //----------Início Produtos
-    @FXML
-    void eventKeyPressedEnterProd(KeyEvent event) {
 
-    }
 
     @FXML
     void handleButtonAlterarProd(ActionEvent event) {
@@ -138,8 +144,9 @@ public class ProdutosController implements Initializable {
             ControleDAO.getControleBanco().getProdutoDAO().excluirProd(produto);
             desativarbtsEditareExcluirProd();
             atualizarListaProd();
-            tbProd.refresh();
             tbProd.getSelectionModel().clearSelection();
+            tbProd.refresh();
+            
         }
     }
 

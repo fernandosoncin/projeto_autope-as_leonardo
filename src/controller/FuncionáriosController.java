@@ -16,6 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import model.domain.funcionarioM;
 import util.Combo;
@@ -160,8 +162,16 @@ public class FuncionáriosController implements Initializable {
     //----------Início Padrão
     public void preenchercomboBoxCargos() {
         Combo.popular(comboBoxCargoFunc, ControleDAO.getControleBanco().getFuncionárioDAO().comboCargo());
+        
+        
     }
-    //----------Fim Padrão
+        @FXML
+    void eventKeyPressedEnterFunc(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            atualizarListaFunc();
+        }
+
+    }    //----------Fim Padrão
     //----------Início Funcionários
 
     private void preenchercomboEstadoFunc() {
