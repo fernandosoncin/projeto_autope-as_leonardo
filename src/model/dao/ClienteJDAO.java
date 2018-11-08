@@ -5,6 +5,8 @@ import banco.DAO.conexãoBancoDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.domain.clienteMJ;
@@ -91,6 +93,22 @@ public class ClienteJDAO extends DAO{
             listaClienteJ.add(clienteJ);
         }
         return listaClienteJ;
+    }
+    
+    public List<clienteMJ> relatJ() throws SQLException{
+        
+        List<clienteMJ> relatorioJ;
+        relatorioJ = new ArrayList();
+        String sql = "select razao, telefone, email from clientej";
+        stm = conector.prepareStatement(sql);
+        rs = stm.executeQuery();
+        while(rs.next()){
+            
+        relatorioJ.add(new clienteMJ(rs.getString("razao"),rs.getString("telefone"),
+        rs.getString("email")));
+        }
+        stm.close();
+        return relatorioJ;      
     }
     
 }

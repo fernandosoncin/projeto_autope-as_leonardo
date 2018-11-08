@@ -29,6 +29,12 @@ public class funcionarioM {
         this.bairro = bairro;
         this.estado = estado;
     }
+    
+    public funcionarioM(String nome, String celular, String email) {
+        this.nome = nome;
+        this.celular = celular;
+        this.email = email;
+    }
 
     public funcionarioM(String cargo) {
         this.cargo = cargo;

@@ -32,6 +32,15 @@
                <children>
                   <Label fx:id="lbTitulo" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Produtos" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="txtPesquisarProd" onKeyPressed="#eventKeyPressedEnterProd" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                  <ToggleButton fx:id="btRelatorioProd" mnemonicParsing="false" onAction="#handleButtonRelatorioProd" text="">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="menu21" />
+                     </toggleGroup>
+                     <styleClass>
+                        <String fx:value="menus-tela" />
+                        <String fx:value="menu-relatorio" />
+                     </styleClass>
+                  </ToggleButton>
                   <ToggleButton fx:id="btNovoProd" mnemonicParsing="false" onAction="#handleButtonInserirProd" text="">
                      <styleClass>
                         <String fx:value="menus-tela" />

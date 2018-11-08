@@ -15,6 +15,11 @@ public class produtoM {
         this.categoria = categoria;
         this.valor = valor;
     }
+    
+    public produtoM(String nome, String categoria) {
+        this.nome = nome;
+        this.categoria = categoria;
+    }
 
     public produtoM() {
         this.id = 0;

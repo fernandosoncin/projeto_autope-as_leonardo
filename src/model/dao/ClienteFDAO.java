@@ -2,6 +2,8 @@ package model.dao;
 
 import banco.DAO.DAO;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.domain.clienteMF;
@@ -13,7 +15,7 @@ import util.mensagens;
  */
 public class ClienteFDAO extends DAO {
 
-    public  void salvarF(clienteMF cliente) throws Exception {
+    public void salvarF(clienteMF cliente) throws Exception {
         if (cliente.getId() == 0) {
             inserirF(cliente);
         } else {
@@ -61,16 +63,16 @@ public class ClienteFDAO extends DAO {
             mensagens.erro("Erro ao alterar Cliente Físico : " + ex);
         }
     }
-    
+
     public void excluirClienteF(clienteMF cliente) throws Exception {
         try {
-        String sql = "delete from cliente where id=?";
-        stm = conector.prepareStatement(sql);
-        stm.setInt(1, cliente.getId());
-        stm.executeUpdate();
-        mensagens.info("Cliente Físico excluído com sucesso!");
+            String sql = "delete from cliente where id=?";
+            stm = conector.prepareStatement(sql);
+            stm.setInt(1, cliente.getId());
+            stm.executeUpdate();
+            mensagens.info("Cliente Físico excluído com sucesso!");
         } catch (SQLException ex) {
-            mensagens.erro("Erro ao excluir Cliente Físico : "+ex);
+            mensagens.erro("Erro ao excluir Cliente Físico : " + ex);
         }
     }
 
@@ -93,5 +95,21 @@ public class ClienteFDAO extends DAO {
             listaCliente.add(cliente);
         }
         return listaCliente;
+    }
+
+    public List<clienteMF> relatF() throws SQLException{
+        
+        List<clienteMF> relatorioF;
+        relatorioF = new ArrayList();
+        String sql = "select nome, celular, email from cliente";
+        stm = conector.prepareStatement(sql);
+        rs = stm.executeQuery();
+        while(rs.next()){
+            
+        relatorioF.add(new clienteMF(rs.getString("nome"),rs.getString("celular"),
+        rs.getString("email")));
+        }
+        stm.close();
+        return relatorioF;      
     }
 }

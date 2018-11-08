@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model.dao;
 
 import banco.DAO.DAO;
@@ -14,10 +10,6 @@ import javafx.collections.ObservableList;
 import model.domain.produtoM;
 import util.mensagens;
 
-/**
- *
- * @author Fellipe
- */
 public class ProdutoDAO extends DAO{
     public void salvarProd(produtoM produto) throws Exception {
         if (produto.getId() == 0) {
@@ -111,6 +103,21 @@ public class ProdutoDAO extends DAO{
         }
 
         return dadosCategoria;
+    }
+    
+    public List<produtoM> relatProd() throws SQLException{
+        
+        List<produtoM> relatorioProd;
+        relatorioProd = new ArrayList();
+        String sql = "select nome, categoria from produto";
+        stm = conector.prepareStatement(sql);
+        rs = stm.executeQuery();
+        while(rs.next()){
+            
+        relatorioProd.add(new produtoM(rs.getString("nome"),rs.getString("categoria")));
+        }
+        stm.close();
+        return relatorioProd;      
     }
     
 }

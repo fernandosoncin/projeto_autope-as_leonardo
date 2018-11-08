@@ -127,4 +127,20 @@ public class FuncionárioDAO extends DAO{
 
         return dadosFunc;
     }
+    
+    public List<funcionarioM> relatFunc() throws SQLException{
+        
+        List<funcionarioM> relatorioFunc;
+        relatorioFunc = new ArrayList();
+        String sql = "select nome, celular, email from funcionario";
+        stm = conector.prepareStatement(sql);
+        rs = stm.executeQuery();
+        while(rs.next()){
+            
+        relatorioFunc.add(new funcionarioM(rs.getString("nome"),rs.getString("celular"),
+        rs.getString("email")));
+        }
+        stm.close();
+        return relatorioFunc;      
+    }
 }

@@ -11,6 +11,23 @@ public class clienteMJ {
     private String estado;
     private String cnpj;
 
+    public clienteMJ(int id, String rs, String telefone, String email, String endereco, String bairro, String estado, String cnpj) {
+        this.id = id;
+        this.rs = rs;
+        this.telefone = telefone;
+        this.email = email;
+        this.endereco = endereco;
+        this.bairro = bairro;
+        this.estado = estado;
+        this.cnpj = cnpj;
+    }
+    
+    public clienteMJ(String rs, String telefone, String email) {
+        this.rs = rs;
+        this.telefone = telefone;
+        this.email = email;
+    }
+
     public clienteMJ() {
         this.id = 0;
     }

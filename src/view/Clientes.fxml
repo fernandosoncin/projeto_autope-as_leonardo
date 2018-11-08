@@ -109,6 +109,15 @@
                                  <children>
                                     <Label fx:id="lbTitulo" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Cliente Físico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
                                     <TextField fx:id="txtPesquisar" onKeyPressed="#eventKeyPressedEnterF" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                                    <ToggleButton fx:id="btNovoClienteFísico1" mnemonicParsing="false" onAction="#handleButtonRelatorioF" text="">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu2" />
+                                       </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-relatorio" />
+                                       </styleClass>
+                                    </ToggleButton>
                                     <ToggleButton fx:id="btNovoClienteFísico" mnemonicParsing="false" onAction="#handleButtonInserirFísico" text="">
                                        <styleClass>
                                           <String fx:value="menus-tela" />
@@ -164,7 +173,16 @@
                                  <children>
                                     <Label fx:id="lbTitulo2" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Cliente Jurídico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
                                     <TextField fx:id="txtPesquisarJur" onKeyPressed="#eventKeyPressedEnterJ" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
-                                    <ToggleButton fx:id="btNovoClienteJur" mnemonicParsing="false" onAction="#handleButtonInserirJur" text="">
+                                    <ToggleButton fx:id="btRelatorioF" mnemonicParsing="false" onAction="#handleButtonRelatorioJ" text="">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu21" />
+                                       </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-relatorio" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btRelatorioJ" mnemonicParsing="false" onAction="#handleButtonInserirJur" text="">
                                        <styleClass>
                                           <String fx:value="menus-tela" />
                                           <String fx:value="menu-add" />

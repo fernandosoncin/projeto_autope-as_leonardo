@@ -13,8 +13,26 @@ public class clienteMF implements Serializable{
     private String bairro;
     private String estado;
 
+    public clienteMF(int id, String nome, String cpf, String celular, String email, String endereco, String bairro, String estado) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.celular = celular;
+        this.email = email;
+        this.endereco = endereco;
+        this.bairro = bairro;
+        this.estado = estado;
+    }
+
+    
     public clienteMF() {
         this.id = 0;
+    }
+
+    public clienteMF(String nome, String celular, String email) {
+        this.nome = nome;
+        this.celular = celular;
+        this.email = email;
     }
 
 
