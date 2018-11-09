@@ -9,10 +9,6 @@ import javafx.collections.ObservableList;
 import model.domain.clienteMF;
 import util.mensagens;
 
-/**
- *
- * @author Fellipe
- */
 public class ClienteFDAO extends DAO {
 
     public void salvarF(clienteMF cliente) throws Exception {
@@ -26,7 +22,7 @@ public class ClienteFDAO extends DAO {
     public void inserirF(clienteMF cliente) throws Exception {
         try {
 
-            String sql = "insert into cliente(nome,cpf,celular,email,endereco,bairro,estado) values (?,?,?,?,?,?,?)";
+            String sql = "insert into clientef(nome,cpf,celular,email,endereco,bairro,estado) values (?,?,?,?,?,?,?)";
             stm = conector.prepareStatement(sql);
             stm.setString(1, cliente.getNome());
             stm.setString(2, cliente.getCpf());
@@ -47,7 +43,7 @@ public class ClienteFDAO extends DAO {
 
         try {
 
-            String sql = "update cliente set nome=?, cpf=?, celular=?, email=?, endereco=?, bairro=?, estado=? where id=?";
+            String sql = "update clientef set nome=?, cpf=?, celular=?, email=?, endereco=?, bairro=?, estado=? where id=?";
             stm = conector.prepareStatement(sql);
             stm.setString(1, cliente.getNome());
             stm.setString(2, cliente.getCpf());
@@ -66,7 +62,7 @@ public class ClienteFDAO extends DAO {
 
     public void excluirClienteF(clienteMF cliente) throws Exception {
         try {
-            String sql = "delete from cliente where id=?";
+            String sql = "delete from clientef where id=?";
             stm = conector.prepareStatement(sql);
             stm.setInt(1, cliente.getId());
             stm.executeUpdate();
@@ -77,7 +73,7 @@ public class ClienteFDAO extends DAO {
     }
 
     public ObservableList<clienteMF> listar_clienteF(String txtPesquisar) throws Exception {
-        String sql = "select * from cliente where id like ?";
+        String sql = "select * from clientef where id like ?";
         stm = conector.prepareStatement(sql);
         stm.setString(1, "%" + txtPesquisar + "%");
         rs = stm.executeQuery();
@@ -101,7 +97,7 @@ public class ClienteFDAO extends DAO {
         
         List<clienteMF> relatorioF;
         relatorioF = new ArrayList();
-        String sql = "select nome, celular, email from cliente";
+        String sql = "select nome, celular, email from clientef";
         stm = conector.prepareStatement(sql);
         rs = stm.executeQuery();
         while(rs.next()){

@@ -43,8 +43,10 @@ import model.dao.ClienteJDAO;
 import model.domain.clienteMF;
 import model.domain.clienteMJ;
 import util.Combo;
+import util.MaskFieldUtil;
 import util.diálogo;
 import util.mensagens;
+import util.validarCPFeCNPJ;
 
 /**
  * FXML Controller class
@@ -92,7 +94,7 @@ public class ClientesController implements Initializable {
     private ComboBox<String> comboBoxEstadoCliente;
 
     @FXML
-    private TextField txtCPFouCNPJ;
+    private TextField txtCPFCF;
 
     @FXML
     private Button btSalvar;
@@ -247,6 +249,23 @@ public class ClientesController implements Initializable {
         atualizarListaClienteJur();
         selecionarItemTabelaClienteJur();
         //----------Fim Inicializador Cliente Jurídico
+        //----------Início Máscaras
+        //Cliente Físico
+        MaskFieldUtil.NomeCFField(txtNomeCliente);
+        MaskFieldUtil.foneCelularField(txtCelularCliente);
+        MaskFieldUtil.EmailCFField(txtEmailCliente);
+        MaskFieldUtil.EndCFField(txtEnderecoCliente);
+        MaskFieldUtil.BairroCFField(txtBairroCliente);
+        MaskFieldUtil.cnpjField(txtCNPJ);
+        MaskFieldUtil.cpfField(txtCPFCF);
+        //Cliente Jurídico
+        MaskFieldUtil.RazaoSCJField(txtRazãoSocial);
+        MaskFieldUtil.foneCelularField(txtTelefoneClienteJur);
+        MaskFieldUtil.EmailCJField(txtEmailClienteJur);
+        MaskFieldUtil.EndCJField(txtEnderecoClienteJur);
+        MaskFieldUtil.BairroCJField(txtBairroClienteJur);
+        MaskFieldUtil.cnpjField(txtCNPJ);
+        //----------Fim Máscaras
     }
 
     //----------Início Padrão
@@ -262,6 +281,39 @@ public class ClientesController implements Initializable {
     //----------Fim Padrão
 
     //----------Início Cliente Físico
+    private boolean validarDadosF() {
+        //validação de campos
+        String msgErro = "";
+
+        if (txtNomeCliente.getText() == null || txtNomeCliente.getText().length() == 0) {
+            msgErro += "Nome inválido\n";
+        }
+        if (txtCelularCliente.getText() == null || txtCelularCliente.getText().length() == 0) {
+            msgErro += "Celular inválido\n";
+        }
+        if (txtEmailCliente.getText() == null || txtEmailCliente.getText().length() == 0) {
+            msgErro += "Email inválido\n";
+        }
+        if (txtEnderecoCliente.getText() == null || txtEnderecoCliente.getText().length() == 0) {
+            msgErro += "Endereço inválido\n";
+        }
+        if (txtBairroCliente.getText() == null || txtBairroCliente.getText().length() == 0) {
+            msgErro += "Bairro inválido\n";
+        }
+        if (validarCPFeCNPJ.isValidCPF(validarCPFeCNPJ.removeMask(txtCPFCF.getText())) == false) {
+            msgErro += "CPF inválido\n";
+        }
+
+        //alertas de erros nos campos
+        if (msgErro.length() == 0) {
+            //se a variável msgErro tiver o tamanho 0, retorna true, não mostrando mensagem de erro
+            return true;
+        } else {
+            mensagens.alerta(msgErro);
+            return false;
+        }
+    }
+
     @FXML
     void handleButtonRelatorioF(ActionEvent event) {
         String nomediretorio = null;
@@ -362,34 +414,40 @@ public class ClientesController implements Initializable {
             String caminho = "C:/Relatorios/RelatorioClienteF.pdf";
             Desktop.getDesktop().open(new File(caminho));
         } catch (DocumentException e) {
-            e.printStackTrace();
+            mensagens.erro(e + "", "Erro");
+        } catch (SQLException ex) {
+            mensagens.erro(ex + "", "Erro");
+        } catch (IOException exx) {
+            mensagens.erro("Outro relatório de cliente jurídico se encontra aberto. Feche para gerar outro.", "Relatório cliente físico");
         }
     }
 
     @FXML
     void handleButtonSalvarFísico(ActionEvent event) {
-        try {
-            clienteF.setId(Integer.parseInt((txtIdCliente.getText())));
-            clienteF.setNome(txtNomeCliente.getText());
-            clienteF.setCpf(txtCPFouCNPJ.getText());
-            clienteF.setCelular(txtCelularCliente.getText());
-            clienteF.setEmail(txtEmailCliente.getText());
-            clienteF.setEndereco(txtEnderecoCliente.getText());
-            clienteF.setBairro(txtBairroCliente.getText());
-            clienteF.setEstado(comboBoxEstadoCliente.getValue().toString());
-            ControleDAO.getControleBanco().getClienteFDAO().salvarF(clienteF);
-            anchorPaneNovoClienteFísico.setVisible(false);
-            anchorPaneInicioCliente.setVisible(true);
-            limparCamposFísico();
-            atualizarListaClienteFisico();
-            tableClienteFísico.refresh();
-            desativarbtsEditareExcluirF();
-            tableClienteFísico.getSelectionModel().clearSelection();
-        } catch (Exception ex) {
-            mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+        if (validarDadosF()) {
+            try {
+                clienteF.setId(Integer.parseInt((txtIdCliente.getText())));
+                clienteF.setNome(txtNomeCliente.getText());
+                clienteF.setCelular(txtCelularCliente.getText());
+                clienteF.setCpf(txtCPFCF.getText());
+                clienteF.setEmail(txtEmailCliente.getText());
+                clienteF.setEndereco(txtEnderecoCliente.getText());
+                clienteF.setBairro(txtBairroCliente.getText());
+                clienteF.setEstado(comboBoxEstadoCliente.getValue().toString());
+                ControleDAO.getControleBanco().getClienteFDAO().salvarF(clienteF);
+                anchorPaneNovoClienteFísico.setVisible(false);
+                anchorPaneInicioCliente.setVisible(true);
+                limparCamposFísico();
+                atualizarListaClienteFisico();
+                tableClienteFísico.refresh();
+                desativarbtsEditareExcluirF();
+                tableClienteFísico.getSelectionModel().clearSelection();
+            } catch (Exception ex) {
+                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+            }
+            //tbCargos.getItems().clear();
+            //atualizarListaCargo();
         }
-        //tbCargos.getItems().clear();
-        //atualizarListaCargo();
     }
 
     @FXML
@@ -452,7 +510,7 @@ public class ClientesController implements Initializable {
         txtEnderecoCliente.setText("");
         txtBairroCliente.setText("");
         comboBoxEstadoCliente.getItems().clear();
-        txtCPFouCNPJ.setText("");
+        txtCPFCF.setText("");
         comboEstadoF();
     }
 
@@ -467,7 +525,7 @@ public class ClientesController implements Initializable {
             clienteMF cliente = tableClienteFísico.getItems().get(tableClienteFísico.getSelectionModel().getSelectedIndex());
             txtIdCliente.setText(String.valueOf(cliente.getId()));
             txtNomeCliente.setText(cliente.getNome());
-            txtCPFouCNPJ.setText(cliente.getCpf());
+            txtCPFCF.setText(cliente.getCpf());
             txtCelularCliente.setText(cliente.getCelular());
             txtEmailCliente.setText(cliente.getEmail());
             txtEnderecoCliente.setText(cliente.getEndereco());
@@ -509,6 +567,39 @@ public class ClientesController implements Initializable {
 
     //----------Fim Cliente Físico
     //----------Início Cliente Jurídico
+    private boolean validarDadosJ() {
+        //validação de campos
+        String msgErro = "";
+
+        if (txtRazãoSocial.getText() == null || txtRazãoSocial.getText().length() == 0) {
+            msgErro += "Razão Social inválida\n";
+        }
+        if (txtTelefoneClienteJur.getText() == null || txtTelefoneClienteJur.getText().length() == 0) {
+            msgErro += "Telefone inválido\n";
+        }
+        if (txtEmailClienteJur.getText() == null || txtEmailClienteJur.getText().length() == 0) {
+            msgErro += "Email inválido\n";
+        }
+        if (txtEnderecoClienteJur.getText() == null || txtEnderecoClienteJur.getText().length() == 0) {
+            msgErro += "Endereço inválido\n";
+        }
+        if (txtBairroClienteJur.getText() == null || txtBairroClienteJur.getText().length() == 0) {
+            msgErro += "Bairro inválido\n";
+        }
+        if (validarCPFeCNPJ.isValidCNPJ(validarCPFeCNPJ.removeMask(txtCNPJ.getText())) == false) {
+            msgErro += "CNPJ inválido\n";
+        }
+
+        //alertas de erros nos campos
+        if (msgErro.length() == 0) {
+            //se a variável msgErro tiver o tamanho 0, retorna true, não mostrando mensagem de erro
+            return true;
+        } else {
+            mensagens.alerta(msgErro);
+            return false;
+        }
+    }
+
     @FXML
     void handleButtonRelatorioJ(ActionEvent event) {
         String nomediretorio = null;
@@ -524,7 +615,7 @@ public class ClientesController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     public void gerarRelatorioJ() throws IOException {
         String data, hora;
         data = new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis()));
@@ -695,28 +786,30 @@ public class ClientesController implements Initializable {
 
     @FXML
     void handleButtonSalvarJ(ActionEvent event) {
-        try {
-            clienteJ.setId(Integer.parseInt((txtIdClienteJur.getText())));
-            clienteJ.setRs(txtRazãoSocial.getText());
-            clienteJ.setCnpj(txtCNPJ.getText());
-            clienteJ.setTelefone(txtTelefoneClienteJur.getText());
-            clienteJ.setEmail(txtEmailClienteJur.getText());
-            clienteJ.setEndereco(txtEnderecoClienteJur.getText());
-            clienteJ.setBairro(txtBairroClienteJur.getText());
-            clienteJ.setEstado(comboBoxEstadoClienteJur.getValue().toString());
-            ControleDAO.getControleBanco().getClienteJDAO().salvarJ(clienteJ);
-            anchorPaneNovoClienteJur.setVisible(false);
-            anchorPaneInicioCliente1.setVisible(true);
-            limparCamposJ();
-            atualizarListaClienteJur();
-            tableClienteJur.refresh();
-            desativarbtsEditareExcluirJ();
-            tableClienteJur.getSelectionModel().clearSelection();
-        } catch (Exception ex) {
-            mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+        if (validarDadosJ()) {
+            try {
+                clienteJ.setId(Integer.parseInt((txtIdClienteJur.getText())));
+                clienteJ.setRs(txtRazãoSocial.getText());
+                clienteJ.setCnpj(txtCNPJ.getText());
+                clienteJ.setTelefone(txtTelefoneClienteJur.getText());
+                clienteJ.setEmail(txtEmailClienteJur.getText());
+                clienteJ.setEndereco(txtEnderecoClienteJur.getText());
+                clienteJ.setBairro(txtBairroClienteJur.getText());
+                clienteJ.setEstado(comboBoxEstadoClienteJur.getValue().toString());
+                ControleDAO.getControleBanco().getClienteJDAO().salvarJ(clienteJ);
+                anchorPaneNovoClienteJur.setVisible(false);
+                anchorPaneInicioCliente1.setVisible(true);
+                limparCamposJ();
+                atualizarListaClienteJur();
+                tableClienteJur.refresh();
+                desativarbtsEditareExcluirJ();
+                tableClienteJur.getSelectionModel().clearSelection();
+            } catch (Exception ex) {
+                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+            }
+            //tbCargos.getItems().clear();
+            //atualizarListaCargo();
         }
-        //tbCargos.getItems().clear();
-        //atualizarListaCargo();
     }
 
     @FXML

@@ -26,7 +26,7 @@ public class ProdutoDAO extends DAO{
             stm = conector.prepareStatement(sql);
             stm.setString(1, produto.getNome());
             stm.setString(2, produto.getCategoria());
-            stm.setFloat(3, produto.getValor());
+            stm.setString(3, produto.getValor());
             stm.executeUpdate();
             mensagens.info("Produto inserido com sucesso!");
         } catch (SQLException ex) {
@@ -41,7 +41,7 @@ public class ProdutoDAO extends DAO{
             stm = conector.prepareStatement(sql);
             stm.setString(1, produto.getNome());
             stm.setString(2, produto.getCategoria());
-            stm.setFloat(3, produto.getValor());
+            stm.setString(3, produto.getValor());
             stm.setInt(4, produto.getId());
             stm.executeUpdate();
             mensagens.info("Produto alterado com sucesso!");
@@ -74,7 +74,7 @@ public class ProdutoDAO extends DAO{
             produto.setId(rs.getInt("id"));
             produto.setNome(rs.getString("nome"));
             produto.setCategoria(rs.getString("categoria"));
-            produto.setValor(rs.getFloat("valor"));
+            produto.setValor(rs.getString("valor"));
             listaProd.add(produto);
         }
         return listaProd;
@@ -109,12 +109,12 @@ public class ProdutoDAO extends DAO{
         
         List<produtoM> relatorioProd;
         relatorioProd = new ArrayList();
-        String sql = "select nome, categoria from produto";
+        String sql = "select nome, categoria, valor from produto";
         stm = conector.prepareStatement(sql);
         rs = stm.executeQuery();
         while(rs.next()){
             
-        relatorioProd.add(new produtoM(rs.getString("nome"),rs.getString("categoria")));
+        relatorioProd.add(new produtoM(rs.getString("nome"),rs.getString("categoria"), rs.getString("valor")));
         }
         stm.close();
         return relatorioProd;      

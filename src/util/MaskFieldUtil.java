@@ -124,15 +124,15 @@ public class MaskFieldUtil {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Platform.runLater(() -> {
-                String value = textField.getText();
-                value = value.replaceAll("[^0-9]", "");
-                value = value.replaceAll("([0-9]{1})([0-9]{14})$", "$1.$2");
-                value = value.replaceAll("([0-9]{1})([0-9]{11})$", "$1.$2");
-                value = value.replaceAll("([0-9]{1})([0-9]{8})$", "$1.$2");
-                value = value.replaceAll("([0-9]{1})([0-9]{5})$", "$1.$2");
-                value = value.replaceAll("([0-9]{1})([0-9]{2})$", "$1,$2");
-                textField.setText(value);
-                positionCaret(textField);
+                    String value = textField.getText();
+                    value = value.replaceAll("[^0-9]", "");
+                    value = value.replaceAll("([0-9]{1})([0-9]{14})$", "$1.$2");
+                    value = value.replaceAll("([0-9]{1})([0-9]{11})$", "$1.$2");
+                    value = value.replaceAll("([0-9]{1})([0-9]{8})$", "$1.$2");
+                    value = value.replaceAll("([0-9]{1})([0-9]{5})$", "$1.$2");
+                    value = value.replaceAll("([0-9]{1})([0-9]{2})$", "$1,$2");
+                    textField.setText(value);
+                    positionCaret(textField);
                 });
                 textField.textProperty().addListener(new ChangeListener<String>() {
                     @Override
@@ -204,14 +204,16 @@ public class MaskFieldUtil {
         textField.lengthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-                String value = textField.getText();
-                value = value.replaceAll("[^0-9]", "");
-                value = value.replaceFirst("(\\d{2})(\\d)", "$1.$2");
-                value = value.replaceFirst("(\\d{2})\\.(\\d{3})(\\d)", "$1.$2.$3");
-                value = value.replaceFirst("\\.(\\d{3})(\\d)", ".$1/$2");
-                value = value.replaceFirst("(\\d{4})(\\d)", "$1-$2");
-                textField.setText(value);
-                positionCaret(textField);
+                Platform.runLater(() -> {
+                    String value = textField.getText();
+                    value = value.replaceAll("[^0-9]", "");
+                    value = value.replaceFirst("(\\d{2})(\\d)", "$1.$2");
+                    value = value.replaceFirst("(\\d{2})\\.(\\d{3})(\\d)", "$1.$2.$3");
+                    value = value.replaceFirst("\\.(\\d{3})(\\d)", ".$1/$2");
+                    value = value.replaceFirst("(\\d{4})(\\d)", "$1-$2");
+                    textField.setText(value);
+                    positionCaret(textField);
+                });
             }
         });
 
@@ -302,7 +304,7 @@ public class MaskFieldUtil {
         }
         );
     }
-    
+
     public static void sexoFieldCF(TextField textField) {
         MaskFieldUtil.maxField(textField, 1);
         textField.lengthProperty().addListener((observableValue, number, number2) -> {
@@ -318,8 +320,6 @@ public class MaskFieldUtil {
         }
         );
     }
-    
-    
 
     /**
      * Devido ao incremento dos caracteres das mascaras é necessário que o
@@ -342,7 +342,7 @@ public class MaskFieldUtil {
      * @param length Tamanho do campo.
      */
     private static void maxField(final TextField textField, final int length) {
-         textField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+        textField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue == null || newValue.length() > length) {
                 textField.setText(oldValue);
             }
@@ -352,12 +352,11 @@ public class MaskFieldUtil {
 
     /*Limitar caracteres dos demais campos
      */
-    
-    /*
-    *Formulário de Clientes
-    */
-    public static void NomeCField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 65);
+ /*
+    *Formulário de Clientes Físico
+     */
+    public static void NomeCFField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 45);
     }
 
     public static void RuaCCField(TextField textField) {
@@ -368,65 +367,69 @@ public class MaskFieldUtil {
         MaskFieldUtil.maxField(textField, 22);
     }
 
-    public static void EmailCField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 32);
-    }
-    
-    public static void SexoCField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 1);
-    }
-    
-    public static void EstadoCField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 20);
-    }
-    
-    /*
-    *Formulário de Funcionários
-    */
-    public static void NomeFField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 65);
-    }
-
-    public static void RuaFField(TextField textField) {
+    public static void EmailCFField(TextField textField) {
         MaskFieldUtil.maxField(textField, 45);
     }
 
-    public static void CidadeFField(TextField textField) {
+    public static void EndCFField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 70);
+    }
+
+    public static void BairroCFField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 45);
+    }
+    
+ /*
+    *Formulário de Clientes Jurídico
+     */
+    public static void RazaoSCJField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 70);
+        
+    }
+    
+    public static void EmailCJField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 45);
+    }
+    
+    public static void EndCJField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 70);
+    }
+    
+    public static void BairroCJField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 45);
+    }
+    
+
+    /*
+    *Formulário de Funcionários
+     */
+    public static void NomeFuncField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 70);
+    }
+    
+    public static void EmailFuncField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 32);
+    }
+
+    public static void EndFuncField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 70);
+    }
+
+    public static void BairroFuncField(TextField textField) {
         MaskFieldUtil.maxField(textField, 22);
     }
 
-    public static void EmailFField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 32);
+
+
+    public static void SenhaFuncField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 4);
     }
-    
-    public static void CargoFField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 23);
-    }
-    
-    public static void SexoFField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 1);
-    }
-    
-    public static void EstadoFField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 20);
-    }
+
     /*
     *Formulário de Produtos
-    */
+     */
     public static void NomePField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 65);
+        MaskFieldUtil.maxField(textField, 70);
     }
-    
-    public static void TipoPField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 21);
-    }
-    
-    public static void DescriçãoPField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 95);
-    }
-    
-    public static void QuantidadePField(TextField textField) {
-        MaskFieldUtil.maxField(textField, 7);
-    }
-    
+
 }

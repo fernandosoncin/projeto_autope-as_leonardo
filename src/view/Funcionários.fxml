@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPaneFunc" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FuncionáriosController">
+<AnchorPane id="AnchorPane" fx:id="anchorPaneFunc" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FuncionáriosController">
    <children>
       <AnchorPane fx:id="anchorPaneInicioFunc" layoutX="-2.0" prefHeight="616.0" prefWidth="942.0">
          <children>
@@ -27,12 +28,12 @@
                   <TableColumn fx:id="TableColumnRGFunc" prefWidth="100.0" text="RG" />
                   <TableColumn fx:id="TableColumnCPFFunc" prefWidth="100.0" text="CPF" />
                   <TableColumn fx:id="TableColumnSenhaFunc" minWidth="5.0" prefWidth="60.0" text="Senha" />
-                  <TableColumn fx:id="TableColumnCelFunc" prefWidth="90.0" text="Celular" />
-                  <TableColumn fx:id="TableColumnEmailFunc" minWidth="0.0" prefWidth="130.0" text="Email" />
-                  <TableColumn fx:id="TableColumnTipoFunc" prefWidth="60.0" text="Tipo" />
-                  <TableColumn fx:id="TableColumnCargoFunc" prefWidth="200.0" text="Cargo" />
-                  <TableColumn fx:id="TableColumnEndFunc" prefWidth="230.0" text="Endereço" />
-                  <TableColumn fx:id="TableColumnBairroFunc" minWidth="0.0" prefWidth="230.0" text="Bairro" />
+                  <TableColumn fx:id="TableColumnCelFunc" prefWidth="103.0" text="Celular" />
+                  <TableColumn fx:id="TableColumnEmailFunc" minWidth="0.0" prefWidth="170.0" text="Email" />
+                  <TableColumn fx:id="TableColumnTipoFunc" text="Tipo" />
+                  <TableColumn fx:id="TableColumnCargoFunc" prefWidth="225.0" text="Cargo" />
+                  <TableColumn fx:id="TableColumnEndFunc" prefWidth="270.0" text="Endereço" />
+                  <TableColumn fx:id="TableColumnBairroFunc" minWidth="0.0" prefWidth="270.0" text="Bairro" />
                   <TableColumn fx:id="TableColumnEstadoFunc" minWidth="0.0" prefWidth="85.0" text="Estado" />
                </columns>
             </TableView>
@@ -40,6 +41,15 @@
                <children>
                   <Label fx:id="lbTitulo" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Funcionários" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="txtPesquisarFunc" onKeyPressed="#eventKeyPressedEnterFunc" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                  <ToggleButton fx:id="btRelatorioFunc" mnemonicParsing="false" onAction="#handleButtonRelatorioFunc" text="">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="menu21" />
+                     </toggleGroup>
+                     <styleClass>
+                        <String fx:value="menus-tela" />
+                        <String fx:value="menu-relatorio" />
+                     </styleClass>
+                  </ToggleButton>
                   <ToggleButton fx:id="btNovoFunc" mnemonicParsing="false" onAction="#handleButtonInserirFunc" text="">
                      <styleClass>
                         <String fx:value="menus-tela" />
@@ -111,10 +121,10 @@
                         <TextField fx:id="txtEnderecoFunc" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="txtBairroFunc" styleClass="campo" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                         <ComboBox fx:id="comboBoxEstadoFunc" prefHeight="35.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="comboBoxTipoFunc" prefHeight="38.0" prefWidth="140.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="comboBoxTipoFunc" prefHeight="38.0" prefWidth="140.0" styleClass="combo-box" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                         <TextField fx:id="txtCPFFunc" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                        <PasswordField fx:id="txtSenhaFunc" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="5" />
                         <Label styleClass="lb-info" text="Senha :" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-                        <TextField fx:id="txtSenhaFunc" styleClass="campo" GridPane.columnIndex="4" GridPane.rowIndex="5" />
                         <Label styleClass="lb-info" text="Cargo :" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                         <Label styleClass="lb-info" text="RG :" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                         <TextField fx:id="txtRGFunc" styleClass="campo" GridPane.columnIndex="2" GridPane.rowIndex="5" />

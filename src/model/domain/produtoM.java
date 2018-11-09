@@ -7,18 +7,19 @@ public class produtoM {
     private int id;
     private String nome;
     private String categoria;
-    private float valor;
+    private String valor;
 
-    public produtoM(int id, String nome, String categoria, float valor) {
+    public produtoM(int id, String nome, String categoria, String valor) {
         this.id = id;
         this.nome = nome;
         this.categoria = categoria;
         this.valor = valor;
     }
     
-    public produtoM(String nome, String categoria) {
+    public produtoM(String nome, String categoria, String valor) {
         this.nome = nome;
         this.categoria = categoria;
+        this.valor = valor;
     }
 
     public produtoM() {
@@ -57,13 +58,14 @@ public class produtoM {
         this.categoria = categoria;
     }
 
-    public float getValor() {
+    public String getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(String valor) {
         this.valor = valor;
     }
+
     
     
     
