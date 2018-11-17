@@ -10,12 +10,12 @@ public class funcionarioM {
     private String celular;
     private String email;
     private String admin;
-    private String cargo;
+    private cargoM cargo_id;
     private String endereco;
     private String bairro;
     private String estado;
 
-    public funcionarioM(int id, String nome, String rg, String cpf, String senha, String celular, String email, String admin, String cargo, String endereco, String bairro, String estado) {
+    public funcionarioM(int id, String nome, String rg, String cpf, String senha, String celular, String email, String admin, cargoM cargo_id, String endereco, String bairro, String estado) {
         this.id = id;
         this.nome = nome;
         this.rg = rg;
@@ -24,40 +24,20 @@ public class funcionarioM {
         this.celular = celular;
         this.email = email;
         this.admin = admin;
-        this.cargo = cargo;
+        this.cargo_id = cargo_id;
         this.endereco = endereco;
         this.bairro = bairro;
         this.estado = estado;
+    }
+
+    public funcionarioM() {
+        this.id = 0;
     }
     
     public funcionarioM(String nome, String celular, String email) {
         this.nome = nome;
         this.celular = celular;
         this.email = email;
-    }
-
-    public funcionarioM(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public funcionarioM() {
-        this.id = 0;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public int getId() {
@@ -100,6 +80,22 @@ public class funcionarioM {
         this.senha = senha;
     }
 
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getAdmin() {
         return admin;
     }
@@ -108,20 +104,12 @@ public class funcionarioM {
         this.admin = admin;
     }
 
-    public String getCargo() {
-        return cargo;
+    public cargoM getCargo_id() {
+        return cargo_id;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
+    public void setCargo_id(cargoM cargo_id) {
+        this.cargo_id = cargo_id;
     }
 
     public String getEndereco() {
@@ -140,8 +128,12 @@ public class funcionarioM {
         this.bairro = bairro;
     }
 
-    public String toString() {
-        return cargo;
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
 }

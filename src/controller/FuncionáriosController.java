@@ -29,6 +29,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,22 +40,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import model.dao.CargoDAO;
 import model.dao.FuncionárioDAO;
+import model.domain.cargoM;
 import model.domain.funcionarioM;
 import util.Combo;
 import util.MaskFieldUtil;
 import util.diálogo;
 import util.mensagens;
+import util.validarCPFeCNPJ;
 
-/**
- * FXML Controller class
- *
- * @author Fellipe
- */
 public class FuncionáriosController implements Initializable {
 
     private funcionarioM funcionario;
     private FuncionárioDAO funcionarioDAO;
+    private cargoM cargo;
+    private CargoDAO cargoDAO;
 
     @FXML
     private ToggleButton btRelatorioFunc;
@@ -72,6 +73,9 @@ public class FuncionáriosController implements Initializable {
     private ToggleButton btNovoFunc;
 
     @FXML
+    private ToggleButton btNovoCargo;
+
+    @FXML
     private ToggleGroup menu;
 
     @FXML
@@ -82,6 +86,9 @@ public class FuncionáriosController implements Initializable {
 
     @FXML
     private AnchorPane anchorPaneNovoFunc;
+
+    @FXML
+    private AnchorPane anchorPaneNovoCargo;
 
     @FXML
     private TextField txtIdFunc;
@@ -117,7 +124,7 @@ public class FuncionáriosController implements Initializable {
     private TextField txtRGFunc;
 
     @FXML
-    private ComboBox<String> comboBoxCargoFunc;
+    private ComboBox<cargoM> comboBoxCargoFunc;
 
     @FXML
     private Button btSalvarFunc;
@@ -164,25 +171,69 @@ public class FuncionáriosController implements Initializable {
     @FXML
     private TableColumn<funcionarioM, String> TableColumnEstadoFunc;
 
+    @FXML
+    private Label lbTituloCargos1;
+
+    @FXML
+    private TextField txtIdCargo;
+
+    @FXML
+    private TextField txtNomeCargo;
+
+    @FXML
+    private TableView<cargoM> tbCargos;
+
+    @FXML
+    private TableColumn<cargoM, String> colunaIdCargo;
+
+    @FXML
+    private TableColumn<cargoM, String> colunaNomeCargo;
+
+    @FXML
+    private Button btSalvarCargo;
+
+    @FXML
+    private Button btCancelarCargo;
+
+    @FXML
+    private TextField txtPesquisarCargo;
+
+    @FXML
+    private ToggleButton btExcluirCargo;
+
+    @FXML
+    private ToggleGroup menu1;
+
+    @FXML
+    private ToggleButton btRelatorioCargo;
+
+    @FXML
+    private ToggleButton btAlterarCargo;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //----------Início Inicializador Padrão
-        preenchercomboBoxCargos();
+        preenchercomboCargo();
         //----------Fim Inicializador Padrão
-
         //----------Início Inicializador Funcionários
         this.funcionario = new funcionarioM();
         this.funcionarioDAO = new FuncionárioDAO();
         preenchercomboEstadoFunc();
         preenchercomboTipo();
-        preenchercomboBoxCargos();
         setCellTableFunc();
         atualizarListaFunc();
         selecionarItemTabelaFunc();
         //----------Fim Inicializador Funcionários
+        //----------Início Inicializador Cargos
+        this.cargo = new cargoM();
+        this.cargoDAO = new CargoDAO();
+        setCellTableCargo();
+        atualizarListaCargo();
+        selecionarItemTabelaCargos();
+        //----------Fim Inicializador Cargos
         //----------Início Máscaras
         MaskFieldUtil.NomeFuncField(txtNomeFunc);
         MaskFieldUtil.foneCelularField(txtCelularFunc);
@@ -196,9 +247,52 @@ public class FuncionáriosController implements Initializable {
     }
 
     //----------Início Padrão
-    public void preenchercomboBoxCargos() {
-        Combo.popular(comboBoxCargoFunc, ControleDAO.getControleBanco().getFuncionárioDAO().comboCargo());
+    void preenchercomboCargo() {
+        Combo.popular(comboBoxCargoFunc, ControleDAO.getControleBanco().getCargoDAO().comboCargos());
+    }
 
+    //----------Fim Padrão
+    //----------Início Funcionários
+    private boolean validarDadosFunc() {
+        //validação de campos
+        String msgErro = "";
+
+        if (txtNomeFunc.getText() == null || txtNomeFunc.getText().length() == 0) {
+            msgErro += "Nome inválido\n";
+        }
+        if (txtRGFunc.getText() == null || txtRGFunc.getText().length() == 0) {
+            msgErro += "Celular inválido\n";
+        }
+        if (validarCPFeCNPJ.isValidCPF(validarCPFeCNPJ.removeMask(txtCPFFunc.getText())) == false) {
+            msgErro += "CPF inválido\n";
+        }
+        if (txtSenhaFunc.getText() == null || txtSenhaFunc.getText().length() == 0) {
+            msgErro += "Senha inválida\n";
+        }
+        if (txtCelularFunc.getText() == null || txtCelularFunc.getText().length() == 0) {
+            msgErro += "Celular inválido\n";
+        }
+        if (txtEmailFunc.getText() == null || txtEmailFunc.getText().length() == 0) {
+            msgErro += "Email inválido\n";
+        }
+        if (txtEnderecoFunc.getText() == null || txtEnderecoFunc.getText().length() == 0) {
+            msgErro += "Endereço inválido\n";
+        }
+        if (txtBairroFunc.getText() == null || txtBairroFunc.getText().length() == 0) {
+            msgErro += "Bairro inválido\n";
+        }
+        if (comboBoxCargoFunc.getItems().isEmpty()){
+            msgErro += "Cargo inválido\n";
+        }
+
+        //alertas de erros nos campos
+        if (msgErro.length() == 0) {
+            //se a variável msgErro tiver o tamanho 0, retorna true, não mostrando mensagem de erro
+            return true;
+        } else {
+            mensagens.alerta(msgErro);
+            return false;
+        }
     }
 
     @FXML
@@ -207,8 +301,7 @@ public class FuncionáriosController implements Initializable {
             atualizarListaFunc();
         }
 
-    }    //----------Fim Padrão
-    //----------Início Funcionários
+    }
 
     @FXML
     void handleButtonRelatorioFunc(ActionEvent event) {
@@ -346,7 +439,7 @@ public class FuncionáriosController implements Initializable {
         TableColumnCelFunc.setCellValueFactory(new PropertyValueFactory<>("celular"));
         TableColumnEmailFunc.setCellValueFactory(new PropertyValueFactory<>("email"));
         TableColumnTipoFunc.setCellValueFactory(new PropertyValueFactory<>("admin"));
-        TableColumnCargoFunc.setCellValueFactory(new PropertyValueFactory<>("cargo"));
+        TableColumnCargoFunc.setCellValueFactory(new PropertyValueFactory<>("cargo_id"));
         TableColumnEndFunc.setCellValueFactory(new PropertyValueFactory<>("endereco"));
         TableColumnBairroFunc.setCellValueFactory(new PropertyValueFactory<>("bairro"));
         TableColumnEstadoFunc.setCellValueFactory(new PropertyValueFactory<>("estado"));
@@ -369,29 +462,30 @@ public class FuncionáriosController implements Initializable {
 
     @FXML
     void handleButtonSalvarFunc(ActionEvent event) {
-        try {
-            funcionario.setId(Integer.parseInt((txtIdFunc.getText())));
-            funcionario.setNome(txtNomeFunc.getText());
-            funcionario.setRg(txtRGFunc.getText());
-            funcionario.setCpf(txtCPFFunc.getText());
-            funcionario.setSenha(txtSenhaFunc.getText());
-            funcionario.setCelular(txtCelularFunc.getText());
-            funcionario.setEmail(txtEmailFunc.getText());
-            funcionario.setAdmin(comboBoxTipoFunc.getValue().toString());
-            funcionario.setCargo(comboBoxCargoFunc.getValue());
-            funcionario.setEndereco(txtSenhaFunc.getText());
-            funcionario.setBairro(txtBairroFunc.getText());
-            funcionario.setEstado(comboBoxEstadoFunc.getValue().toString());
-            ControleDAO.getControleBanco().getFuncionárioDAO().salvarFunc(funcionario);
-            anchorPaneNovoFunc.setVisible(false);
-            anchorPaneInicioFunc.setVisible(true);
-            limparCamposFunc();
-            atualizarListaFunc();
-            tbFunc.refresh();
-            desativarbtsEditareExcluirFunc();
-            tbFunc.getSelectionModel().clearSelection();
-        } catch (Exception ex) {
-            mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+        if (validarDadosFunc()) {
+            try {
+                funcionario.setId(Integer.parseInt((txtIdFunc.getText())));
+                funcionario.setNome(txtNomeFunc.getText());
+                funcionario.setRg(txtRGFunc.getText());
+                funcionario.setCpf(txtCPFFunc.getText());
+                funcionario.setSenha(txtSenhaFunc.getText());
+                funcionario.setCelular(txtCelularFunc.getText());
+                funcionario.setEmail(txtEmailFunc.getText());
+                funcionario.setAdmin(comboBoxTipoFunc.getValue().toString());
+                funcionario.setCargo_id(comboBoxCargoFunc.getValue());
+                funcionario.setEndereco(txtSenhaFunc.getText());
+                funcionario.setBairro(txtBairroFunc.getText());
+                funcionario.setEstado(comboBoxEstadoFunc.getValue().toString());
+                ControleDAO.getControleBanco().getFuncionárioDAO().salvarFunc(funcionario);
+                anchorPaneNovoFunc.setVisible(false);
+                anchorPaneInicioFunc.setVisible(true);
+                limparCamposFunc();
+                atualizarListaFunc();
+                tbFunc.refresh();
+                tbFunc.getSelectionModel().clearSelection();
+            } catch (Exception ex) {
+                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+            }
         }
     }
 
@@ -407,11 +501,12 @@ public class FuncionáriosController implements Initializable {
             txtIdFunc.setText(String.valueOf(funcionario.getId()));
             txtNomeFunc.setText(funcionario.getNome());
             txtRGFunc.setText(funcionario.getRg());
+            txtCPFFunc.setText(funcionario.getCpf());
             txtSenhaFunc.setText(funcionario.getSenha());
             txtCelularFunc.setText(funcionario.getCelular());
             txtEmailFunc.setText(funcionario.getEmail());
             comboBoxTipoFunc.setValue(funcionario.getAdmin());
-            comboBoxCargoFunc.setValue(funcionario.getCargo());
+            comboBoxCargoFunc.setValue(funcionario.getCargo_id());
             txtEnderecoFunc.setText(funcionario.getEndereco());
             txtBairroFunc.setText(funcionario.getBairro());
             comboBoxTipoFunc.setValue(funcionario.getAdmin());
@@ -449,10 +544,11 @@ public class FuncionáriosController implements Initializable {
 
     @FXML
     void handleButtonInserirFunc(ActionEvent event) {
-        //tabela.getSelectionModel().clearSelection();
         anchorPaneInicioFunc.setVisible(false);
         anchorPaneNovoFunc.setVisible(true);
-        comboBoxCargoFunc.setValue("");
+        preenchercomboCargo();
+        txtIdFunc.setText("0");
+
     }
 
     @FXML
@@ -471,8 +567,226 @@ public class FuncionáriosController implements Initializable {
         txtIdFunc.setText("0");
         preenchercomboEstadoFunc();
         preenchercomboTipo();
-        preenchercomboBoxCargos();
+        preenchercomboCargo();
     }
 
     //----------Fim Funcionários
+    //----------Início Cargos
+    @FXML
+    void handleButtonInserirCargo(ActionEvent event) {
+        anchorPaneNovoFunc.setVisible(false);
+        anchorPaneNovoCargo.setVisible(true);
+        txtIdCargo.setText("");
+
+    }
+
+    public void setCellTableCargo() {
+        colunaIdCargo.setCellValueFactory(new PropertyValueFactory<>("cod_Cargo"));
+        colunaNomeCargo.setCellValueFactory(new PropertyValueFactory<>("nome_Cargo"));
+    }
+
+    private void atualizarListaCargo() {
+        try {
+
+            tbCargos.setItems(ControleDAO.getControleBanco().getCargoDAO().listar_cargoNome(txtPesquisarCargo.getText()));
+        } catch (Exception ex) {
+            mensagens.erro("Erro : " + ex.getMessage());
+        }
+    }
+
+    void ativarbtsExcluirCancelarAlterarCargo() {
+        btExcluirCargo.setDisable(false);
+        btAlterarCargo.setDisable(false);
+    }
+
+    void desativasbtsExcluirAlterarCargo() {
+        btExcluirCargo.setDisable(true);
+        btAlterarCargo.setDisable(true);
+    }
+
+    public void selecionarItemTabelaCargos() {
+        tbCargos.setOnMouseClicked(e -> {
+            ativarbtsExcluirCancelarAlterarCargo();
+            tbCargos.requestFocus();
+
+        });
+
+    }
+
+    void limparCamposCargo() {
+        txtIdCargo.setText("0");
+        txtNomeCargo.setText("");
+        cargo.setCod_Cargo(0);
+    }
+
+    @FXML
+    void handleButtonCancelarCargo(ActionEvent event) {
+        diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Cargo?");
+        if (resp == diálogo.Resposta.YES) {
+            limparCamposCargo();
+            tbCargos.getSelectionModel().clearSelection();
+            anchorPaneNovoCargo.setVisible(false);
+            anchorPaneNovoFunc.setVisible(true);
+        }
+    }
+
+    private boolean validarDadosSalvarCargos() {
+        //validação de campos
+        String msgErroSalvar = "";
+
+        if (txtNomeCargo.getText().length() == 0) {
+            msgErroSalvar += "Nome de cargo inválido\n";
+        }
+        //alertas de erros nos campos
+        if (msgErroSalvar.length() == 0) {
+            //se a variável msgErro tiver o tamanho 0, retorna true, não mostrando mensagem de erro
+            return true;
+        } else {
+            mensagens.alerta(msgErroSalvar);
+            return false;
+        }
+    }
+
+    @FXML
+    void handleButtonExcluirCargo(ActionEvent event) throws Exception {      
+        if (tbCargos.getSelectionModel().isEmpty()) {
+            mensagens.erro("Selecione um Cargo para exclusão.");
+            desativasbtsExcluirAlterarCargo();
+        } else {
+                cargoM cargo = tbCargos.getItems().get(tbCargos.getSelectionModel().getSelectedIndex());
+                ControleDAO.getControleBanco().getCargoDAO().removerCargo(cargo);
+                tbCargos.getItems().clear();
+                atualizarListaCargo();
+                limparCamposCargo();
+                btSalvarCargo.setDisable(false);
+                btExcluirCargo.setDisable(true);
+                btAlterarCargo.setDisable(true);
+        }
+    }
+
+    @FXML
+    void handleButtonSalvarCargo(ActionEvent event) {
+        if (validarDadosSalvarCargos()) {
+            try {
+                cargo.setCod_Cargo(Integer.valueOf(txtIdCargo.getText()));
+                cargo.setNome_Cargo(txtNomeCargo.getText());
+                ControleDAO.getControleBanco().getCargoDAO().salvar(cargo);
+                limparCamposCargo();
+                tbCargos.requestFocus();
+                btExcluirCargo.setDisable(true);
+                btAlterarCargo.setDisable(true);
+                tbCargos.getSelectionModel().clearSelection();
+            } catch (Exception ex) {
+                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+            }
+            tbCargos.getItems().clear();
+            atualizarListaCargo();
+            preenchercomboCargo();
+        }
+    }
+
+    @FXML
+    void handlebuttonAlterarCargo() {
+        if (tbCargos.getSelectionModel().isEmpty()) {
+            mensagens.erro("Selecione um Cargo para alteração.");
+            desativasbtsExcluirAlterarCargo();
+        } else {
+            cargoM cargo = tbCargos.getItems().get(tbCargos.getSelectionModel().getSelectedIndex());
+            txtIdCargo.setText(String.valueOf(cargo.getCod_Cargo()));
+            txtNomeCargo.setText(cargo.getNome_Cargo());
+            ativarbtsExcluirCancelarAlterarCargo();
+        }
+
+    }
+
+    @FXML
+    void eventKeyPressedEnterCargo(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            atualizarListaCargo();
+        }
+
+    }
+
+    public void gerarRelatorioCargo() throws IOException {
+        String data, hora;
+        data = new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis()));
+        hora = new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis()));
+
+        try {
+            List<cargoM> listaRCargo = new ArrayList<>();
+            listaRCargo = cargoDAO.relatCargo();
+            Document doc = new Document(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
+            PdfWriter.getInstance(doc, new FileOutputStream("C:/Relatorios/RelatorioCargo" + ".pdf"));
+            doc.open();
+
+            Font f1 = new Font(Font.HELVETICA, 14, Font.BOLD);
+            Font f2 = new Font(Font.HELVETICA, 12, Font.BOLD);
+            Font f3 = new Font(Font.HELVETICA, 12, Font.NORMAL);
+            Font f4 = new Font(Font.HELVETICA, 10, Font.BOLD);
+            Font f5 = new Font(Font.HELVETICA, 10, Font.NORMAL);
+
+            Paragraph titulo1 = new Paragraph("Universidade do Estado de Minas Gerais", f2);
+            titulo1.setAlignment(Element.ALIGN_CENTER);
+            titulo1.setSpacingAfter(10);
+
+            Paragraph titulo2 = new Paragraph("Relatório de Cargos", f1);
+            titulo2.setAlignment(Element.ALIGN_CENTER);
+            titulo2.setSpacingAfter(0);
+
+            Paragraph nomeData = new Paragraph(data + "  " + hora, f5);
+            nomeData.setAlignment(Element.ALIGN_CENTER);
+            nomeData.setSpacingAfter(10);
+
+            PdfPTable tabela = new PdfPTable(new float[]{0.40f, 0.60f, 0.80f});
+            tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabela.setWidthPercentage(100f);
+
+            PdfPCell rNome = new PdfPCell(new Paragraph("Cargos >", f3));
+            rNome.setBackgroundColor(new Color(0xc0, 0xc0, 0xc0));
+            rNome.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+            rNome.setBorder(0);
+
+            tabela.addCell(rNome);
+
+            for (cargoM cargoR : listaRCargo) {
+                Paragraph p1 = new Paragraph(cargoR.getNome_Cargo(), f5);
+                p1.setAlignment(Element.ALIGN_JUSTIFIED);
+                PdfPCell col1 = new PdfPCell(p1);
+                tabela.addCell(col1);
+
+            }
+
+            doc.add(titulo2);
+            doc.add(titulo1);
+            doc.add(nomeData);
+            doc.add(tabela);
+            doc.close();
+            mensagens.info("Relatório salvo com sucesso.", "Relatório de cargos");
+            String caminho = "C:/Relatorios/RelatorioCargo.pdf";
+            Desktop.getDesktop().open(new File(caminho));
+        } catch (DocumentException e) {
+            mensagens.erro(e + "");
+        } catch (SQLException ex) {
+            mensagens.erro(ex + "");
+        } catch (IOException exx) {
+            mensagens.erro(exx + "\nOutro relatório de cargos se encontra aberto. Feche para gerar outro.", "Relatório de cargos");
+        }
+    }
+
+    @FXML
+    void handleButtonRelatorioCargos(ActionEvent event) {
+        String nomediretorio = null;
+        String nomepasta = "Relatorios"; //Nome da pasta que vai armazenar relatório
+        String separador = java.io.File.separator;
+        try {
+            nomediretorio = "C:" + separador + nomepasta;
+            if (!new File(nomediretorio).exists()) {
+                (new File(nomediretorio)).mkdir();
+            }
+            gerarRelatorioCargo();
+        } catch (Exception e) {
+            mensagens.erro(e + "");
+        }
+    }
+    //----------Fim Cargos
 }

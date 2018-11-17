@@ -1,11 +1,13 @@
 package model.dao;
 
+import banco.DAO.ControleDAO;
 import banco.DAO.DAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.domain.cargoM;
 import model.domain.funcionarioM;
 import util.mensagens;
 
@@ -21,7 +23,7 @@ public class FuncionárioDAO extends DAO{
     public void inserirFunc(funcionarioM funcionario) throws Exception {
         try {
 
-            String sql = "insert into funcionario(nome,rg,cpf,senha,celular,email,admin,cargo,endereco,bairro,estado) values (?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into funcionario(nome,rg,cpf,senha,celular,email,admin,cargo_id,endereco,bairro,estado) values (?,?,?,?,?,?,?,?,?,?,?)";
             stm = conector.prepareStatement(sql);
             stm.setString(1, funcionario.getNome());
             stm.setString(2, funcionario.getRg());
@@ -30,7 +32,7 @@ public class FuncionárioDAO extends DAO{
             stm.setString(5, funcionario.getCelular());
             stm.setString(6, funcionario.getEmail());
             stm.setString(7, funcionario.getAdmin());
-            stm.setString(8, funcionario.getCargo().toString());
+            stm.setInt(8, funcionario.getCargo_id().getCod_Cargo());
             stm.setString(9, funcionario.getEndereco());
             stm.setString(10, funcionario.getBairro());
             stm.setString(11, funcionario.getEstado());
@@ -44,7 +46,7 @@ public class FuncionárioDAO extends DAO{
     public void alterarFunc(funcionarioM funcionario) throws Exception {
         try {
 
-            String sql = "update funcionario set nome=?, rg=?, cpf=?, senha=?, celular=?, email=?, admin=?, cargo=?, endereco=?, bairro=?, estado=? where id=?";
+            String sql = "update funcionario set nome=?, rg=?, cpf=?, senha=?, celular=?, email=?, admin=?, cargo_id=?, endereco=?, bairro=?, estado=? where id=?";
             stm = conector.prepareStatement(sql);
             stm.setString(1, funcionario.getNome());
             stm.setString(2, funcionario.getRg());
@@ -53,7 +55,7 @@ public class FuncionárioDAO extends DAO{
             stm.setString(5, funcionario.getCelular());
             stm.setString(6, funcionario.getEmail());
             stm.setString(7, funcionario.getAdmin());
-            stm.setString(8, funcionario.getCargo().toString());
+            stm.setInt(8, funcionario.getCargo_id().getCod_Cargo());
             stm.setString(9, funcionario.getEndereco());
             stm.setString(10, funcionario.getBairro());
             stm.setString(11, funcionario.getEstado());
@@ -79,7 +81,7 @@ public class FuncionárioDAO extends DAO{
     
     public ObservableList<funcionarioM> listar_func(String txtPesquisarFunc) throws Exception {
 
-        String sql = "select * from funcionario where id like ?";
+        String sql = "select * from funcionario where nome like ?";
         stm = conector.prepareStatement(sql);
         stm.setString(1, "%" + txtPesquisarFunc + "%");
         rs = stm.executeQuery();
@@ -94,7 +96,7 @@ public class FuncionárioDAO extends DAO{
             funcionario.setCelular(rs.getString("celular"));
             funcionario.setEmail(rs.getString("email"));
             funcionario.setAdmin(rs.getString("admin"));
-            funcionario.setCargo(rs.getString("cargo"));
+            funcionario.setCargo_id(ControleDAO.getControleBanco().getCargoDAO().buscaCargo(rs.getInt("cargo_id")));
             funcionario.setEndereco(rs.getString("endereco"));
             funcionario.setBairro(rs.getString("bairro"));
             funcionario.setEstado(rs.getString("estado"));
@@ -103,30 +105,36 @@ public class FuncionárioDAO extends DAO{
         return listaFunc;
     }
     
-    public List<funcionarioM> comboCargo() {
-
-        List<funcionarioM> dadosFunc = new ArrayList<>();
-
+ /**   public List<funcionarioM> listarAllFunc() {
+        String sql = "select * from funcionario order by nome";
+        List<funcionarioM> listAllFunc = new ArrayList<>();
+        CargoDAO cargoDAO = new CargoDAO();
         try {
-            String sql = "select distinct(cargo) from funcionario";
-
             stm = conector.prepareStatement(sql);
             rs = stm.executeQuery(sql);
-
             while (rs.next()) {
-                funcionarioM funcionario = new funcionarioM(rs.getString("cargo"));
-                dadosFunc.add(funcionario);
+                funcionarioM funcionario = new funcionarioM();
+                funcionario.setId(rs.getInt("id"));
+                funcionario.setNome(rs.getString("nome"));
+                funcionario.setRg(rs.getString("rg"));
+                funcionario.setCpf(rs.getString("cpf"));
+                funcionario.setSenha(rs.getString("senha"));
+                funcionario.setCelular(rs.getString("celular"));
+                funcionario.setEmail(rs.getString("email"));
+                funcionario.setAdmin(rs.getString("admin"));
+                //funcionario.setCargo((cargoM) rs.getObject("cargo_id"));
+                funcionario.setEndereco(rs.getString("endereco"));
+                funcionario.setBairro(rs.getString("bairro"));
+                funcionario.setEstado(rs.getString("estado"));
+                listAllFunc.add(funcionario);
             }
-
             stm.close();
             rs.close();
-
         } catch (SQLException ex) {
-            mensagens.erro("Não foi possível preencher lista de cargos : \n" + ex);
+            mensagens.erro("Não foi possível preencher lista de funcionários : \n" + ex);
         }
-
-        return dadosFunc;
-    }
+        return listAllFunc;
+    }**/
     
     public List<funcionarioM> relatFunc() throws SQLException{
         

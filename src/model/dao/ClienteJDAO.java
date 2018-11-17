@@ -75,7 +75,7 @@ public class ClienteJDAO extends DAO{
     
     public ObservableList<clienteMJ> listar_clienteJ(String txtPesquisarJur) throws Exception {
 
-        String sql = "select * from clientej where id like ?";
+        String sql = "select * from clientej where razao like ?";
         stm = conector.prepareStatement(sql);
         stm.setString(1, "%" + txtPesquisarJur + "%");
         rs = stm.executeQuery();

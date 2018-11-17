@@ -66,7 +66,7 @@
                                     <Label styleClass="lb-info" text="Estado :" GridPane.columnIndex="2" />
                                     <TextField fx:id="txtEnderecoCliente" styleClass="campo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <TextField fx:id="txtBairroCliente" styleClass="campo" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                                    <ComboBox fx:id="comboBoxEstadoCliente" prefHeight="35.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="comboBoxEstadoCliente" onAction="#issoaimeuchapa" prefHeight="35.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                     <TextField fx:id="txtCPFCF" styleClass="campo" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                                  </children>
                               </GridPane>
@@ -98,8 +98,8 @@
                                   <TableColumn fx:id="TableColumnIdFisico" prefWidth="66.0" text="Id" />
                                   <TableColumn fx:id="TableColumnNomeFisico" prefWidth="230.0" text="Nome" />
                                     <TableColumn fx:id="TableColumnCpfFisico" prefWidth="100.0" text="CPF" />
-                                    <TableColumn fx:id="TableColumnCelularFisico" prefWidth="90.0" text="Celular" />
-                                    <TableColumn fx:id="TableColumnEmailFisico" prefWidth="170.0" text="Email" />
+                                    <TableColumn fx:id="TableColumnCelularFisico" prefWidth="110.0" text="Celular" />
+                                    <TableColumn fx:id="TableColumnEmailFisico" prefWidth="190.0" text="Email" />
                                     <TableColumn fx:id="TableColumnEnderecoFisico" prefWidth="270.0" text="Endereço" />
                                     <TableColumn fx:id="TableColumnBairroFisico" minWidth="0.0" prefWidth="270.0" text="Bairro" />
                                     <TableColumn fx:id="TableColumnEstadoFisico" prefWidth="85.0" text="Estado" />
@@ -161,9 +161,9 @@
                                  <columns>
                                     <TableColumn fx:id="TableColumnIdJur" prefWidth="66.0" text="Id" />
                                     <TableColumn fx:id="TableColumnRazãoSocial" prefWidth="230.0" text="Razão Social" />
-                                    <TableColumn fx:id="TableColumnCNPJ" prefWidth="85.0" text="CNPJ" />
-                                    <TableColumn fx:id="TableColumnTelefoneJur" prefWidth="97.0" text="Celular" />
-                                    <TableColumn fx:id="TableColumnEmailJur" prefWidth="170.0" text="Email" />
+                                    <TableColumn fx:id="TableColumnCNPJ" prefWidth="105.0" text="CNPJ" />
+                                    <TableColumn fx:id="TableColumnTelefoneJur" prefWidth="110.0" text="Celular" />
+                                    <TableColumn fx:id="TableColumnEmailJur" prefWidth="190.0" text="Email" />
                                     <TableColumn fx:id="TableColumnEnderecoJur" prefWidth="270.0" text="Endereço" />
                                     <TableColumn fx:id="TableColumnBairroJur" minWidth="0.0" prefWidth="270.0" text="Bairro" />
                                     <TableColumn fx:id="TableColumnEstadoJur" prefWidth="55.0" text="Estado" />

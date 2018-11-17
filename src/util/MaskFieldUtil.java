@@ -431,5 +431,24 @@ public class MaskFieldUtil {
     public static void NomePField(TextField textField) {
         MaskFieldUtil.maxField(textField, 70);
     }
+    
+    /*
+    *Formulário de Categoria do Produto
+     */
 
+    public static void NomeCField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 70);
+    }
+    
+    /*
+    *Formulário de Fornecedor do Produto
+     */
+    
+    public static void NomeFornField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 70);
+    }
+    public static void EndFornField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 70);
+    }
+    
 }

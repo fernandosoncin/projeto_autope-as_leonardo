@@ -104,15 +104,5 @@ public class clienteMF implements Serializable{
 
     }
     
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof clienteMF) {
-            clienteMF c = (clienteMF) o;
-            if (c.getId()== this.getId()) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 }

@@ -33,7 +33,7 @@ public class ClienteFDAO extends DAO {
             stm.setString(7, cliente.getEstado());
             stm.executeUpdate();
             stm.close();
-            mensagens.info("Cliente Físic inserido com sucesso!");
+            mensagens.info("Cliente Físico inserido com sucesso!");
         } catch (SQLException ex) {
             mensagens.erro("Erro ao inserir Cliente Físico: " + ex);
         }
@@ -73,7 +73,7 @@ public class ClienteFDAO extends DAO {
     }
 
     public ObservableList<clienteMF> listar_clienteF(String txtPesquisar) throws Exception {
-        String sql = "select * from clientef where id like ?";
+        String sql = "select * from clientef where nome like ?";
         stm = conector.prepareStatement(sql);
         stm.setString(1, "%" + txtPesquisar + "%");
         rs = stm.executeQuery();

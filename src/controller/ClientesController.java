@@ -37,6 +37,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.dao.ClienteFDAO;
 import model.dao.ClienteJDAO;
@@ -273,6 +274,24 @@ public class ClientesController implements Initializable {
         ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
         Combo.popular(comboBoxEstadoCliente, tipo);
     }
+    
+    private void escutarCombo(){
+        if(comboBoxEstadoCliente.getValue() == "AC"){
+            mensagens.erro("lul");
+            
+        }
+    }
+    
+    @FXML
+    void issoaimeuchapa() {
+        if (comboBoxEstadoCliente.getValue() == "AM"){
+           mensagens.erro("lul"); 
+           txtNomeCliente.setVisible(false);
+        }
+          
+            
+        
+    }
 
     private void comboEstadoJ() {
         ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
@@ -433,7 +452,7 @@ public class ClientesController implements Initializable {
                 clienteF.setEmail(txtEmailCliente.getText());
                 clienteF.setEndereco(txtEnderecoCliente.getText());
                 clienteF.setBairro(txtBairroCliente.getText());
-                clienteF.setEstado(comboBoxEstadoCliente.getValue().toString());
+                clienteF.setEstado(comboBoxEstadoCliente.getValue());
                 ControleDAO.getControleBanco().getClienteFDAO().salvarF(clienteF);
                 anchorPaneNovoClienteFísico.setVisible(false);
                 anchorPaneInicioCliente.setVisible(true);
