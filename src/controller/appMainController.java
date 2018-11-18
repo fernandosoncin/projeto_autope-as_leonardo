@@ -39,22 +39,22 @@ public class appMainController implements Initializable {
     private ToggleGroup grupoMenus;
 
     @FXML
-    private ToggleButton btFornecedores;
+    private ToggleButton btFuncionarios;
 
     @FXML
-    private VBox boxFornecedores;
+    private ToggleButton btProdutos;
 
     @FXML
-    private ToggleButton btNovoFornecedor;
+    private ToggleButton btVendas;
 
     @FXML
-    private ToggleGroup grupoFornecedores;
-
-    @FXML
-    private ToggleButton btListarFornecedores;
+    private ToggleGroup grupoMenus1;
 
     @FXML
     private Label lbUser;
+
+    @FXML
+    private Label lbLogOut;
 
     @FXML
     private Label lbVersãoDoSistema;
@@ -65,9 +65,6 @@ public class appMainController implements Initializable {
     @FXML
     private AnchorPane boxCounteúdo;
 
-    @FXML
-    private Label labelXDash;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -75,6 +72,12 @@ public class appMainController implements Initializable {
 
     }
 
+    @FXML
+    public void handleMenuInício() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/inicio.fxml"));
+        boxCounteúdo.getChildren().setAll(a);
+    }
+    
     @FXML
     public void handleMenuFormulárioClientes() throws IOException {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Clientes.fxml"));
@@ -94,11 +97,11 @@ public class appMainController implements Initializable {
     }
 
     @FXML
-    public void handleMenuInicio() throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/inicio.fxml"));
-        //a.getStylesheets().add(getClass().getResource("/css/custom.css").toExternalForm());
+    public void handleMenuFormulárioVendas() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Vendas.fxml"));
         boxCounteúdo.getChildren().setAll(a);
     }
+
 
     @FXML
     void menuLogOut(MouseEvent event) throws Exception {
@@ -115,6 +118,8 @@ public class appMainController implements Initializable {
     @FXML
     void facebookCriador(ActionEvent event) {
         links.siteFacebookCriador("https://www.facebook.com/fellipeluannoliveira");
+        links.siteFacebookCriador("https://www.facebook.com/fernando.soncin.5");
+        links.siteFacebookCriador("https://www.facebook.com/bruno.pinheiro.v");
     }
 
 }

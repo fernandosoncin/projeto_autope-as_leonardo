@@ -53,7 +53,6 @@
     -fx-min-height: 35px;
     -fx-padding: 0 0 0 20;
     -fx-font-size: 13px;
-    -fx-font-family: 'Open Sans', sans-serif;
     -fx-cursor: hand;
     -fx-graphic-text-gap: 10;
 }
@@ -100,32 +99,12 @@
     -fx-graphic: url("../view/imgs/produtos23px1.png");
 }
 
-.box-submenus {
-    -fx-background-color: #2f2f2f;
-    -fx-padding: 0 0 0 45;
-    -fx-font-size: 12px;
-    -fx-cursor: default;
+.menu-vendas {
+    -fx-graphic: url("../view/imgs/vendas23px1.png")
 }
 
-.submenus {
-    -fx-background-color: transparent;
-    -fx-text-fill: #d4d4d4;
-    -fx-pref-height: 30px;
-    -fx-min-height: 30px;
-    -fx-padding: 0 0 0 10;
-    -fx-font-family: 'Open Sans', sans-serif;
-    -fx-graphic: url("../view/imgs/submenu-ative.png");
-    -fx-graphic-text-gap: 5;
-}
-
-.submenus:hover {
-    -fx-text-fill: #cde073;
-    -fx-graphic: url("../view/imgs/submenu-inativo.png");
-}
-
-.submenus:selected {
-    -fx-text-fill: #cde073;
-    -fx-graphic: url("../view/imgs/submenu-inativo.png");
+.menu-vendas:selected {
+    -fx-graphic: url("../view/imgs/vendas23px1.png");
 }
 
 .box-user {
@@ -181,8 +160,7 @@
     -fx-graphic: url("../view/imgs/facebook14pxmini.png");
 }
 
-.link:hover,
-.link:focused {
+.link:hover {
     -fx-padding: 0px;
     -fx-text-fill: #c5db5a;
     -fx-border-width: 0px;

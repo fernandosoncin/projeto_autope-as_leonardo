@@ -22,7 +22,7 @@
                <children>
                   <VBox prefHeight="69.0" prefWidth="224.0" stylesheets="@../css/app.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" onMouseClicked="#handleMenuInicio" opacity="0.89" prefHeight="79.0" prefWidth="223.0" stylesheets="@../css/app.css" text="Início" textFill="WHITE">
+                        <Label alignment="CENTER" onMouseClicked="#handleMenuInício" opacity="0.89" prefHeight="79.0" prefWidth="223.0" stylesheets="@../css/app.css" text="Início" textFill="WHITE">
                            <font>
                               <Font name="Open Sans" size="27.0" />
                            </font>
@@ -60,6 +60,12 @@
                                        <styleClass>
                                           <String fx:value="menus" />
                                           <String fx:value="menu-produtos" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btVendas" alignment="CENTER_LEFT" minHeight="0.0" mnemonicParsing="false" onAction="#handleMenuFormulárioVendas" prefHeight="0.0" prefWidth="221.0" stylesheets="@../css/app.css" text="Vendas" toggleGroup="$grupoMenus">
+                                       <styleClass>
+                                          <String fx:value="menus" />
+                                          <String fx:value="menu-vendas" />
                                        </styleClass>
                                     </ToggleButton>
                                  </children>

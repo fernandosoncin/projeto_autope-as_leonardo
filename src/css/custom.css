@@ -117,17 +117,11 @@
     -fx-cursor: hand;
 }
 
-.menus:hover,
-.menus:selected {
-    -fx-background-color: #f7ae0a;
-}
-
 .menu-add {
     -fx-graphic: url("../view/imgs/add.png");
 }
 
-.menu-add:hover,
-.menu-add:selected {
+.menu-add:hover {
     -fx-graphic: url("../view/imgs/add-h.png");
 }
 
@@ -135,8 +129,7 @@
     -fx-graphic: url("../view/imgs/editar.png");
 }
 
-.menu-editar:hover,
-.menu-editar:selected {
+.menu-editar:hover{
     -fx-graphic: url("../view/imgs/editar-h.png");
 }
 
@@ -144,8 +137,7 @@
     -fx-graphic: url("../view/imgs/deletar.png");
 }
 
-.menu-excluir:hover,
-.menu-excluir:selected {
+.menu-excluir:hover{
     -fx-graphic: url("../view/imgs/deletar-h.png");
 }
 
@@ -153,8 +145,7 @@
     -fx-graphic: url("../view/imgs/relatorio-h.png");
 }
 
-.menu-relatorio:hover,
-.menu-relatorio:selected {
+.menu-relatorio:hover{
     -fx-graphic: url("../view/imgs/relatorio.png");
 }
 
