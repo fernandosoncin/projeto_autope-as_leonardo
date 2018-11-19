@@ -576,7 +576,7 @@ public class FuncionáriosController implements Initializable {
     void handleButtonInserirCargo(ActionEvent event) {
         anchorPaneNovoFunc.setVisible(false);
         anchorPaneNovoCargo.setVisible(true);
-        txtIdCargo.setText("");
+        txtIdCargo.setText("0");
 
     }
 
