@@ -8,18 +8,16 @@ public class produtoM {
     private fornecedorM fornecedor_id;
     private String pc_Compra;
     private String pc_Venda;
+    private int qntd;
 
-    public produtoM(int id, String nome, categoriaM categoria_id, fornecedorM fornecedor_id, String pc_Compra, String pc_Venda) {
+    public produtoM(int id, String nome, categoriaM categoria_id, fornecedorM fornecedor_id, String pc_Compra, String pc_Venda, int qntd) {
         this.id = id;
         this.nome = nome;
         this.categoria_id = categoria_id;
         this.fornecedor_id = fornecedor_id;
         this.pc_Compra = pc_Compra;
         this.pc_Venda = pc_Venda;
-    }
-
-    public produtoM() {
-        this.id = 0;
+        this.qntd = qntd;
     }
 
     public produtoM(String nome, String pc_Compra, String pc_Venda) {
@@ -27,7 +25,11 @@ public class produtoM {
         this.pc_Compra = pc_Compra;
         this.pc_Venda = pc_Compra;
     }
-    
+
+    public produtoM() {
+        this.id = 0;
+    }
+
     public int getId() {
         return id;
     }
@@ -74,6 +76,14 @@ public class produtoM {
 
     public void setPc_Venda(String pc_Venda) {
         this.pc_Venda = pc_Venda;
+    }
+
+    public int getQntd() {
+        return qntd;
+    }
+
+    public void setQntd(int qntd) {
+        this.qntd = qntd;
     }
 
     public String toString() {

@@ -149,14 +149,23 @@
     -fx-graphic: url("../view/imgs/relatorio.png");
 }
 
+.menu-infov {
+    -fx-graphic: url("../view/imgs/infov.png");
+}
+
+.menu-infov:hover{
+    -fx-graphic: url("../view/imgs/infov-h.png");
+}
+
 /* ....... Menus ações  .....*/
 
 .menus-acoes {
     -fx-min-height: 35px;
     -fx-pref-height: 35px;
     -fx-max-height: 35px;
-    -fx-min-width: 200px;
+/*     -fx-min-width: 200px;
     -fx-pref-width: 200px;
+*/
     -fx-max-width: 200px;
     -fx-font-size: 13px;
     -fx-font-family: "Open Sans";
@@ -228,6 +237,16 @@
     -fx-border-color: #79589F;
 }
 
+.menu-verdemenu {
+    -fx-background-color: linear-gradient(to top right, #cde073, #c2d66b);
+    -fx-border-color: linear-gradient(to top right, #cde073, #c2d66b);
+}
+
+.menu-verdemenu:pressed {
+    -fx-background-color: #cde073;
+    -fx-border-color: #cde073;
+}
+
 .acao-info {
     -fx-graphic: url("../img/icon/info.png");
 }
@@ -250,4 +269,20 @@
 
 .acao-cancelar {
     -fx-graphic: url("../img/icon/excluir.png");
+}
+
+.acao-buscar {
+    -fx-graphic: url("../view/imgs/pesquisar-b.png");
+}
+
+.acao-addproduto {
+    -fx-graphic: url("../view/imgs/plus_23px.png");
+}
+
+.acao-removerproduto {
+    -fx-graphic: url("../view/imgs/minus_23px.png");
+}
+
+.acao-selecionarclienteVF {
+    -fx-graphic: url("../view/imgs/rightarrow_23px.png");
 }

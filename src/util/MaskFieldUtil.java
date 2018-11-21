@@ -378,27 +378,27 @@ public class MaskFieldUtil {
     public static void BairroCFField(TextField textField) {
         MaskFieldUtil.maxField(textField, 45);
     }
-    
- /*
+
+    /*
     *Formulário de Clientes Jurídico
      */
     public static void RazaoSCJField(TextField textField) {
         MaskFieldUtil.maxField(textField, 70);
-        
+
     }
-    
+
     public static void EmailCJField(TextField textField) {
         MaskFieldUtil.maxField(textField, 45);
     }
-    
+
     public static void EndCJField(TextField textField) {
         MaskFieldUtil.maxField(textField, 70);
     }
-    
+
     public static void BairroCJField(TextField textField) {
         MaskFieldUtil.maxField(textField, 45);
     }
-    
+
 
     /*
     *Formulário de Funcionários
@@ -406,7 +406,7 @@ public class MaskFieldUtil {
     public static void NomeFuncField(TextField textField) {
         MaskFieldUtil.maxField(textField, 70);
     }
-    
+
     public static void EmailFuncField(TextField textField) {
         MaskFieldUtil.maxField(textField, 32);
     }
@@ -419,8 +419,6 @@ public class MaskFieldUtil {
         MaskFieldUtil.maxField(textField, 22);
     }
 
-
-
     public static void SenhaFuncField(TextField textField) {
         MaskFieldUtil.maxField(textField, 4);
     }
@@ -431,24 +429,27 @@ public class MaskFieldUtil {
     public static void NomePField(TextField textField) {
         MaskFieldUtil.maxField(textField, 70);
     }
-    
+
+    public static void QntdPField(TextField textField) {
+        MaskFieldUtil.maxField(textField, 6);
+    }
+
     /*
     *Formulário de Categoria do Produto
      */
-
     public static void NomeCField(TextField textField) {
         MaskFieldUtil.maxField(textField, 70);
     }
-    
+
     /*
     *Formulário de Fornecedor do Produto
      */
-    
     public static void NomeFornField(TextField textField) {
         MaskFieldUtil.maxField(textField, 70);
     }
+
     public static void EndFornField(TextField textField) {
         MaskFieldUtil.maxField(textField, 70);
     }
-    
+
 }

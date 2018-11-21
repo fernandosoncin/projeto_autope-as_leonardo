@@ -281,7 +281,7 @@ public class FuncionáriosController implements Initializable {
         if (txtBairroFunc.getText() == null || txtBairroFunc.getText().length() == 0) {
             msgErro += "Bairro inválido\n";
         }
-        if (comboBoxCargoFunc.getItems().isEmpty()){
+        if (comboBoxCargoFunc.getItems().isEmpty()) {
             msgErro += "Cargo inválido\n";
         }
 
@@ -616,6 +616,7 @@ public class FuncionáriosController implements Initializable {
     void limparCamposCargo() {
         txtIdCargo.setText("0");
         txtNomeCargo.setText("");
+        txtPesquisarCargo.setText("");
         cargo.setCod_Cargo(0);
     }
 
@@ -625,6 +626,7 @@ public class FuncionáriosController implements Initializable {
         if (resp == diálogo.Resposta.YES) {
             limparCamposCargo();
             tbCargos.getSelectionModel().clearSelection();
+            desativasbtsExcluirAlterarCargo();
             anchorPaneNovoCargo.setVisible(false);
             anchorPaneNovoFunc.setVisible(true);
         }
@@ -648,19 +650,29 @@ public class FuncionáriosController implements Initializable {
     }
 
     @FXML
-    void handleButtonExcluirCargo(ActionEvent event) throws Exception {      
+    void handleButtonExcluirCargo(ActionEvent event) throws Exception {
         if (tbCargos.getSelectionModel().isEmpty()) {
             mensagens.erro("Selecione um Cargo para exclusão.");
             desativasbtsExcluirAlterarCargo();
+        } else if (txtNomeCargo.getText().equals("Vendedor")) {
+            mensagens.erro("Não é possível excluir o cargo de vendedor.");
         } else {
+            {
                 cargoM cargo = tbCargos.getItems().get(tbCargos.getSelectionModel().getSelectedIndex());
-                ControleDAO.getControleBanco().getCargoDAO().removerCargo(cargo);
-                tbCargos.getItems().clear();
-                atualizarListaCargo();
-                limparCamposCargo();
-                btSalvarCargo.setDisable(false);
-                btExcluirCargo.setDisable(true);
-                btAlterarCargo.setDisable(true);
+                if (cargo.getNome_Cargo().equals("Vendedor")) {
+                    mensagens.erro("Não é possível excluir o cargo de vendedor.");
+                } else {
+                    ControleDAO.getControleBanco().getCargoDAO().removerCargo(cargo);
+                    tbCargos.getItems().clear();
+                    atualizarListaCargo();
+                    limparCamposCargo();
+                    preenchercomboCargo();
+                    btSalvarCargo.setDisable(false);
+                    btExcluirCargo.setDisable(true);
+                    btAlterarCargo.setDisable(true);
+                }
+
+            }
         }
     }
 

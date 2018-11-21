@@ -1,8 +1,397 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" fx:id="anchorPaneVenda" prefHeight="616.0" prefWidth="942.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controller.VendasController">
-    
+<AnchorPane id="AnchorPane" fx:id="anchorPaneVenda" prefHeight="616.0" prefWidth="942.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.VendasController">
+   <children>
+      <TabPane layoutX="10.0" layoutY="10.0" prefHeight="347.0" prefWidth="529.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="Físico">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane fx:id="anchorPaneInicioVF" prefHeight="584.0" prefWidth="942.0">
+                           <children>
+                              <TableView fx:id="tbVF" accessibleRole="IMAGE_VIEW" prefHeight="133.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
+                                 <columns>
+                                    <TableColumn fx:id="TableColumnIdVF" prefWidth="66.0" text="Id" />
+                                    <TableColumn fx:id="TableColumnNomeClienteVF" prefWidth="270.0" text="Cliente" />
+                                    <TableColumn fx:id="TableColumnVendedorVF" prefWidth="270.0" text="Vendedor" />
+                                    <TableColumn fx:id="TableColumnDataHorarioVF" prefWidth="202.0" text="Data/Horário" />
+                                    <TableColumn fx:id="TableColumnValorTotalVF" prefWidth="118.0" text="Valor Total" />
+                                 </columns>
+                              </TableView>
+                              <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">
+                                 <children>
+                                    <Label fx:id="lbTitulo" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Vendas - Clientes Físico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                                    <ToggleButton fx:id="btInfoVF" disable="true" mnemonicParsing="false" onAction="#handleButtonInfoVF" text="">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu22" />
+                                       </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-infov" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <TextField fx:id="txtPesquisarVF" onKeyPressed="#eventKeyPressedEnterVF" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                                    <ToggleButton fx:id="btRelatorioVF" mnemonicParsing="false" onAction="#handleButtonRelatorioVF" text="">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu2" />
+                                       </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-relatorio" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btNovoVF" mnemonicParsing="false" onAction="#handleButtonInserirVF" text="">
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-add" />
+                                       </styleClass>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btExcluirVF" disable="true" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlebuttonExcluirVF" text="" toggleGroup="$menu">
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-excluir" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="anchorPaneNovoVF" prefHeight="616.0" prefWidth="942.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo">
+                                 <children>
+                                    <Label fx:id="lbTitulo1" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Nova Venda" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <AnchorPane layoutX="23.0" layoutY="521.0" prefHeight="42.0" prefWidth="896.0" styleClass="box-menus-subtela">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="17.0" text="ATENÇÃO : Todos os campos são obrigatórios." />
+                                    <Button fx:id="btFinalizarVF" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonFinalizarVF" prefWidth="200.0" text="Finalizar">
+                                       <styleClass>
+                                          <String fx:value="menus-acoes" />
+                                          <String fx:value="acao-salvar" />
+                                          <String fx:value="menu-green" />
+                                       </styleClass>
+                                    </Button>
+                                    <Button fx:id="btCancelarVF" layoutX="481.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelarVF" prefWidth="200.0" text="Cancelar">
+                                       <styleClass>
+                                          <String fx:value="menus-acoes" />
+                                          <String fx:value="acao-excluir" />
+                                          <String fx:value="menu-red" />
+                                       </styleClass>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <TextField fx:id="txtClienteVF" disable="true" layoutX="257.0" layoutY="137.0" prefWidth="359.0" styleClass="campo" />
+                              <TextField fx:id="txtIdClienteVF" disable="true" layoutX="625.0" layoutY="138.0" prefWidth="65.0" styleClass="campo" text="0" />
+                              <Label layoutX="625.0" layoutY="119.0" prefHeight="17.0" prefWidth="60.0" styleClass="lb-info" text="Id : " />
+                              <Label layoutX="257.0" layoutY="118.0" text="Cliente : " />
+                              <ComboBox fx:id="comboBoxFuncVF" layoutX="257.0" layoutY="79.0" prefHeight="35.0" prefWidth="433.0" />
+                              <Label layoutX="257.0" layoutY="60.0" text="Vendedor : " />
+                              <Button fx:id="btProcurarClienteVF" layoutX="703.0" layoutY="137.0" minWidth="44.0" mnemonicParsing="false" onAction="#handleButtonProcurarCVF" prefHeight="32.0" prefWidth="45.0">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="acao-buscar" />
+                                    <String fx:value="menu-verdemenu" />
+                                 </styleClass>
+                              </Button>
+                              <TextField fx:id="txtProdutoVF" disable="true" layoutX="257.0" layoutY="198.0" prefWidth="359.0" styleClass="campo" />
+                              <TextField fx:id="txtIdProdutoVF" disable="true" layoutX="623.0" layoutY="198.0" prefWidth="65.0" styleClass="campo" text="0" />
+                              <Label layoutX="626.0" layoutY="178.0" prefHeight="17.0" prefWidth="70.0" styleClass="lb-info" text="Id : " />
+                              <Label layoutX="257.0" layoutY="178.0" text="Produto : " />
+                              <Button fx:id="btProcurarProdVF" layoutX="703.0" layoutY="198.0" minWidth="44.0" mnemonicParsing="false" onAction="#handleButtonProcurarProdVF" prefHeight="32.0" prefWidth="45.0">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="acao-buscar" />
+                                    <String fx:value="menu-verdemenu" />
+                                 </styleClass>
+                              </Button>
+                              <Label layoutX="257.0" layoutY="241.0" text="Preço unitário : " />
+                              <Label layoutX="365.0" layoutY="241.0" text="Quantidade : " />
+                              <TextField fx:id="txtQntdVF" disable="true" layoutX="365.0" layoutY="261.0" prefWidth="90.0" styleClass="campo" />
+                              <TextField fx:id="txtPUVF" disable="true" layoutX="257.0" layoutY="261.0" prefWidth="90.0" styleClass="campo" />
+                              <Label layoutX="580.0" layoutY="241.0" text="Total : " />
+                              <Label fx:id="txtLabelTotalVF" layoutX="582.0" layoutY="259.0" prefHeight="40.0" prefWidth="168.0" text="100.578,38" textFill="RED">
+                                 <font>
+                                    <Font name="DS-Digital" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="btRemoverProdVF" layoutX="521.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleButtonRemoverProdVF" prefWidth="43.0">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="acao-removerproduto" />
+                                    <String fx:value="menu-red" />
+                                 </styleClass>
+                              </Button>
+                              <Button fx:id="btAddProdVF" layoutX="471.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleButtonAddProdVF" prefWidth="43.0">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="menu-green" />
+                                    <String fx:value="acao-addproduto" />
+                                 </styleClass>
+                              </Button>
+                              <TableView layoutX="256.0" layoutY="318.0" prefHeight="179.0" prefWidth="436.0">
+                                <columns>
+                                  <TableColumn fx:id="TableColumnProdutoVF" prefWidth="217.0" text="Produto" />
+                                  <TableColumn fx:id="TableColumnQntdVF" prefWidth="52.0" text="Qntd" />
+                                    <TableColumn fx:id="TableColumnPUVF" prefWidth="82.0" text="P. Unitário" />
+                                    <TableColumn fx:id="TableColumnPTVF" prefWidth="82.0" text="P. Total" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="anchorPaneSelecionarCVF" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TableView fx:id="tbClienteVF" accessibleRole="IMAGE_VIEW" prefHeight="466.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="121.0">
+                                 <columns>
+                                    <TableColumn fx:id="TableColumnIdFisico" prefWidth="66.0" text="Id" />
+                                    <TableColumn fx:id="TableColumnNomeFisico" prefWidth="230.0" text="Nome" />
+                                    <TableColumn fx:id="TableColumnCpfFisico" prefWidth="100.0" text="CPF" />
+                                    <TableColumn fx:id="TableColumnCelularFisico" prefWidth="110.0" text="Celular" />
+                                    <TableColumn fx:id="TableColumnEmailFisico" prefWidth="190.0" text="Email" />
+                                    <TableColumn fx:id="TableColumnEnderecoFisico" prefWidth="270.0" text="Endereço" />
+                                    <TableColumn fx:id="TableColumnBairroFisico" minWidth="0.0" prefWidth="270.0" text="Bairro" />
+                                    <TableColumn fx:id="TableColumnEstadoFisico" prefWidth="85.0" text="Estado" />
+                                 </columns>
+                              </TableView>
+                              <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                    <Label fx:id="lbTitulo12" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Clientes Físico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="txtPesquisarCVF" onKeyPressed="#eventKeyPressedEnterCVF" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                                 </children>
+                              </HBox>
+                              <Button fx:id="btSelecionarCVF" layoutX="727.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleButtonSelecionarCVF" prefWidth="152.0" text="Selecionar">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="acao-selecionarclienteVF" />
+                                    <String fx:value="menu-verdemenu" />
+                                 </styleClass>
+                              </Button>
+                              <Button fx:id="btCancelarSelecionarCVF" layoutX="888.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleButtonCancelarSelecionarCVF" prefWidth="40.0">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="acao-excluir" />
+                                    <String fx:value="menu-red" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="anchorPaneSelecionarPVF" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                    <Label fx:id="lbTitulo121" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Produtos" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="txtPesquisarPCV" onKeyPressed="#eventKeyPressedEnterPCF" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                                 </children>
+                              </HBox>
+                              <Button fx:id="btSelecionarPCV" layoutX="728.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleButtonSelecionarPCV" prefWidth="152.0" text="Selecionar">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="acao-selecionarclienteVF" />
+                                    <String fx:value="menu-verdemenu" />
+                                 </styleClass>
+                              </Button>
+                              <TableView fx:id="tbProdCV" prefHeight="467.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="121.0">
+                                 <columns>
+                                    <TableColumn fx:id="TableColumnIdProd" prefWidth="61.0" text="Id" />
+                                    <TableColumn fx:id="TableColumnNomeProd" prefWidth="330.0" text="Nome" />
+                                    <TableColumn fx:id="TableColumnCategoriaProd" prefWidth="250.0" text="Categoria" />
+                                    <TableColumn fx:id="TableColumnFornecedorProd" prefWidth="250.0" text="Fornecedor" />
+                                    <TableColumn fx:id="TableColumnPCdeCompraProd" prefWidth="130.0" text="Preço de compra" />
+                                    <TableColumn fx:id="TableColumnPCdeVendaProd" prefWidth="130.0" text="Preço de venda" />
+                                    <TableColumn fx:id="TableColumnQuantidadeProd" prefWidth="100.0" text="Quantidade" />
+                                 </columns>
+                              </TableView>
+                              <Button fx:id="btCancelarSelecionarPVF" layoutX="888.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleButtonCancelarSelecionarPVF" prefWidth="40.0">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="acao-excluir" />
+                                    <String fx:value="menu-red" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <stylesheets>
+                        <URL value="@../css/custom.css" />
+                        <URL value="@../css/default.css" />
+                     </stylesheets>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Jurídico">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane fx:id="anchorPaneInicioVJ" prefHeight="616.0" prefWidth="942.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TableView fx:id="tbVJ" prefHeight="418.0" prefWidth="942.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="116.0">
+                                 <columns>
+                                    <TableColumn fx:id="TableColumnIdVJ" prefWidth="66.0" text="Id" />
+                                    <TableColumn fx:id="TableColumnNomeClienteVJ" prefWidth="270.0" text="Cliente" />
+                                    <TableColumn fx:id="TableColumnVendedorVJ" prefWidth="270.0" text="Vendedor" />
+                                    <TableColumn fx:id="TableColumnDataHorarioVJ" prefWidth="202.0" text="Data/Horário" />
+                                    <TableColumn fx:id="TableColumnValorTotalVJ" prefWidth="118.0" text="Valor Total" />
+                                 </columns>
+                              </TableView>
+                              <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">
+                                 <children>
+                                    <Label fx:id="lbTitulo2" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Vendas - Clientes Jurídico" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                                    <ToggleButton fx:id="btInfoVJ" disable="true" mnemonicParsing="false" onAction="#handleButtonInfoVJ" text="">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu221" />
+                                       </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-infov" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <TextField fx:id="txtPesquisarVJ" onKeyPressed="#eventKeyPressedEnterVJ" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
+                                    <ToggleButton fx:id="btRelatorioVJ" mnemonicParsing="false" onAction="#handleButtonRelatorioVJ" text="">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu21" />
+                                       </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-relatorio" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btNovoVJ" mnemonicParsing="false" onAction="#handleButtonInserirVJ" text="">
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-add" />
+                                       </styleClass>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="menu1" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="btExcluirVJ" disable="true" layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlebuttonExcluirVJ" text="" toggleGroup="$menu1">
+                                       <styleClass>
+                                          <String fx:value="menus-tela" />
+                                          <String fx:value="menu-excluir" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <stylesheets>
+                              <URL value="@../css/default.css" />
+                              <URL value="@../css/custom.css" />
+                           </stylesheets>
+                        </AnchorPane>
+                        <AnchorPane fx:id="anchorPaneNovoVJ" prefHeight="616.0" prefWidth="942.0" visible="false">
+                           <stylesheets>
+                              <URL value="@../css/default.css" />
+                              <URL value="@../css/custom.css" />
+                           </stylesheets>
+                           <children>
+                              <HBox prefHeight="60.0" prefWidth="926.0" styleClass="box-topo">
+                                 <children>
+                                    <Label fx:id="lbTitulo11" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Nova Venda" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <AnchorPane layoutX="23.0" layoutY="521.0" prefHeight="42.0" prefWidth="896.0" styleClass="box-menus-subtela">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="17.0" text="ATENÇÃO : Todos os campos são obrigatórios." />
+                                    <Button fx:id="btFinalizarVJ" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonFinalizarVJ" prefWidth="200.0" text="Finalizar">
+                                       <styleClass>
+                                          <String fx:value="menus-acoes" />
+                                          <String fx:value="acao-salvar" />
+                                          <String fx:value="menu-green" />
+                                       </styleClass>
+                                    </Button>
+                                    <Button fx:id="btCancelarVJ" layoutX="481.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelarVJ" prefWidth="200.0" text="Cancelar">
+                                       <styleClass>
+                                          <String fx:value="menus-acoes" />
+                                          <String fx:value="acao-excluir" />
+                                          <String fx:value="menu-red" />
+                                       </styleClass>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <TextField fx:id="txtClienteVJ" disable="true" layoutX="257.0" layoutY="137.0" prefWidth="359.0" styleClass="campo" />
+                              <TextField fx:id="txtIdClienteVJ" disable="true" layoutX="625.0" layoutY="138.0" prefWidth="65.0" styleClass="campo" text="0" />
+                              <Label layoutX="625.0" layoutY="119.0" prefHeight="17.0" prefWidth="60.0" styleClass="lb-info" text="Id : " />
+                              <Label layoutX="257.0" layoutY="118.0" text="Cliente : " />
+                              <ComboBox fx:id="comboBoxFuncVJ" layoutX="257.0" layoutY="79.0" prefHeight="35.0" prefWidth="433.0" />
+                              <Label layoutX="257.0" layoutY="60.0" text="Vendedor : " />
+                              <Button fx:id="btProcurarClienteVJ" layoutX="703.0" layoutY="137.0" minWidth="44.0" mnemonicParsing="false" onAction="#handleButtonProcurarCVJ" prefHeight="32.0" prefWidth="45.0">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="acao-buscar" />
+                                    <String fx:value="menu-laranja" />
+                                 </styleClass>
+                              </Button>
+                              <TextField fx:id="txtProdutoVJ" disable="true" layoutX="257.0" layoutY="198.0" prefWidth="359.0" styleClass="campo" />
+                              <TextField fx:id="txtIdProdutoVJ" disable="true" layoutX="623.0" layoutY="198.0" prefWidth="65.0" styleClass="campo" text="0" />
+                              <Label layoutX="626.0" layoutY="178.0" prefHeight="17.0" prefWidth="70.0" styleClass="lb-info" text="Id : " />
+                              <Label layoutX="257.0" layoutY="178.0" text="Produto : " />
+                              <Button fx:id="btProcurarProdVJ" layoutX="703.0" layoutY="198.0" minWidth="44.0" mnemonicParsing="false" onAction="#handleButtonProcurarProdVJ" prefHeight="32.0" prefWidth="45.0">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="acao-buscar" />
+                                    <String fx:value="menu-laranja" />
+                                 </styleClass>
+                              </Button>
+                              <Label layoutX="257.0" layoutY="241.0" text="Preço unitário : " />
+                              <Label layoutX="365.0" layoutY="241.0" text="Quantidade : " />
+                              <TextField fx:id="txtQntdVJ" disable="true" layoutX="365.0" layoutY="261.0" prefWidth="90.0" styleClass="campo" />
+                              <TextField fx:id="txtPUVJ" disable="true" layoutX="257.0" layoutY="261.0" prefWidth="90.0" styleClass="campo" />
+                              <Label layoutX="580.0" layoutY="241.0" text="Total : " />
+                              <Label fx:id="txtLabelTotalVJ" layoutX="582.0" layoutY="259.0" prefHeight="40.0" prefWidth="168.0" text="100.578,38" textFill="RED">
+                                 <font>
+                                    <Font name="DS-Digital" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="btRemoverProdVJ" layoutX="521.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleButtonRemoverProdVJ" prefWidth="43.0">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="acao-removerproduto" />
+                                    <String fx:value="menu-red" />
+                                 </styleClass>
+                              </Button>
+                              <Button fx:id="btAddProdVJ" layoutX="471.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleButtonAddProdVJ" prefWidth="43.0">
+                                 <styleClass>
+                                    <String fx:value="menus-acoes" />
+                                    <String fx:value="menu-green" />
+                                    <String fx:value="acao-addproduto" />
+                                 </styleClass>
+                              </Button>
+                              <TableView fx:id="tbProdutosVJ" layoutX="256.0" layoutY="318.0" prefHeight="179.0" prefWidth="436.0">
+                                 <columns>
+                                    <TableColumn fx:id="TableColumnProdutoVJ" prefWidth="217.0" text="Produto" />
+                                    <TableColumn fx:id="TableColumnQntdVJ" prefWidth="52.0" text="Qntd" />
+                                    <TableColumn fx:id="TableColumnPUVJ" prefWidth="82.0" text="P. Unitário" />
+                                    <TableColumn fx:id="TableColumnPTVJ" prefWidth="82.0" text="P. Total" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
 </AnchorPane>

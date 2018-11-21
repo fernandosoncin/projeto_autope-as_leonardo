@@ -31,7 +31,7 @@
                   <TableColumn fx:id="TableColumnSenhaFunc" minWidth="5.0" prefWidth="60.0" text="Senha" />
                   <TableColumn fx:id="TableColumnCelFunc" prefWidth="103.0" text="Celular" />
                   <TableColumn fx:id="TableColumnEmailFunc" minWidth="0.0" prefWidth="170.0" text="Email" />
-                  <TableColumn fx:id="TableColumnTipoFunc" text="Tipo" />
+                  <TableColumn fx:id="TableColumnTipoFunc" prefWidth="130.0" text="Tipo" />
                   <TableColumn fx:id="TableColumnCargoFunc" prefWidth="225.0" text="Cargo" />
                   <TableColumn fx:id="TableColumnEndFunc" prefWidth="270.0" text="Endereço" />
                   <TableColumn fx:id="TableColumnBairroFunc" minWidth="0.0" prefWidth="270.0" text="Bairro" />
@@ -153,14 +153,14 @@
                         <AnchorPane layoutX="12.0" layoutY="518.0" prefHeight="75.0" prefWidth="896.0" styleClass="box-menus-subtela">
                            <children>
                               <Label layoutX="14.0" layoutY="17.0" text="ATENÇÃO : Todos os campos são obrigatórios." />
-                              <Button fx:id="btSalvarFunc" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonSalvarFunc" text="Salvar">
+                              <Button fx:id="btSalvarFunc" layoutX="691.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonSalvarFunc" prefWidth="200.0" text="Salvar">
                                  <styleClass>
                                     <String fx:value="menus-acoes" />
                                     <String fx:value="acao-salvar" />
                                     <String fx:value="menu-green" />
                                  </styleClass>
                               </Button>
-                              <Button fx:id="btCancelarFunc" layoutX="481.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelarFunc" text="Cancelar">
+                              <Button fx:id="btCancelarFunc" layoutX="481.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelarFunc" prefWidth="200.0" text="Cancelar">
                                  <styleClass>
                                     <String fx:value="menus-acoes" />
                                     <String fx:value="acao-excluir" />
@@ -203,14 +203,14 @@
             </GridPane>
             <AnchorPane layoutX="15.0" layoutY="265.0" prefHeight="42.0" prefWidth="896.0" styleClass="box-menus-subtela">
                <children>
-                  <Button fx:id="btSalvarCargo" layoutX="453.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonSalvarCargo" text="Salvar">
+                  <Button fx:id="btSalvarCargo" layoutX="453.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonSalvarCargo" prefWidth="200.0" text="Salvar">
                      <styleClass>
                         <String fx:value="menus-acoes" />
                         <String fx:value="acao-salvar" />
                         <String fx:value="menu-green" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="btCancelarCargo" layoutX="243.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelarCargo" text="Cancelar">
+                  <Button fx:id="btCancelarCargo" layoutX="243.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleButtonCancelarCargo" prefWidth="200.0" text="Cancelar">
                      <styleClass>
                         <String fx:value="menus-acoes" />
                         <String fx:value="acao-excluir" />

@@ -23,13 +23,14 @@ public class ProdutoDAO extends DAO {
     public void inserirProd(produtoM produto) throws Exception {
         try {
 
-            String sql = "insert into produto(nome,categoria_id,fornecedor_id,pc_compra,pc_venda) values (?,?,?,?,?)";
+            String sql = "insert into produto(nome,categoria_id,fornecedor_id,pc_compra,pc_venda,qntd) values (?,?,?,?,?,?)";
             stm = conector.prepareStatement(sql);
             stm.setString(1, produto.getNome());
             stm.setInt(2, produto.getCategoria_id().getId_Categoria());
             stm.setInt(3, produto.getFornecedor_id().getId());
             stm.setString(4, produto.getPc_Compra());
             stm.setString(5, produto.getPc_Venda());
+            stm.setInt(6, produto.getQntd());
             stm.executeUpdate();
             mensagens.info("Produto inserido com sucesso!");
         } catch (SQLException ex) {
@@ -40,14 +41,15 @@ public class ProdutoDAO extends DAO {
     public void alterarProd(produtoM produto) throws Exception {
         try {
 
-            String sql = "update produto set nome=?, categoria_id=?, fornecedor_id=?, pc_compra=?, pc_venda=? where id=?";
+            String sql = "update produto set nome=?, categoria_id=?, fornecedor_id=?, pc_compra=?, pc_venda=?, qntd=? where id=?";
             stm = conector.prepareStatement(sql);
             stm.setString(1, produto.getNome());
             stm.setInt(2, produto.getCategoria_id().getId_Categoria());
             stm.setInt(3, produto.getFornecedor_id().getId());
             stm.setString(4, produto.getPc_Compra());
             stm.setString(5, produto.getPc_Venda());
-            stm.setInt(6, produto.getId());
+            stm.setInt(6, produto.getQntd());
+            stm.setInt(7, produto.getId());
             stm.executeUpdate();
             mensagens.info("Produto alterado com sucesso!");
         } catch (SQLException ex) {
@@ -82,6 +84,7 @@ public class ProdutoDAO extends DAO {
             produto.setFornecedor_id(ControleDAO.getControleBanco().getFornecedorDAO().buscaFornecedor(rs.getInt("fornecedor_id")));
             produto.setPc_Compra(rs.getString("pc_compra"));
             produto.setPc_Venda(rs.getString("pc_venda"));
+            produto.setQntd(rs.getInt("qntd"));
             listaProd.add(produto);
         }
         return listaProd;

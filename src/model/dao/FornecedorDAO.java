@@ -70,7 +70,7 @@ public class FornecedorDAO extends DAO{
     public List<fornecedorM> comboFornecedor() {
         List<fornecedorM> dados = new ArrayList<>();
         try {
-            String sql = "SELECT id,nome,end,telefone,estado FROM fornecedor_p ORDER BY nome ";
+            String sql = "SELECT id,nome,end,telefone,estado FROM fornecedor_p ORDER BY nome";
 
             stm = conector.prepareStatement(sql);
             rs = stm.executeQuery(sql);

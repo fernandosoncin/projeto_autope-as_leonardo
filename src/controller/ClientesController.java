@@ -238,6 +238,7 @@ public class ClientesController implements Initializable {
         this.clienteF = new clienteMF();
         this.clienteFDAO = new ClienteFDAO();
         comboEstadoF();
+        tableClienteFísico.setPrefWidth(490);
         setCellTableClienteF();
         atualizarListaClienteFisico();
         selecionarItemTabelaClienteFísico();
@@ -273,13 +274,6 @@ public class ClientesController implements Initializable {
     private void comboEstadoF() {
         ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
         Combo.popular(comboBoxEstadoCliente, tipo);
-    }
-    
-    private void escutarCombo(){
-        if(comboBoxEstadoCliente.getValue() == "AC"){
-            mensagens.erro("lul");
-            
-        }
     }
     
     @FXML

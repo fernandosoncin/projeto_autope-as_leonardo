@@ -26,7 +26,7 @@ CREATE TABLE `cargo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,6 +35,7 @@ CREATE TABLE `cargo` (
 
 LOCK TABLES `cargo` WRITE;
 /*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
+INSERT INTO `cargo` VALUES (18,'Vendedor');
 /*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,7 +50,7 @@ CREATE TABLE `categoria_p` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +79,7 @@ CREATE TABLE `clientef` (
   `bairro` varchar(45) DEFAULT NULL,
   `estado` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +134,7 @@ CREATE TABLE `fornecedor_p` (
   `telefone` varchar(45) DEFAULT NULL,
   `estado` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +169,7 @@ CREATE TABLE `funcionario` (
   PRIMARY KEY (`id`),
   KEY `fk_cargo_id_idx` (`cargo_id`),
   CONSTRAINT `fk_cargo_id` FOREIGN KEY (`cargo_id`) REFERENCES `cargo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,12 +195,13 @@ CREATE TABLE `produto` (
   `fornecedor_id` int(11) NOT NULL,
   `pc_compra` varchar(45) DEFAULT NULL,
   `pc_venda` varchar(45) DEFAULT NULL,
+  `qntd` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_fornecedor_id_idx` (`fornecedor_id`),
   KEY `fk_categoria_p_idx` (`categoria_id`),
   CONSTRAINT `fk_categoria_p` FOREIGN KEY (`categoria_id`) REFERENCES `categoria_p` (`id`),
   CONSTRAINT `fk_fornecedor_p` FOREIGN KEY (`fornecedor_id`) REFERENCES `fornecedor_p` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,36 +214,34 @@ LOCK TABLES `produto` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `venda`
+-- Table structure for table `vendasf`
 --
 
-DROP TABLE IF EXISTS `venda`;
+DROP TABLE IF EXISTS `vendasf`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `venda` (
+CREATE TABLE `vendasf` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data` varchar(45) DEFAULT NULL,
-  `horario` varchar(45) DEFAULT NULL,
-  `funcionario_id` int(11) NOT NULL,
   `cliente_id` int(11) NOT NULL,
-  `produto_id` int(11) NOT NULL,
+  `funcionario_id` int(11) NOT NULL,
+  `data` varchar(45) DEFAULT NULL,
+  `horario` datetime DEFAULT NULL,
+  `valortotalv` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_venda_funcionario_idx` (`funcionario_id`),
   KEY `fk_venda_cliente1_idx` (`cliente_id`),
-  KEY `fk_venda_produto1_idx` (`produto_id`),
   CONSTRAINT `fk_venda_cliente1` FOREIGN KEY (`cliente_id`) REFERENCES `clientef` (`id`),
-  CONSTRAINT `fk_venda_funcionario` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionario` (`id`),
-  CONSTRAINT `fk_venda_produto1` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_venda_funcionario` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionario` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `venda`
+-- Dumping data for table `vendasf`
 --
 
-LOCK TABLES `venda` WRITE;
-/*!40000 ALTER TABLE `venda` DISABLE KEYS */;
-/*!40000 ALTER TABLE `venda` ENABLE KEYS */;
+LOCK TABLES `vendasf` WRITE;
+/*!40000 ALTER TABLE `vendasf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vendasf` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -253,4 +253,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-17 18:48:59
+-- Dump completed on 2018-11-21 18:42:01

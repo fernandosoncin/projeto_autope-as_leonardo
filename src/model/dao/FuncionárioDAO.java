@@ -12,6 +12,7 @@ import model.domain.funcionarioM;
 import util.mensagens;
 
 public class FuncionárioDAO extends DAO{
+
     public void salvarFunc(funcionarioM funcionario) throws Exception {
         if (funcionario.getId() == 0) {
             inserirFunc(funcionario);
@@ -103,6 +104,25 @@ public class FuncionárioDAO extends DAO{
             listaFunc.add(funcionario);
         }
         return listaFunc;
+    }
+    
+    public List<funcionarioM> comboVendedores() {
+        List<funcionarioM> dadosVendedor = new ArrayList<>();
+        try {
+            String sql = "select * from funcionario f inner join cargo c on f.cargo_id = c.id where c.nome = 'Vendedor';";
+
+            stm = conector.prepareStatement(sql);
+            rs = stm.executeQuery(sql);
+
+            while (rs.next()) {
+                dadosVendedor.add(new funcionarioM(rs.getInt(1), rs.getString(2)));
+            }
+            stm.close();
+            rs.close();
+        } catch (SQLException ex) {
+            mensagens.erro("Erro ao carregar Vendedores cadastrados : \n" + ex);
+        }
+        return dadosVendedor;
     }
     
  /**   public List<funcionarioM> listarAllFunc() {

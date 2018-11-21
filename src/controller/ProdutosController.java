@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -87,6 +88,9 @@ public class ProdutosController implements Initializable {
     private TableColumn<produtoM, String> TableColumnPCdeVendaProd;
 
     @FXML
+    private TableColumn<produtoM, String> TableColumnQuantidadeProd;
+
+    @FXML
     private Label lbTitulo;
 
     @FXML
@@ -130,6 +134,9 @@ public class ProdutosController implements Initializable {
 
     @FXML
     private TextField txtPCProd;
+
+    @FXML
+    private TextField txtQntdProd;
 
     @FXML
     private ComboBox<categoriaM> comboBoxCategoriaProd;
@@ -299,6 +306,8 @@ public class ProdutosController implements Initializable {
         MaskFieldUtil.NomePField(txtNomeProd);
         MaskFieldUtil.monetaryField(txtPCProd);
         MaskFieldUtil.monetaryField(txtPVProd);
+        MaskFieldUtil.numericField(txtQntdProd);
+        MaskFieldUtil.QntdPField(txtQntdProd);
         //==Fim Produtos
         //==Início Categoria
         MaskFieldUtil.NomeCField(txtNomeCategoriaProd);
@@ -319,7 +328,7 @@ public class ProdutosController implements Initializable {
     public void preenchercomboBoxFornecedor() {
         Combo.popular(comboBoxFornecedorProd, ControleDAO.getControleBanco().getFornecedorDAO().comboFornecedor());
     }
-    
+
     private void preenchercomboEstadoFornecedorProd() {
         ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
         Combo.popular(comboBoxEstadoFornecedorProd, tipo);
@@ -472,6 +481,7 @@ public class ProdutosController implements Initializable {
         TableColumnFornecedorProd.setCellValueFactory(new PropertyValueFactory<>("fornecedor_id"));
         TableColumnPCdeCompraProd.setCellValueFactory(new PropertyValueFactory<>("pc_Compra"));
         TableColumnPCdeVendaProd.setCellValueFactory(new PropertyValueFactory<>("pc_Venda"));
+        TableColumnQuantidadeProd.setCellValueFactory(new PropertyValueFactory<>("qntd"));
 
     }
 
@@ -488,11 +498,14 @@ public class ProdutosController implements Initializable {
         if (txtPVProd.getText().length() == 0) {
             msgErroSalvarProd += "Preço de venda inválido\n";
         }
-        if (comboBoxCategoriaProd.getItems().isEmpty()){
+        if (comboBoxCategoriaProd.getItems().isEmpty()) {
             msgErroSalvarProd += "Categoria inválida\n";
         }
-        if (comboBoxFornecedorProd.getItems().isEmpty()){
+        if (comboBoxFornecedorProd.getItems().isEmpty()) {
             msgErroSalvarProd += "Fornecedor inválido\n";
+        }
+        if (txtQntdProd.getText().length() == 0) {
+            msgErroSalvarProd += "Quantidade inválida\n";
         }
         //alertas de erros nos campos
         if (msgErroSalvarProd.length() == 0) {
@@ -523,6 +536,7 @@ public class ProdutosController implements Initializable {
                 produto.setFornecedor_id(comboBoxFornecedorProd.getValue());
                 produto.setPc_Compra(txtPCProd.getText());
                 produto.setPc_Venda(txtPVProd.getText());
+                produto.setQntd(Integer.parseInt(txtQntdProd.getText()));
                 ControleDAO.getControleBanco().getProdutoDAO().salvarProd(produto);
                 anchorPaneNovoProd.setVisible(false);
                 anchorPaneInicioProd.setVisible(true);
@@ -551,6 +565,7 @@ public class ProdutosController implements Initializable {
             comboBoxFornecedorProd.setValue(produto.getFornecedor_id());
             txtPCProd.setText(produto.getPc_Compra());
             txtPVProd.setText(produto.getPc_Venda());
+            txtQntdProd.setText(String.valueOf(produto.getQntd()));
             desativarbtsEditareExcluirProd();
         }
     }
@@ -751,6 +766,7 @@ public class ProdutosController implements Initializable {
                 ControleDAO.getControleBanco().getCategoriaDAO().salvarCategoria(categoria);
                 limparCamposCategoria();
                 atualizarListaCategoria();
+                preenchercomboBoxCategoria();
                 tbCategoriaProd.refresh();
                 tbCategoriaProd.getSelectionModel().clearSelection();
             } catch (Exception ex) {
@@ -782,6 +798,7 @@ public class ProdutosController implements Initializable {
             ControleDAO.getControleBanco().getCategoriaDAO().removerCategoria(cat);
             desativarbtsEditareExcluirCategoria();
             atualizarListaCategoria();
+            preenchercomboBoxCategoria();
             tbCategoriaProd.refresh();
             tbCategoriaProd.getSelectionModel().clearSelection();
         }
@@ -792,6 +809,8 @@ public class ProdutosController implements Initializable {
         diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro da categoria?");
         if (resp == diálogo.Resposta.YES) {
             limparCamposCategoria();
+            tbCategoriaProd.getSelectionModel().clearSelection();
+            desativarbtsEditareExcluirCategoria();
             anchorPaneNovoCategoriaProd.setVisible(false);
             anchorPaneNovoProd.setVisible(true);
         }
@@ -800,6 +819,7 @@ public class ProdutosController implements Initializable {
     void limparCamposCategoria() {
         txtIdCategoriaProd.setText("0");
         txtNomeCategoriaProd.setText("");
+        txtPesquisarCategoriaProd.setText("");
         txtPCProd.setText("");
         txtPVProd.setText("");
     }
@@ -998,6 +1018,7 @@ public class ProdutosController implements Initializable {
                 ControleDAO.getControleBanco().getFornecedorDAO().salvarFornecedor(fornecedor);
                 limparCamposFornecedor();
                 atualizarListaFornecedor();
+                preenchercomboBoxFornecedor();
                 tbFornecedorProd.refresh();
                 tbFornecedorProd.getSelectionModel().clearSelection();
             } catch (Exception ex) {
@@ -1032,8 +1053,10 @@ public class ProdutosController implements Initializable {
             ControleDAO.getControleBanco().getFornecedorDAO().removerFornecedor(forn);
             desativarbtsEditareExcluirFornecedor();
             atualizarListaFornecedor();
+            preenchercomboBoxFornecedor();
             tbFornecedorProd.refresh();
             tbFornecedorProd.getSelectionModel().clearSelection();
+            
         }
     }
 
@@ -1042,6 +1065,8 @@ public class ProdutosController implements Initializable {
         diálogo.Resposta resp = mensagens.confirmar("Fechar cadastro", "Realmente deseja cancelar o cadastro do Fornecedor?");
         if (resp == diálogo.Resposta.YES) {
             limparCamposFornecedor();
+            tbFornecedorProd.getSelectionModel().clearSelection();
+            desativarbtsEditareExcluirFornecedor();
             anchorPaneNovoFornecedorProd.setVisible(false);
             anchorPaneNovoProd.setVisible(true);
         }
@@ -1052,6 +1077,7 @@ public class ProdutosController implements Initializable {
         txtNomeFornecedorProd.setText("");
         txtEndFornecedorProd.setText("");
         txtTelefoneFornecedorProd.setText("");
+        txtPesquisarFornecedorProd.setText("");
         preenchercomboEstadoFornecedorProd();
 
     }
