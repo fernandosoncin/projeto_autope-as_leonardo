@@ -126,11 +126,13 @@ public class MaskFieldUtil {
                 Platform.runLater(() -> {
                     String value = textField.getText();
                     value = value.replaceAll("[^0-9]", "");
+                    /*
                     value = value.replaceAll("([0-9]{1})([0-9]{14})$", "$1.$2");
                     value = value.replaceAll("([0-9]{1})([0-9]{11})$", "$1.$2");
                     value = value.replaceAll("([0-9]{1})([0-9]{8})$", "$1.$2");
-                    value = value.replaceAll("([0-9]{1})([0-9]{5})$", "$1.$2");
-                    value = value.replaceAll("([0-9]{1})([0-9]{2})$", "$1,$2");
+                    value = value.replaceAll("([0-9]{1})([0-9]{5})$", "$1.$2");*/
+                    // - > era esses caracteres na linha de baixo. = value = value.replaceAll("([0-9]{1})([0-9]{2})$", "$1,$2");
+                    value = value.replaceAll("([0-9]{1})([0-9]{2})$", "$1.$2");
                     textField.setText(value);
                     positionCaret(textField);
                 });

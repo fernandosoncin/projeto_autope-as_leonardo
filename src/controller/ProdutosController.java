@@ -411,14 +411,14 @@ public class ProdutosController implements Initializable {
                 PdfPCell col1 = new PdfPCell(p1);
                 col1.setBorder(0);
 
-                Paragraph p2 = new Paragraph(prod.getPc_Compra(), f5);
+                Paragraph p2 = new Paragraph(String.valueOf(prod.getPc_Compra()), f5);
                 p2.setAlignment(Element.ALIGN_JUSTIFIED);
                 PdfPCell col2 = new PdfPCell(p2);
                 col2.setBorder(0);
                 tabela.addCell(col1);
                 tabela.addCell(col2);
 
-                Paragraph p3 = new Paragraph(prod.getPc_Venda(), f5);
+                Paragraph p3 = new Paragraph(String.valueOf(prod.getPc_Venda()), f5);
                 p3.setAlignment(Element.ALIGN_JUSTIFIED);
                 PdfPCell col3 = new PdfPCell(p3);
                 col3.setBorder(0);
@@ -534,8 +534,8 @@ public class ProdutosController implements Initializable {
                 produto.setNome(txtNomeProd.getText());
                 produto.setCategoria_id(comboBoxCategoriaProd.getValue());
                 produto.setFornecedor_id(comboBoxFornecedorProd.getValue());
-                produto.setPc_Compra(txtPCProd.getText());
-                produto.setPc_Venda(txtPVProd.getText());
+                produto.setPc_Compra(Float.valueOf(txtPCProd.getText()));
+                produto.setPc_Venda(Float.valueOf(txtPVProd.getText()));
                 produto.setQntd(Integer.parseInt(txtQntdProd.getText()));
                 ControleDAO.getControleBanco().getProdutoDAO().salvarProd(produto);
                 anchorPaneNovoProd.setVisible(false);
@@ -563,8 +563,8 @@ public class ProdutosController implements Initializable {
             txtNomeProd.setText(produto.getNome());
             comboBoxCategoriaProd.setValue(produto.getCategoria_id());
             comboBoxFornecedorProd.setValue(produto.getFornecedor_id());
-            txtPCProd.setText(produto.getPc_Compra());
-            txtPVProd.setText(produto.getPc_Venda());
+            txtPCProd.setText(String.valueOf(produto.getPc_Compra()));
+            txtPVProd.setText(String.valueOf(produto.getPc_Venda()));
             txtQntdProd.setText(String.valueOf(produto.getQntd()));
             desativarbtsEditareExcluirProd();
         }

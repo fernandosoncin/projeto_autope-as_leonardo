@@ -6,11 +6,11 @@ public class produtoM {
     private String nome;
     private categoriaM categoria_id;
     private fornecedorM fornecedor_id;
-    private String pc_Compra;
-    private String pc_Venda;
+    private float pc_Compra;
+    private float pc_Venda;
     private int qntd;
 
-    public produtoM(int id, String nome, categoriaM categoria_id, fornecedorM fornecedor_id, String pc_Compra, String pc_Venda, int qntd) {
+    public produtoM(int id, String nome, categoriaM categoria_id, fornecedorM fornecedor_id, float pc_Compra, float pc_Venda, int qntd) {
         this.id = id;
         this.nome = nome;
         this.categoria_id = categoria_id;
@@ -20,7 +20,7 @@ public class produtoM {
         this.qntd = qntd;
     }
 
-    public produtoM(String nome, String pc_Compra, String pc_Venda) {
+    public produtoM(String nome, float pc_Compra, float pc_Venda) {
         this.nome = nome;
         this.pc_Compra = pc_Compra;
         this.pc_Venda = pc_Compra;
@@ -62,19 +62,19 @@ public class produtoM {
         this.fornecedor_id = fornecedor_id;
     }
 
-    public String getPc_Compra() {
+    public float getPc_Compra() {
         return pc_Compra;
     }
 
-    public void setPc_Compra(String pc_Compra) {
+    public void setPc_Compra(float pc_Compra) {
         this.pc_Compra = pc_Compra;
     }
 
-    public String getPc_Venda() {
+    public float getPc_Venda() {
         return pc_Venda;
     }
 
-    public void setPc_Venda(String pc_Venda) {
+    public void setPc_Venda(float pc_Venda) {
         this.pc_Venda = pc_Venda;
     }
 

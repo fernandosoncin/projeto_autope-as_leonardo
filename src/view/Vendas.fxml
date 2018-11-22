@@ -127,11 +127,11 @@
                                  </styleClass>
                               </Button>
                               <Label layoutX="257.0" layoutY="241.0" text="Preço unitário : " />
-                              <Label layoutX="365.0" layoutY="241.0" text="Quantidade : " />
-                              <TextField fx:id="txtQntdVF" disable="true" layoutX="365.0" layoutY="261.0" prefWidth="90.0" styleClass="campo" />
-                              <TextField fx:id="txtPUVF" disable="true" layoutX="257.0" layoutY="261.0" prefWidth="90.0" styleClass="campo" />
+                              <Label layoutX="400.0" layoutY="241.0" text="Qntd : " />
+                              <TextField fx:id="txtQntdVF" disable="true" layoutX="398.0" layoutY="261.0" onKeyReleased="#eventKeyPressedQntdVF" prefWidth="57.0" styleClass="campo" />
+                              <TextField fx:id="txtPUVF" disable="true" layoutX="257.0" layoutY="261.0" prefWidth="132.0" styleClass="campo" />
                               <Label layoutX="580.0" layoutY="241.0" text="Total : " />
-                              <Label fx:id="txtLabelTotalVF" layoutX="582.0" layoutY="259.0" prefHeight="40.0" prefWidth="168.0" text="100.578,38" textFill="RED">
+                              <Label fx:id="txtLabelTotalVF" layoutX="582.0" layoutY="259.0" prefHeight="40.0" prefWidth="168.0" text="0" textFill="RED">
                                  <font>
                                     <Font name="DS-Digital" size="26.0" />
                                  </font>
@@ -150,7 +150,7 @@
                                     <String fx:value="acao-addproduto" />
                                  </styleClass>
                               </Button>
-                              <TableView layoutX="256.0" layoutY="318.0" prefHeight="179.0" prefWidth="436.0">
+                              <TableView fx:id="tbItensVendaVF" layoutX="256.0" layoutY="318.0" prefHeight="148.0" prefWidth="436.0">
                                 <columns>
                                   <TableColumn fx:id="TableColumnProdutoVF" prefWidth="217.0" text="Produto" />
                                   <TableColumn fx:id="TableColumnQntdVF" prefWidth="52.0" text="Qntd" />
@@ -158,6 +158,11 @@
                                     <TableColumn fx:id="TableColumnPTVF" prefWidth="82.0" text="P. Total" />
                                 </columns>
                               </TableView>
+                              <Label fx:id="txtLabelTotalVFTOTAL" layoutX="696.0" layoutY="403.0" prefHeight="67.0" prefWidth="237.0" text="0" textFill="RED">
+                                 <font>
+                                    <Font name="DS-Digital" size="75.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="anchorPaneSelecionarCVF" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -204,7 +209,7 @@
                                     <TextField fx:id="txtPesquisarPCV" onKeyPressed="#eventKeyPressedEnterPCF" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" />
                                  </children>
                               </HBox>
-                              <Button fx:id="btSelecionarPCV" layoutX="728.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleButtonSelecionarPCV" prefWidth="152.0" text="Selecionar">
+                              <Button fx:id="btSelecionarPCV" layoutX="728.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleButtonSelecionarPVF" prefWidth="152.0" text="Selecionar">
                                  <styleClass>
                                     <String fx:value="menus-acoes" />
                                     <String fx:value="acao-selecionarclienteVF" />

@@ -50,7 +50,7 @@ CREATE TABLE `categoria_p` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,6 +59,7 @@ CREATE TABLE `categoria_p` (
 
 LOCK TABLES `categoria_p` WRITE;
 /*!40000 ALTER TABLE `categoria_p` DISABLE KEYS */;
+INSERT INTO `categoria_p` VALUES (14,'DDSD');
 /*!40000 ALTER TABLE `categoria_p` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +80,7 @@ CREATE TABLE `clientef` (
   `bairro` varchar(45) DEFAULT NULL,
   `estado` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,6 +89,7 @@ CREATE TABLE `clientef` (
 
 LOCK TABLES `clientef` WRITE;
 /*!40000 ALTER TABLE `clientef` DISABLE KEYS */;
+INSERT INTO `clientef` VALUES (52,'sad','126.293.136-38','(43)43433-4343','3433434','asd','sad','AM');
 /*!40000 ALTER TABLE `clientef` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,7 +136,7 @@ CREATE TABLE `fornecedor_p` (
   `telefone` varchar(45) DEFAULT NULL,
   `estado` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,6 +145,7 @@ CREATE TABLE `fornecedor_p` (
 
 LOCK TABLES `fornecedor_p` WRITE;
 /*!40000 ALTER TABLE `fornecedor_p` DISABLE KEYS */;
+INSERT INTO `fornecedor_p` VALUES (11,'SAD','DSA','(43)44343-4343','AL');
 /*!40000 ALTER TABLE `fornecedor_p` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,6 +185,37 @@ LOCK TABLES `funcionario` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `itens_vendaf`
+--
+
+DROP TABLE IF EXISTS `itens_vendaf`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `itens_vendaf` (
+  `id` int(11) NOT NULL,
+  `id_vendaf` int(11) NOT NULL,
+  `id_prod` int(11) NOT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  `preco_prod` float DEFAULT NULL,
+  `total_prod` float DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_vendaf_idx` (`id_vendaf`),
+  KEY `fk_produto_idx` (`id_prod`),
+  CONSTRAINT `fk_produto` FOREIGN KEY (`id_prod`) REFERENCES `produto` (`id`),
+  CONSTRAINT `fk_vendaf` FOREIGN KEY (`id_vendaf`) REFERENCES `vendasf` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `itens_vendaf`
+--
+
+LOCK TABLES `itens_vendaf` WRITE;
+/*!40000 ALTER TABLE `itens_vendaf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `itens_vendaf` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `produto`
 --
 
@@ -193,15 +227,15 @@ CREATE TABLE `produto` (
   `nome` varchar(70) DEFAULT NULL,
   `categoria_id` int(11) NOT NULL,
   `fornecedor_id` int(11) NOT NULL,
-  `pc_compra` varchar(45) DEFAULT NULL,
-  `pc_venda` varchar(45) DEFAULT NULL,
+  `pc_compra` float DEFAULT NULL,
+  `pc_venda` float DEFAULT NULL,
   `qntd` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_fornecedor_id_idx` (`fornecedor_id`),
   KEY `fk_categoria_p_idx` (`categoria_id`),
   CONSTRAINT `fk_categoria_p` FOREIGN KEY (`categoria_id`) REFERENCES `categoria_p` (`id`),
   CONSTRAINT `fk_fornecedor_p` FOREIGN KEY (`fornecedor_id`) REFERENCES `fornecedor_p` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,6 +244,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` VALUES (24,'12313',14,11,135,135,2);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,7 +259,6 @@ CREATE TABLE `vendasf` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cliente_id` int(11) NOT NULL,
   `funcionario_id` int(11) NOT NULL,
-  `data` varchar(45) DEFAULT NULL,
   `horario` datetime DEFAULT NULL,
   `valortotalv` float DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -253,4 +287,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-21 18:42:01
+-- Dump completed on 2018-11-22 18:06:18
