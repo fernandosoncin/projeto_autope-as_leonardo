@@ -7,7 +7,9 @@ import model.dao.ClienteFDAO;
 import model.dao.ClienteJDAO;
 import model.dao.FornecedorDAO;
 import model.dao.FuncionárioDAO;
+import model.dao.LoginDAO;
 import model.dao.ProdutoDAO;
+import model.dao.VendasFDAO;
 
 public class ControleDAO {
 
@@ -19,6 +21,8 @@ public class ControleDAO {
     private CargoDAO cargoDAO = new CargoDAO();
     private CategoriaDAO categoriaDAO = new CategoriaDAO();
     private FornecedorDAO fornecedorDAO = new FornecedorDAO();
+    private VendasFDAO vendasFDAO = new VendasFDAO();
+    private LoginDAO loginDAO = new LoginDAO();
 
     public static ControleDAO getControleBanco() {
         return controleBanco;
@@ -58,6 +62,22 @@ public class ControleDAO {
 
     public void setFornecedorDAO(FornecedorDAO fornecedorDAO) {
         this.fornecedorDAO = fornecedorDAO;
+    }
+
+    public VendasFDAO getVendasFDAO() {
+        return vendasFDAO;
+    }
+
+    public void setVendasFDAO(VendasFDAO vendasFDAO) {
+        this.vendasFDAO = vendasFDAO;
+    }
+
+    public LoginDAO getLoginDAO() {
+        return loginDAO;
+    }
+
+    public void setLoginDAO(LoginDAO loginDAO) {
+        this.loginDAO = loginDAO;
     }
 
 }

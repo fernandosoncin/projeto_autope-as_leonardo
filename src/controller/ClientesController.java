@@ -258,7 +258,6 @@ public class ClientesController implements Initializable {
         MaskFieldUtil.EmailCFField(txtEmailCliente);
         MaskFieldUtil.EndCFField(txtEnderecoCliente);
         MaskFieldUtil.BairroCFField(txtBairroCliente);
-        MaskFieldUtil.cnpjField(txtCNPJ);
         MaskFieldUtil.cpfField(txtCPFCF);
         //Cliente Jurídico
         MaskFieldUtil.RazaoSCJField(txtRazãoSocial);
@@ -275,19 +274,9 @@ public class ClientesController implements Initializable {
         ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
         Combo.popular(comboBoxEstadoCliente, tipo);
     }
-    
-    @FXML
-    void issoaimeuchapa() {
-        if (comboBoxEstadoCliente.getValue() == "AM"){
-           mensagens.erro("lul"); 
-           txtNomeCliente.setVisible(false);
-        }
-          
-            
-        
-    }
 
-    private void comboEstadoJ() {
+
+private void comboEstadoJ() {
         ObservableList<String> tipo = FXCollections.observableArrayList("AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
         Combo.popular(comboBoxEstadoClienteJur, tipo);
     }
@@ -483,7 +472,7 @@ public class ClientesController implements Initializable {
     }
 
     @FXML
-    private void atualizarListaClienteFisico() {
+        private void atualizarListaClienteFisico() {
         try {
 
             tableClienteFísico.setItems(ControleDAO.getControleBanco().getClienteFDAO().listar_clienteF(txtPesquisar.getText()));
@@ -505,7 +494,7 @@ public class ClientesController implements Initializable {
     }
 
     @FXML
-    public void selecionarItemTabelaClienteFísico() {
+        public void selecionarItemTabelaClienteFísico() {
         tableClienteFísico.setOnMouseClicked(e -> {
             tableClienteFísico.requestFocus();
             btExcluirClienteFísico.setDisable(false);
@@ -722,7 +711,7 @@ public class ClientesController implements Initializable {
     }
 
     @FXML
-    public void selecionarItemTabelaClienteJur() {
+        public void selecionarItemTabelaClienteJur() {
         tableClienteJur.setOnMouseClicked(e -> {
             tableClienteJur.requestFocus();
             btExcluirClienteJur.setDisable(false);
@@ -740,7 +729,7 @@ public class ClientesController implements Initializable {
     }
 
     @FXML
-    private void atualizarListaClienteJur() {
+        private void atualizarListaClienteJur() {
         try {
 
             tableClienteJur.setItems(ControleDAO.getControleBanco().getClienteJDAO().listar_clienteJ(txtPesquisarJur.getText()));

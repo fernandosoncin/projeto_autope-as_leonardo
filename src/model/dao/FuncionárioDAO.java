@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.domain.cargoM;
 import model.domain.funcionarioM;
 import util.mensagens;
 
@@ -24,7 +23,7 @@ public class FuncionárioDAO extends DAO{
     public void inserirFunc(funcionarioM funcionario) throws Exception {
         try {
 
-            String sql = "insert into funcionario(nome,rg,cpf,senha,celular,email,admin,cargo_id,endereco,bairro,estado) values (?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into funcionario(nome,rg,cpf,senha,celular,email,tipo,cargo_id,endereco,bairro,estado) values (?,?,?,?,?,?,?,?,?,?,?)";
             stm = conector.prepareStatement(sql);
             stm.setString(1, funcionario.getNome());
             stm.setString(2, funcionario.getRg());
@@ -47,7 +46,7 @@ public class FuncionárioDAO extends DAO{
     public void alterarFunc(funcionarioM funcionario) throws Exception {
         try {
 
-            String sql = "update funcionario set nome=?, rg=?, cpf=?, senha=?, celular=?, email=?, admin=?, cargo_id=?, endereco=?, bairro=?, estado=? where id=?";
+            String sql = "update funcionario set nome=?, rg=?, cpf=?, senha=?, celular=?, email=?, tipo=?, cargo_id=?, endereco=?, bairro=?, estado=? where id=?";
             stm = conector.prepareStatement(sql);
             stm.setString(1, funcionario.getNome());
             stm.setString(2, funcionario.getRg());
@@ -96,7 +95,7 @@ public class FuncionárioDAO extends DAO{
             funcionario.setSenha(rs.getString("senha"));
             funcionario.setCelular(rs.getString("celular"));
             funcionario.setEmail(rs.getString("email"));
-            funcionario.setAdmin(rs.getString("admin"));
+            funcionario.setAdmin(rs.getString("tipo"));
             funcionario.setCargo_id(ControleDAO.getControleBanco().getCargoDAO().buscaCargo(rs.getInt("cargo_id")));
             funcionario.setEndereco(rs.getString("endereco"));
             funcionario.setBairro(rs.getString("bairro"));
@@ -124,37 +123,21 @@ public class FuncionárioDAO extends DAO{
         }
         return dadosVendedor;
     }
-    
- /**   public List<funcionarioM> listarAllFunc() {
-        String sql = "select * from funcionario order by nome";
-        List<funcionarioM> listAllFunc = new ArrayList<>();
-        CargoDAO cargoDAO = new CargoDAO();
-        try {
-            stm = conector.prepareStatement(sql);
-            rs = stm.executeQuery(sql);
-            while (rs.next()) {
-                funcionarioM funcionario = new funcionarioM();
-                funcionario.setId(rs.getInt("id"));
-                funcionario.setNome(rs.getString("nome"));
-                funcionario.setRg(rs.getString("rg"));
-                funcionario.setCpf(rs.getString("cpf"));
-                funcionario.setSenha(rs.getString("senha"));
-                funcionario.setCelular(rs.getString("celular"));
-                funcionario.setEmail(rs.getString("email"));
-                funcionario.setAdmin(rs.getString("admin"));
-                //funcionario.setCargo((cargoM) rs.getObject("cargo_id"));
-                funcionario.setEndereco(rs.getString("endereco"));
-                funcionario.setBairro(rs.getString("bairro"));
-                funcionario.setEstado(rs.getString("estado"));
-                listAllFunc.add(funcionario);
-            }
-            stm.close();
-            rs.close();
-        } catch (SQLException ex) {
-            mensagens.erro("Não foi possível preencher lista de funcionários : \n" + ex);
+
+    public funcionarioM buscaFunc(int id) throws SQLException{
+        String sql = "select * from funcionario where id like ?";
+        stm = conector.prepareStatement(sql);
+        stm.setInt(1, id);
+        funcionarioM func = null;
+        rs = stm.executeQuery();
+        while(rs.next()){
+           func = new funcionarioM((rs.getInt("id")), 
+                   rs.getString("nome")
+           );
         }
-        return listAllFunc;
-    }**/
+        stm.close();
+        return func;
+    }
     
     public List<funcionarioM> relatFunc() throws SQLException{
         

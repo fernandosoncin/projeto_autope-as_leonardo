@@ -2,7 +2,7 @@ package model.domain;
 
 import java.io.Serializable;
 
-public class clienteMF implements Serializable{
+public class clienteMF implements Serializable {
 
     private int id;
     private String nome;
@@ -24,7 +24,6 @@ public class clienteMF implements Serializable{
         this.estado = estado;
     }
 
-    
     public clienteMF() {
         this.id = 0;
     }
@@ -35,6 +34,10 @@ public class clienteMF implements Serializable{
         this.email = email;
     }
 
+    public clienteMF(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 
     public int getId() {
         return id;
@@ -104,5 +107,8 @@ public class clienteMF implements Serializable{
 
     }
     
+    public String toString() {
+        return this.nome;
+    }
 
 }

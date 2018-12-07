@@ -1,5 +1,6 @@
 package controller;
 
+import banco.DAO.ControleDAO;
 import java.io.IOException;
 import javafx.scene.control.Label;
 import java.net.URL;
@@ -15,18 +16,11 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.domain.funcionarioM;
 import util.links;
 
-/**
- * FXML Controller class
- *
- * @author felli
- */
-public class appMainController implements Initializable {
+public class appMainController {
 
-    /**
-     * Initializes the controller class.
-     */
     private static appMainController instance;
 
     @FXML
@@ -65,12 +59,16 @@ public class appMainController implements Initializable {
     @FXML
     private AnchorPane boxCounteúdo;
 
-    @Override
+
+
+    //@Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         instance = this;
+        //funcionarioM func_logado = new funcionarioM();
+        //func_logado = LoginController.usuarioLogado;
 
     }
+   
 
     @FXML
     public void handleMenuInício() throws IOException {

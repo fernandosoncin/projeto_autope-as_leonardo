@@ -89,7 +89,21 @@ public class ProdutoDAO extends DAO {
         }
         return listaProd;
     }
-
+    
+    public produtoM buscaProduto(int id) throws SQLException{
+        String sql = "select * from produto where id like ?";
+        stm = conector.prepareStatement(sql);
+        stm.setInt(1, id);
+        produtoM prod = null;
+        rs = stm.executeQuery();
+        while(rs.next()){
+           prod = new produtoM((rs.getInt("id")), 
+                   rs.getString("nome")
+           );
+        }
+        stm.close();
+        return prod;
+    }
     public List<produtoM> relatProd() throws SQLException {
 
         List<produtoM> relatorioProd;
@@ -98,7 +112,6 @@ public class ProdutoDAO extends DAO {
         stm = conector.prepareStatement(sql);
         rs = stm.executeQuery();
         while (rs.next()) {
-
             relatorioProd.add(new produtoM(rs.getString("nome"), rs.getFloat("pc_compra"), rs.getFloat("pc_venda")));
         }
         stm.close();

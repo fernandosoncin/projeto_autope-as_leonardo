@@ -76,7 +76,7 @@
                   </ScrollPane>
                   <AnchorPane prefHeight="26.0" prefWidth="223.0" styleClass="box-user" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="1.0">
                      <children>
-                        <Label fx:id="lbUser" layoutY="5.0" prefHeight="26.0" prefWidth="144.0" styleClass="lb-user" stylesheets="@../css/app.css" text="Olá, Fellipe" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="lbUser" layoutY="5.0" prefHeight="26.0" prefWidth="144.0" styleClass="lb-user" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <Label fx:id="lbLogOut" layoutX="141.0" layoutY="5.0" onMouseClicked="#menuLogOut" styleClass="menu-sair" stylesheets="@../css/app.css" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children></AnchorPane>
                   <ImageView fitHeight="10.0" fitWidth="224.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">

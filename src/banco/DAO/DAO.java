@@ -1,4 +1,3 @@
-//Responsável por já deixar instanciados os PreparedStatement, result set e Connector de comandos SQL
 package banco.DAO;
 
 import java.sql.Connection;

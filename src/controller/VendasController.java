@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +21,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.dao.ClienteFDAO;
 import model.dao.ClienteJDAO;
@@ -31,6 +35,7 @@ import model.domain.itensVendaFM;
 import model.domain.produtoM;
 import model.domain.vendasFM;
 import util.Combo;
+import util.MaskFieldUtil;
 import util.diálogo;
 import util.mensagens;
 
@@ -38,8 +43,10 @@ public class VendasController implements Initializable {
 
     private clienteMF clienteF;
     private clienteMJ clienteJ;
+    private funcionarioM vendedor;
     private produtoM produto;
     private vendasFM vendasF;
+    
     private ClienteFDAO clienteFDAO;
     private ClienteJDAO clienteJDAO;
     private ProdutoDAO produtoDAO;
@@ -48,29 +55,46 @@ public class VendasController implements Initializable {
     private List<funcionarioM> listaFuncM;
     private ObservableList<itensVendaFM> observableListItensVendaVF;
 
-    @FXML
-    private AnchorPane anchorPaneVenda;
+
 
     @FXML
     private AnchorPane anchorPaneInicioVF;
 
     @FXML
-    private TableView<?> tbVF;
+    private AnchorPane anchorPaneTbInfoVF;
 
     @FXML
-    private TableColumn<?, ?> TableColumnIdVF;
+    private TableView<vendasFM> tbVF;
 
     @FXML
-    private TableColumn<?, ?> TableColumnNomeClienteVF;
+    private TableColumn<vendasFM, String> TableColumnIdVF;
 
     @FXML
-    private TableColumn<?, ?> TableColumnVendedorVF;
+    private TableColumn<vendasFM, String> TableColumnNomeClienteVF;
 
     @FXML
-    private TableColumn<?, ?> TableColumnDataHorarioVF;
+    private TableColumn<vendasFM, String> TableColumnVendedorVF;
 
     @FXML
-    private TableColumn<?, ?> TableColumnValorTotalVF;
+    private TableColumn<vendasFM, String> TableColumnDataHorarioVF;
+
+    @FXML
+    private TableColumn<vendasFM, String> TableColumnValorTotalVF;
+
+    @FXML
+    private TableView<itensVendaFM> tbItensVF;
+
+    @FXML
+    private TableColumn<itensVendaFM, String> TableColumnProdItensVF;
+
+    @FXML
+    private TableColumn<itensVendaFM, String> TableColumnQntditensVF;
+
+    @FXML
+    private TableColumn<itensVendaFM, String> TableColumnPUItensVF;
+
+    @FXML
+    private TableColumn<itensVendaFM, String> TableColumnValorTVF;
 
     @FXML
     private Label lbTitulo;
@@ -85,9 +109,6 @@ public class VendasController implements Initializable {
     private TextField txtPesquisarVF;
 
     @FXML
-    private ToggleButton btRelatorioVF;
-
-    @FXML
     private ToggleGroup menu2;
 
     @FXML
@@ -95,9 +116,6 @@ public class VendasController implements Initializable {
 
     @FXML
     private ToggleGroup menu;
-
-    @FXML
-    private ToggleButton btExcluirVF;
 
     @FXML
     private AnchorPane anchorPaneNovoVF;
@@ -110,6 +128,9 @@ public class VendasController implements Initializable {
 
     @FXML
     private Button btCancelarVF;
+
+    @FXML
+    private Button btCancelarItensVF;
 
     @FXML
     private TextField txtClienteVF;
@@ -280,9 +301,6 @@ public class VendasController implements Initializable {
     private TextField txtPesquisarVJ;
 
     @FXML
-    private ToggleButton btRelatorioVJ;
-
-    @FXML
     private ToggleGroup menu21;
 
     @FXML
@@ -290,9 +308,6 @@ public class VendasController implements Initializable {
 
     @FXML
     private ToggleGroup menu1;
-
-    @FXML
-    private ToggleButton btExcluirVJ;
 
     @FXML
     private AnchorPane anchorPaneNovoVJ;
@@ -368,11 +383,6 @@ public class VendasController implements Initializable {
     }
 
     @FXML
-    void eventKeyPressedEnterVF(KeyEvent event) {
-
-    }
-
-    @FXML
     void eventKeyPressedEnterVJ(KeyEvent event) {
 
     }
@@ -388,17 +398,7 @@ public class VendasController implements Initializable {
     }
 
     @FXML
-    void handleButtonFinalizarVF(ActionEvent event) {
-
-    }
-
-    @FXML
     void handleButtonFinalizarVJ(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleButtonInfoVF(ActionEvent event) {
 
     }
 
@@ -423,32 +423,7 @@ public class VendasController implements Initializable {
     }
 
     @FXML
-    void handleButtonRelatorioVF(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleButtonRelatorioVJ(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleButtonRemoverProdVF(ActionEvent event) {
-
-    }
-
-    @FXML
     void handleButtonRemoverProdVJ(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handlebuttonExcluirVF(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handlebuttonExcluirVJ(ActionEvent event) {
 
     }
 
@@ -456,14 +431,21 @@ public class VendasController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //----------Início Inicializador Padrão
         preenchercomboBoxVendedores();
+        
+        
         this.clienteF = new clienteMF();
         this.clienteJ = new clienteMJ();
+        this.vendedor = new funcionarioM();
         this.produto = new produtoM();
         this.vendasF = new vendasFM();
+        
+        
         this.clienteFDAO = new ClienteFDAO();
         this.produtoDAO = new ProdutoDAO();
         this.clienteJDAO = new ClienteJDAO();
         this.listaCliMF = new ArrayList<>();
+        
+        
         this.listaProdM = new ArrayList<>();
         this.listaFuncM = new ArrayList<>();
         setCellTableClienteF();
@@ -471,12 +453,23 @@ public class VendasController implements Initializable {
         setCellTableProd();
         atualizarListaProd();
         setCellTableItensVendaVF();
+        
+        
+        
+        
         //----------Fim Inicializador Padrão
         //----------Início Inicializador VendasF
+        setCellTableTBVF();
+        atualizarListaVendas();
+        selecionarItemTabelaVVF();
+        setCellTableInfoVF();
         //----------Fim Inicializador VendasF
         //----------Início Inicializador VendasJ
         //----------Fim Inicializador VendasJ
         //----------Início Máscaras
+        //--Início VF
+        MaskFieldUtil.numericField(txtQntdVF);
+        //--Fim VF
         //----------Fim Máscaras
     }
 
@@ -487,7 +480,16 @@ public class VendasController implements Initializable {
 
     @FXML
     void eventKeyPressedQntdVF(KeyEvent event) {
-        txtLabelTotalVF.setText(String.valueOf(Float.valueOf(txtQntdVF.getText()) * Float.valueOf(txtPUVF.getText())));
+        if (txtQntdVF.getText().length() == 0) {
+        } else {
+            txtLabelTotalVF.setText(String.valueOf(Float.valueOf(txtQntdVF.getText()) * Float.valueOf(txtPUVF.getText())));
+        }
+
+    }
+
+    @FXML
+    void eventMousePressedActionQntdVF(MouseEvent event) {
+        tbItensVendaVF.getSelectionModel().clearSelection();
     }
 
     float totalVenda() {
@@ -583,29 +585,37 @@ public class VendasController implements Initializable {
 
     @FXML
     void handleButtonAddProdVF(ActionEvent event) {
-        int idvenda = 0;
-        itensVendaFM itensVenda_FM = new itensVendaFM();
-        
-        itensVenda_FM.setVendaFM(idvenda);
-        
-        produtoM prod = tbProdCV.getItems().get(tbProdCV.getSelectionModel().getSelectedIndex());
-        
-        itensVenda_FM.setProdM(prod);
-        
-        itensVenda_FM.setPreco(Float.valueOf(txtPUVF.getText()));
-        
-        itensVenda_FM.setQntd(Integer.valueOf(txtQntdVF.getText()));
-        
-        itensVenda_FM.setPreco_total(Float.valueOf(txtLabelTotalVF.getText()));
-        
-        
-        vendasF.getItens_VendaFM().add(itensVenda_FM);
-        txtLabelTotalVFTOTAL.setText(String.valueOf(totalVenda()));
-        observableListItensVendaVF = FXCollections.observableArrayList(vendasF.getItens_VendaFM());
+        if (txtQntdVF.getText().length() == 0 || txtQntdVF.getText().equals("0")) {
+            mensagens.erro("Digite uma quantidade. \nObs : ela não pode ser 0.");
+        } else {
+            //int idvenda = 0;
+            //itensVenda_FM.setVendaFM(idvenda);
+            itensVendaFM itensVenda_FM = new itensVendaFM();
+            produtoM prod = tbProdCV.getItems().get(tbProdCV.getSelectionModel().getSelectedIndex());
+            itensVenda_FM.setProdM(prod);
+            itensVenda_FM.setPreco(Float.valueOf(txtPUVF.getText()));
+            itensVenda_FM.setQntd(Integer.valueOf(txtQntdVF.getText()));
+            itensVenda_FM.setPreco_total(Float.valueOf(txtLabelTotalVF.getText()));
+            vendasF.getItens_VendaFM().add(itensVenda_FM);
+            txtLabelTotalVFTOTAL.setText(String.valueOf(totalVenda()));
+            observableListItensVendaVF = FXCollections.observableArrayList(vendasF.getItens_VendaFM());
+            tbItensVendaVF.setItems(observableListItensVendaVF);
+            btRemoverProdVF.setDisable(false);
+            tbItensVendaVF.getSelectionModel().clearSelection();
 
-        tbItensVendaVF.setItems(observableListItensVendaVF);
-        //mensagens.erro("Erro : \n" + tbItensVendaVF.getItems());
-        
+        }
+
+    }
+
+    @FXML
+    void handleButtonRemoverProdVF(ActionEvent event) {
+        if (tbItensVendaVF.getSelectionModel().isEmpty()) {
+            mensagens.erro("Selecione um item da lista para remover.");
+        } else {
+            vendasF.setItens_VendaFM(observableListItensVendaVF);
+            vendasF.getItens_VendaFM().remove(tbItensVendaVF.getSelectionModel().getSelectedIndex());
+            txtLabelTotalVFTOTAL.setText(String.valueOf(totalVenda()));
+        }
 
     }
 
@@ -621,6 +631,8 @@ public class VendasController implements Initializable {
             txtQntdVF.setDisable(false);
             anchorPaneSelecionarPVF.setVisible(false);
             anchorPaneNovoVF.setVisible(true);
+            btAddProdVF.setDisable(false);
+            txtQntdVF.requestFocus();
         }
     }
 
@@ -632,7 +644,6 @@ public class VendasController implements Initializable {
         TableColumnPCdeCompraProd.setCellValueFactory(new PropertyValueFactory<>("pc_Compra"));
         TableColumnPCdeVendaProd.setCellValueFactory(new PropertyValueFactory<>("pc_Venda"));
         TableColumnQuantidadeProd.setCellValueFactory(new PropertyValueFactory<>("qntd"));
-
     }
 
     private void atualizarListaProd() {
@@ -646,24 +657,159 @@ public class VendasController implements Initializable {
     //----------Fim Produto - Venda Física
 
     //---------Início VendasF
+    public void setCellTableTBVF() {
+        TableColumnIdVF.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumnNomeClienteVF.setCellValueFactory(new PropertyValueFactory<>("cliente_id"));
+        TableColumnVendedorVF.setCellValueFactory(new PropertyValueFactory<>("funcionario_id"));
+        TableColumnValorTotalVF.setCellValueFactory(new PropertyValueFactory<>("valor_total"));
+        TableColumnDataHorarioVF.setCellValueFactory(new PropertyValueFactory<>("data_horario"));
+
+    }
+
+    private boolean validarDadosVF() {
+        String msgErro = "";
+
+        if (comboBoxFuncVF.getItems().isEmpty()) {
+            msgErro += "Vendedor inválido\n";
+        }
+        if (txtClienteVF.getText().length() == 0 || txtIdClienteVF.getText().length() == 0) {
+            msgErro += "Cliente inválido\n";
+        }
+        if (txtProdutoVF.getText().length() == 0 || txtIdProdutoVF.getText().length() == 0) {
+            msgErro += "Produto inválido\n";
+        }
+        if (txtPUVF.getText().length() == 0) {
+            msgErro += "Preço Unitário inválido\n";
+        }
+        if (txtQntdVF.getText().length() == 0) {
+            msgErro += "Quantidade inválida\n";
+        }
+        if (vendasF.getItens_VendaFM().isEmpty()) {
+            msgErro += "Itens de venda inválidos\n";
+        }
+        //alertas de erros nos campos
+        if (msgErro.length() == 0) {
+            //se a variável msgErro tiver o tamanho 0, retorna true, não mostrando mensagem de erro
+            return true;
+        } else {
+            mensagens.alerta(msgErro);
+            return false;
+        }
+    }
+
+    private void limparCamposVF() {
+        preenchercomboBoxVendedores();
+        vendedor = null;
+        clienteF = null;
+        tbClienteVF.getSelectionModel().clearSelection();
+        txtClienteVF.setText("");
+        txtIdClienteVF.setText("");
+        tbProdCV.getSelectionModel().clearSelection();
+        txtProdutoVF.setText("");
+        txtIdProdutoVF.setText("");
+        txtPUVF.setText("");
+        txtQntdVF.setText("");
+        txtQntdVF.setDisable(true);
+        txtLabelTotalVF.setText("0");
+        btAddProdVF.setDisable(true);
+        btRemoverProdVF.setDisable(true);
+        observableListItensVendaVF = FXCollections.observableArrayList(vendasF.getItens_VendaFM());
+        vendasF.getItens_VendaFM().removeAll(observableListItensVendaVF);
+        tbItensVendaVF.setItems(observableListItensVendaVF);
+        observableListItensVendaVF.clear();
+        txtLabelTotalVFTOTAL.setText("0");
+
+    }
+
+    @FXML
+    void handleButtonFinalizarVF(ActionEvent event) {
+        if (validarDadosVF()) {
+            try {
+                vendedor = comboBoxFuncVF.getSelectionModel().getSelectedItem();
+                clienteF = tbClienteVF.getSelectionModel().getSelectedItem();
+                vendasF.setFuncionario_id(vendedor);
+                vendasF.setCliente_id(clienteF);
+                vendasF.setValor_total(Float.valueOf(txtLabelTotalVFTOTAL.getText()));
+                ControleDAO.getControleBanco().getVendasFDAO().finalizarVF(vendasF);
+                limparCamposVF();
+                atualizarListaVendas();
+                anchorPaneNovoVF.setVisible(false);
+                anchorPaneInicioVF.setVisible(true);
+            } catch (Exception ex) {
+                mensagens.erro("Erro ao salvar dados : " + ex.getMessage());
+            }
+        }
+    }
+
     @FXML
     void handleButtonInserirVF(ActionEvent event) {
         anchorPaneInicioVF.setVisible(false);
         anchorPaneNovoVF.setVisible(true);
-        //preenchercomboBoxCategoria();
-        //preenchercomboBoxFornecedor();
-        txtIdClienteVF.setText("0");
-        txtIdProdutoVF.setText("0");
+        txtIdClienteVF.setText("");
+        txtIdProdutoVF.setText("");
     }
 
     @FXML
     void handleButtonCancelarVF(ActionEvent event) {
-        diálogo.Resposta resp = mensagens.confirmar("Cancelar venda", "Realmente deseja cancelar a venda?");
+        diálogo.Resposta resp = mensagens.confirmar("Cancelar cadastro de venda", "Realmente deseja cancelar o cadastro da venda?");
         if (resp == diálogo.Resposta.YES) {
-            //limparCamposProd();
+            limparCamposVF();
             anchorPaneNovoVF.setVisible(false);
             anchorPaneInicioVF.setVisible(true);
         }
+    }
+
+    private void atualizarListaVendas() {
+        try {
+            tbVF.setItems(ControleDAO.getControleBanco().getVendasFDAO().listar_vendas(txtPesquisarVF.getText()));
+        } catch (Exception ex) {
+            mensagens.erro("Erro : " + ex.getMessage());
+        }
+    }
+    
+    @FXML
+    void eventKeyPressedEnterVF(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            atualizarListaVendas();
+        }
+    }
+
+    @FXML
+    void handleButtonInfoVF(ActionEvent event) {
+        anchorPaneTbInfoVF.setVisible(true);
+        anchorPaneInicioVF.setVisible(false);
+    }
+
+    @FXML
+    void handleButtonCancelarItensVF(ActionEvent event) {
+        anchorPaneTbInfoVF.setVisible(false);
+        anchorPaneInicioVF.setVisible(true);
+    }
+
+    public void selecionarItemTabelaVVF() {
+        tbVF.setOnMouseClicked(e -> {
+            if (tbVF.getSelectionModel().isEmpty()) {
+
+            } else {
+                btInfoVF.setDisable(false);
+                vendasF = tbVF.getSelectionModel().getSelectedItem();
+                int cod = vendasF.getId();
+                try {
+                    tbItensVF.setItems(ControleDAO.getControleBanco().getVendasFDAO().listar_itensVenda(cod));
+                } catch (Exception ex) {
+
+                }
+            }
+        });
+
+    }
+
+    public void setCellTableInfoVF() {
+        TableColumnProdItensVF.setCellValueFactory(new PropertyValueFactory<>("prodM"));
+        TableColumnQntditensVF.setCellValueFactory(new PropertyValueFactory<>("qntd"));
+        TableColumnPUItensVF.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        TableColumnValorTVF.setCellValueFactory(new PropertyValueFactory<>("preco_total"));
+
     }
 
     //---------Fim VendasF

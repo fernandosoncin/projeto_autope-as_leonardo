@@ -216,6 +216,7 @@ public class FuncionáriosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //----------Início Inicializador Padrão
+
         preenchercomboCargo();
         //----------Fim Inicializador Padrão
         //----------Início Inicializador Funcionários

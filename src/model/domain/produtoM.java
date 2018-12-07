@@ -23,11 +23,16 @@ public class produtoM {
     public produtoM(String nome, float pc_Compra, float pc_Venda) {
         this.nome = nome;
         this.pc_Compra = pc_Compra;
-        this.pc_Venda = pc_Compra;
+        this.pc_Venda = pc_Venda;
     }
 
     public produtoM() {
         this.id = 0;
+    }
+
+    public produtoM(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
     }
 
     public int getId() {

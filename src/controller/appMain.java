@@ -1,16 +1,15 @@
 package controller;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import util.mensagens;
 
 /**
  *
@@ -26,6 +25,14 @@ public class appMain extends Application {
 
     private Screen screen = Screen.getPrimary();
     private Rectangle2D windows = screen.getVisualBounds();
+
+    appMain(String user) {
+
+    }
+
+
+
+
 
     @Override
     public void start(Stage stage) throws Exception {

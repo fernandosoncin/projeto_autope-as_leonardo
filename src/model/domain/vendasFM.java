@@ -3,25 +3,25 @@ package model.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class vendasFM {
-    
+
     private int id;
     private clienteMF cliente_id;
     private funcionarioM funcionario_id;
     private List<itensVendaFM> itens_VendaFM;
     private float valor_total;
+    private String data_horario;
 
-    public vendasFM(int id, clienteMF cliente_id, funcionarioM funcionario_id, List<itensVendaFM> itens_VendaFM, float valor_total) {
+    public vendasFM(int id, clienteMF cliente_id, funcionarioM funcionario_id, List<itensVendaFM> itens_VendaFM, float valor_total, String data_horario) {
         this.id = id;
         this.cliente_id = cliente_id;
         this.funcionario_id = funcionario_id;
         this.itens_VendaFM = itens_VendaFM;
         this.valor_total = valor_total;
+        this.data_horario = data_horario;
     }
 
     public vendasFM() {
-        this.id = 0;
         this.itens_VendaFM = new ArrayList<>();
     }
 
@@ -65,8 +65,11 @@ public class vendasFM {
         this.valor_total = valor_total;
     }
 
+    public String getData_horario() {
+        return data_horario;
+    }
 
-    
-
-    
+    public void setData_horario(String data_horario) {
+        this.data_horario = data_horario;
+    }
 }

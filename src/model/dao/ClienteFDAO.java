@@ -92,6 +92,21 @@ public class ClienteFDAO extends DAO {
         }
         return listaCliente;
     }
+    
+    public clienteMF buscaClienteF(int id) throws SQLException{
+        String sql = "select * from clientef where id like ?";
+        stm = conector.prepareStatement(sql);
+        stm.setInt(1, id);
+        clienteMF cf = null;
+        rs = stm.executeQuery();
+        while(rs.next()){
+           cf = new clienteMF((rs.getInt("id")), 
+                   rs.getString("nome")
+           );
+        }
+        stm.close();
+        return cf;
+    }
 
     public List<clienteMF> relatF() throws SQLException{
         

@@ -26,7 +26,7 @@ CREATE TABLE `cargo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,6 @@ CREATE TABLE `cargo` (
 
 LOCK TABLES `cargo` WRITE;
 /*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
-INSERT INTO `cargo` VALUES (18,'Vendedor');
 /*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +58,6 @@ CREATE TABLE `categoria_p` (
 
 LOCK TABLES `categoria_p` WRITE;
 /*!40000 ALTER TABLE `categoria_p` DISABLE KEYS */;
-INSERT INTO `categoria_p` VALUES (14,'DDSD');
 /*!40000 ALTER TABLE `categoria_p` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +87,6 @@ CREATE TABLE `clientef` (
 
 LOCK TABLES `clientef` WRITE;
 /*!40000 ALTER TABLE `clientef` DISABLE KEYS */;
-INSERT INTO `clientef` VALUES (52,'sad','126.293.136-38','(43)43433-4343','3433434','asd','sad','AM');
 /*!40000 ALTER TABLE `clientef` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +142,6 @@ CREATE TABLE `fornecedor_p` (
 
 LOCK TABLES `fornecedor_p` WRITE;
 /*!40000 ALTER TABLE `fornecedor_p` DISABLE KEYS */;
-INSERT INTO `fornecedor_p` VALUES (11,'SAD','DSA','(43)44343-4343','AL');
 /*!40000 ALTER TABLE `fornecedor_p` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +160,7 @@ CREATE TABLE `funcionario` (
   `senha` varchar(4) DEFAULT NULL,
   `celular` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `admin` varchar(45) DEFAULT NULL,
+  `tipo` varchar(45) DEFAULT NULL,
   `cargo_id` int(11) NOT NULL,
   `endereco` varchar(70) DEFAULT NULL,
   `bairro` varchar(45) DEFAULT NULL,
@@ -172,7 +168,7 @@ CREATE TABLE `funcionario` (
   PRIMARY KEY (`id`),
   KEY `fk_cargo_id_idx` (`cargo_id`),
   CONSTRAINT `fk_cargo_id` FOREIGN KEY (`cargo_id`) REFERENCES `cargo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,7 +188,7 @@ DROP TABLE IF EXISTS `itens_vendaf`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `itens_vendaf` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_vendaf` int(11) NOT NULL,
   `id_prod` int(11) NOT NULL,
   `quantidade` int(11) DEFAULT NULL,
@@ -244,7 +240,6 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (24,'12313',14,11,135,135,2);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,14 +254,14 @@ CREATE TABLE `vendasf` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cliente_id` int(11) NOT NULL,
   `funcionario_id` int(11) NOT NULL,
-  `horario` datetime DEFAULT NULL,
   `valortotalv` float DEFAULT NULL,
+  `horario` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_venda_funcionario_idx` (`funcionario_id`),
   KEY `fk_venda_cliente1_idx` (`cliente_id`),
   CONSTRAINT `fk_venda_cliente1` FOREIGN KEY (`cliente_id`) REFERENCES `clientef` (`id`),
   CONSTRAINT `fk_venda_funcionario` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -287,4 +282,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-22 18:06:18
+-- Dump completed on 2018-12-07  0:17:09
